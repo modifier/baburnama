@@ -1,8 +1,18 @@
 <script>
-  let isTurnPage = false;
+  let pageNo = 0;
 
-  function turnPage() {
-      isTurnPage = !isTurnPage;
+  function forward() {
+      pageNo++;
+      if (pageNo > 2) {
+          pageNo = 2;
+      }
+  }
+
+  function back() {
+      pageNo--;
+      if (pageNo < 0) {
+          pageNo = 0;
+      }
   }
 </script>
 
@@ -66,29 +76,23 @@
         background-image: linear-gradient(-90deg, rgba(227,227,227,1) 0%, rgba(247,247,247,0) 18%);
       }
 
-      &--1 {
+      &--first {
         cursor: pointer;
         overflow: hidden;
-
-        img {
-          width: 100%;
-          max-width: 100%;
-          height: auto;
-        }
       }
 
-      &--2 {
+      &--last {
+        cursor: pointer;
+        padding: 0 calc(var(--baseline) * 3);
+      }
+
+      &--middle {
         position: absolute;
         right: 0;
         pointer-events: none;
         transform-style: preserve-3d;
         background-color: var(--page-bg);
         background-image: linear-gradient(90deg, rgba(227,227,227,1) 0%, rgba(247,247,247,0) 18%);
-      }
-
-      &--4 {
-        cursor: pointer;
-        padding: 0 calc(var(--baseline) * 3);
       }
 
       &-front {
@@ -106,13 +110,6 @@
         transform: rotateY(180deg) translateZ(1px);
       }
 
-      .page__content {
-        padding: var(--baseline);
-        height: 100%;
-        position: relative;
-        text-align: center;
-      }
-
       .page__number {
         position: absolute;
         bottom: var(--baseline);
@@ -123,40 +120,58 @@
       }
     }
 
-    &--page-2 .book__page--2 {
-      transition: transform 0.9s cubic-bezier(0.645, 0.045, 0.355, 1);
-      transform: rotateY(-180deg);
+    .book__page--2 {
+      z-index: 2;
+    }
+
+    &--second {
+      .book__page--2 {
+        transform: rotateY(-180deg);
+      }
+
+      .book__page--3 {
+        z-index: 2;
+      }
+    }
+
+    &--third {
+      .book__page--3 {
+        z-index: 2;
+        transform: rotateY(-180deg);
+      }
     }
   }
 </style>
 
 <div class="cover">
-  <div class="book" class:book--page-2={isTurnPage}>
-    <label class="book__page book__page--1">
-      <div class="page__content">
-        Content 1
-      </div>
+  <div class="book" class:book--second={pageNo !== 0} class:book--third={pageNo === 2}>
+    <label class="book__page book__page--first">
+      Content 1
     </label>
 
-    <label class="book__page book__page--4">
-      <div class="page__content">
+    <label class="book__page book__page--last">
+      Content 6
+    </label>
+
+    <label class="book__page book__page--middle book__page--2">
+      <div class="book__page-front">
         Content 2
       </div>
+      <div class="book__page-back">
+        Content 3
+      </div>
     </label>
 
-    <label class="book__page book__page--2">
+    <label class="book__page book__page--middle book__page--3">
       <div class="book__page-front">
-        <div class="page__content">
-          Content 3
-        </div>
+        Content 4
       </div>
       <div class="book__page-back">
-        <div class="page__content">
-          Content 4
-        </div>
+        Content 5
       </div>
     </label>
   </div>
 </div>
 
-<button on:click={turnPage}>Turn the page</button>
+<button on:click={back}>Back</button>
+<button on:click={forward}>Forward</button>
