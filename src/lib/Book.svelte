@@ -1,5 +1,9 @@
 <script>
+  let isTurnPage = false;
 
+  function turnPage() {
+      isTurnPage = !isTurnPage;
+  }
 </script>
 
 <style lang="scss">
@@ -107,101 +111,8 @@
         height: 100%;
         position: relative;
         text-align: center;
-
-        &-book-title {
-          font-family: var(--book-title);
-          font-size: calc(var(--base-size) * 3);
-          font-weight: bold;
-          text-transform: uppercase;
-          letter-spacing: 3px;
-          color: var(--dark-text);
-          margin-top: calc(var(--baseline) * 5);
-          margin-bottom: calc(var(--baseline) * 2);
-        }
-
-        &-author {
-          font-family: var(--title);
-          font-size: calc(var(--base-size) * 1.2);
-          font-weight: 100;
-          text-transform: uppercase;
-          color: var(--dark-text);
-          border-top: 1px solid var(--dark-text);
-          border-bottom: 1px solid var(--dark-text);
-          display: inline-block;
-          padding: calc(var(--baseline) / 2) calc(var(--baseline) / 5);
-          margin-bottom: calc(var(--baseline) * 6);
-        }
-
-        &-credits {
-          font-family: var(--title);
-          text-transform: uppercase;
-          font-size: calc(var(--base-size) * 0.8);
-          margin-bottom: calc(var(--baseline) * 2);
-          letter-spacing: 1px;
-
-          span {
-            display: block;
-            font-size: calc(var(--base-size) * 1.2);
-            letter-spacing: 0;
-          }
-        }
-
-        &-copyright {
-          position: absolute;
-          width: calc(100% - (var(--baseline) * 2));
-          bottom: calc(var(--baseline) * 2);
-          font-family: var(--title);
-          font-size: calc(var(--base-size) * 0.8);
-          text-transform: uppercase;
-        }
-
-        &-title {
-          font-family: var(--title);
-          font-size: calc(var(--base-size) * 1);
-          text-transform: uppercase;
-          letter-spacing: 1px;
-          margin-top: calc(var(--baseline) * 5);
-          margin-bottom: calc(var(--baseline) * 3);
-        }
-
-        &-table {
-          width: 100%;
-          margin-top: calc(var(--baseline) * 2);
-
-          td {
-            font-family: var(--title);
-            font-size: calc(var(--base-size) * 1);
-            padding-bottom: calc(var(--baseline) * 1.5);
-            text-transform: uppercase;
-          }
-        }
-
-        &-blockquote {
-          margin-bottom: calc(var(--baseline) * 2);
-        }
-
-        &-blockquote-text {
-          font-family: var(--title);
-          font-size: calc(var(--base-size) * 0.67);
-          font-style: italic;
-          text-align: justify;
-        }
-
-        &-blockquote-reference {
-          font-family: var(--title);
-          font-size: calc(var(--base-size) * 0.7);
-          margin-top: calc(var(--baseline) * 0.3);
-          float: right;
-          text-transform: uppercase;
-        }
-
-        &-text {
-          font-family: var(--title);
-          font-size: calc(var(--base-size) * 0.67);
-          text-align: justify;
-          text-indent: var(--baseline);
-        }
       }
+
       .page__number {
         position: absolute;
         bottom: var(--baseline);
@@ -212,93 +123,40 @@
       }
     }
 
-    input[type="radio"] {
-      display: none;
-
-      &:checked+.book__page {
-        transition: transform 0.9s cubic-bezier(0.645, 0.045, 0.355, 1);
-        transform: rotateY(-180deg);
-      }
+    &--page-2 .book__page--2 {
+      transition: transform 0.9s cubic-bezier(0.645, 0.045, 0.355, 1);
+      transform: rotateY(-180deg);
     }
   }
 </style>
 
 <div class="cover">
-  <div class="book">
-    <label for="page-1"  class="book__page book__page--1">
-      <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/193203/1111.jpg" alt="">
-    </label>
-
-    <label for="page-2" class="book__page book__page--4">
+  <div class="book" class:book--page-2={isTurnPage}>
+    <label class="book__page book__page--1">
       <div class="page__content">
-        <h1 class="page__content-title">I</h1>
-        <div class="page__content-blockquote">
-          <p class="page__content-blockquote-text">HARI SELDON — . . . born in the 11,988th year of the Galactic Era; died 12,069. The dates are more commonly given in terms of the current Foundational Era as -79 to the year 1 F.E. Born to middle-class parents on Helicon, Arcturus sector (where his father, in a legend of doubtful authenticity, was a tobacco grower in the hydroponic plants of the planet), he early showed amazing ability in mathematics. Anecdotes concerning his ability are innumerable, and some are contradictory. At the age of two, he is said to have. . . </p>
-          <p class="page__content-blockquote-text">. . . Undoubtedly his greatest contributions were in the field of psychohistory. Seldon found the field little more than a set of vague axioms; he left it a profound statistical science. . . . </p>
-          <p class="page__content-blockquote-text">. . . The best existing authority we have for the details of his life is the biography written by Gaal Dornick who, as a young man, met Seldon two years before the great mathematician's death. The story of the meeting . . .</p>
-          <span class="page__content-blockquote-reference">Encyclopedia Galactica*</span>
-        </div>
-        <div class="page__content-text">
-          <p>His name was Gaal Dornick and he was just a country boy who had never seen Trantor before. That is, not in real life. He had seen it many times on the hyper-video, and occasionally in tremendous three-dimensional newscasts covering an Imperial Coronation or the opening of a Galactic Council. Even though he had lived all his life on the world of Synnax, which circled a star at the edges of the Blue Drift, he was not cut off from civilization, you see. At that time, no place in the Galaxy was. </p>
-
-          <p>There were nearly twenty-five million inhabited planets in the Galaxy then, and not one but owed allegiance to the Empire whose seat was on Trantor. It was the last half-century in which that could be said. </p>
-          <p>To Gaal, this trip was the undoubted climax of his young, scholarly life. He had been in space before so that the trip, as a voyage and nothing more, meant little to him. To be sure, he had traveled previously only as far as Synnax's only satellite in order to get the data on the mechanics of meteor driftage which he needed for his dissertation, but space-travel was all one whether one travelled half a million miles, or as many light years. </p>
-        </div>
-        <div class="page__number">3</div>
+        Content 1
       </div>
     </label>
 
-    <!-- Resets the page -->
-    <input type="radio" name="page" id="page-1"/>
+    <label class="book__page book__page--4">
+      <div class="page__content">
+        Content 2
+      </div>
+    </label>
 
-    <!-- Goes to the second page -->
-    <input type="radio" name="page" id="page-2"/>
     <label class="book__page book__page--2">
       <div class="book__page-front">
         <div class="page__content">
-          <h1 class="page__content-book-title">Foundation</h1>
-          <h2 class="page__content-author">Isaac Asimov</h2>
-
-          <p class="page__content-credits">
-            Introduction by
-            <span>Paul Krugman</span>
-          </p>
-
-          <p class="page__content-credits">
-            Illustrations by
-            <span>Alex Wells</span>
-          </p>
-
-          <div class="page__content-copyright">
-            <p>The Folio Society</p>
-            <p>London - MMXII</p>
-          </div>
+          Content 3
         </div>
       </div>
       <div class="book__page-back">
         <div class="page__content">
-          <h1 class="page__content-title">Contents</h1>
-          <table class="page__content-table">
-            <tr>
-              <td align="left">Part I</td><td align="left">The Psycohistorians</td><td align="right">3</td>
-            </tr>
-            <tr>
-              <td align="left">Part II</td><td align="left">The Encyclopedists</td><td align="right">43</td>
-            </tr>
-            <tr>
-              <td align="left">Part III</td><td align="left">The Mayors</td><td align="right">87</td>
-            </tr>
-            <tr>
-              <td align="left">Part IV</td><td align="left">The Traders</td><td align="right">147</td>
-            </tr>
-            <tr>
-              <td align="left">Part V</td><td align="left">The Merchant Princes</td><td align="right">173</td>
-            </tr>
-          </table>
-
-          <div class="page__number">2</div>
+          Content 4
         </div>
       </div>
     </label>
   </div>
 </div>
+
+<button on:click={turnPage}>Turn the page</button>
