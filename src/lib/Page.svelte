@@ -1,5 +1,6 @@
 <script lang="ts">
   import {content} from "./content.js";
+  import {marked} from "marked";
 
   export let page = 0;
 </script>
@@ -11,7 +12,7 @@
            class:midjourney-img--narrow={content[page].narrow}/>
     </div>
     <div class="text">
-      {content[page].text}
+      {@html marked.parse(content[page].text)}
     </div>
   </article>
 {/if}
@@ -33,12 +34,12 @@
     object-fit: cover;
     max-width: 100%;
     margin: 0 auto;
-    aspect-ratio: 1.2 / 1;
+    aspect-ratio: 1.25 / 1;
   }
 
   .midjourney-img--narrow {
     object-fit: contain;
-    aspect-ratio: 1.5/1;
+    aspect-ratio: 1.6/1;
   }
 
   .text {
@@ -46,5 +47,14 @@
     line-height: 24px;
     border-top: 4px #a98568 double;
     padding: 8px;
+  }
+
+  :global {
+    .text p {
+      margin: 0;
+    }
+    .text p + p {
+      margin-top: 1em;
+    }
   }
 </style>
