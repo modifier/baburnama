@@ -1,9 +1,9 @@
 <script lang="ts">
-  import Codex from "./lib/Codex.svelte";
+  import Book from "./lib/Book.svelte";
 </script>
 
 <main>
-  <Codex />
+  <Book />
 </main>
 
 <style>

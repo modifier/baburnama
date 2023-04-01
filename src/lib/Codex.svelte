@@ -1,12 +1,10 @@
 <script lang="ts">
-  // source of the concept: https://codepen.io/diemoritat/pen/LKROYZ
-  export enum Page {
-    MIDDLE,
-    BACK,
-    FORWARD,
-  }
+  import { createEventDispatcher } from 'svelte';
+  import {Page} from "./types";
+  const dispatch = createEventDispatcher();
 
-  let pageNo = Page.MIDDLE;
+  // source of the concept: https://codepen.io/diemoritat/pen/LKROYZ
+  export let pageNo = Page.MIDDLE;
 
   function toMiddle() {
     pageNo = Page.MIDDLE;
@@ -18,6 +16,10 @@
 
   function toForward() {
     pageNo = Page.FORWARD;
+  }
+
+  function handleAnimationEnd() {
+    dispatch('pageTurned', { pageNo });
   }
 </script>
 
@@ -31,12 +33,12 @@
 
     <div class="codex__page codex__page--last">Content 6</div>
 
-    <div class="codex__page codex__page--middle-2">
+    <div class="codex__page codex__page--middle-2" on:transitionend={handleAnimationEnd}>
       <div class="codex__page-front" on:click={toMiddle}>Content 2</div>
       <div class="codex__page-back" on:click={toBack}>Content 3</div>
     </div>
 
-    <div class="codex__page codex__page--middle-3">
+    <div class="codex__page codex__page--middle-3" on:transitionend={handleAnimationEnd}>
       <div class="codex__page-front" on:click={toForward}>Content 4</div>
       <div class="codex__page-back" on:click={toMiddle}>Content 5</div>
     </div>
@@ -44,15 +46,6 @@
 </div>
 
 <style lang="scss">
-  body {
-    background-color: var(--body-bg);
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-
   .cover {
     --baseline: 12px;
     --page-bg: #f5f5f5;
@@ -75,7 +68,6 @@
       height: 100%;
       display: grid;
       transform: rotateY(0deg);
-      transition: transform 0.9s cubic-bezier(0.645, 0.045, 0.355, 1);
       transform-origin: 0 0;
       background-color: var(--page-bg);
       background-image: linear-gradient(
@@ -130,12 +122,14 @@
 
     &--back {
       .codex__page--middle-2 {
+        transition: transform 0.9s cubic-bezier(0.645, 0.045, 0.355, 1);
         transform: rotateY(0);
       }
     }
 
     &--forward {
       .codex__page--middle-3 {
+        transition: transform 0.9s cubic-bezier(0.645, 0.045, 0.355, 1);
         z-index: 2;
         transform: rotateY(-180deg);
       }
