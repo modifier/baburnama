@@ -63,8 +63,12 @@
   .cover {
     --baseline: 12px;
     --page-bg: #f5f5f5;
-    width: calc(var(--baseline) * 60);
-    height: calc(var(--baseline) * 42.6);
+    max-height: 85%;
+    max-width: 85%;
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    aspect-ratio: 1.4 / 1;
     box-shadow: 0 0 100px rgba(0, 0, 0, 0.3);
     box-sizing: border-box;
   }

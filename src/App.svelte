@@ -5,6 +5,3 @@
 <main>
   <Book />
 </main>
-
-<style>
-</style>
