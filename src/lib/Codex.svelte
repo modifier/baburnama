@@ -3,7 +3,6 @@
   import {Page} from "./types";
   const dispatch = createEventDispatcher();
 
-  // source of the concept: https://codepen.io/diemoritat/pen/LKROYZ
   export let pageNo = Page.MIDDLE;
   export let hasBack = true;
   export let hasForward = true;
@@ -31,28 +30,28 @@
     class:codex--back={pageNo === Page.BACK}
     class:codex--forward={pageNo === Page.FORWARD}
   >
-    <div class="codex__page codex__page--first">
+    <div class="codex__page codex__page--first codex__page-left">
       <slot name="back-1"></slot>
     </div>
 
-    <div class="codex__page codex__page--last">
+    <div class="codex__page codex__page--last codex__page-right">
       <slot name="forward-2"></slot>
     </div>
 
     <div class="codex__page codex__page--middle-2" on:transitionend={handleAnimationEnd}>
-      <div class="codex__page-front">
+      <div class="codex__page-front codex__page-right">
         <slot name="back-2"></slot>
       </div>
-      <div class="codex__page-back" on:click={toBack}>
+      <div class="codex__page-back codex__page-left" on:click={toBack}>
         <slot name="middle-1"></slot>
       </div>
     </div>
 
     <div class="codex__page codex__page--middle-3" on:transitionend={handleAnimationEnd}>
-      <div class="codex__page-front" on:click={toForward}>
+      <div class="codex__page-front codex__page-right" on:click={toForward}>
         <slot name="middle-2"></slot>
       </div>
-      <div class="codex__page-back">
+      <div class="codex__page-back codex__page-left">
         <slot name="forward-1"></slot>
       </div>
     </div>
@@ -61,8 +60,6 @@
 
 <style lang="scss">
   .cover {
-    --baseline: 12px;
-    --page-bg: #f5f5f5;
     max-height: 85%;
     max-width: 85%;
     position: absolute;
@@ -71,6 +68,13 @@
     aspect-ratio: 1.4 / 1;
     box-shadow: 0 0 100px rgba(0, 0, 0, 0.3);
     box-sizing: border-box;
+  }
+
+  :global {
+    .codex__page-right div,
+    .codex__page-left div {
+      position: relative;
+    }
   }
 
   .codex {
@@ -87,19 +91,42 @@
       display: grid;
       transform: rotateY(0deg);
       transform-origin: 0 0;
-      background-color: var(--page-bg);
-      background-image: linear-gradient(
-        90deg,
-        rgba(227, 227, 227, 1) 0%,
-        rgba(247, 247, 247, 0) 18%
-      );
+      position: relative;
 
-      &:nth-of-type(1) {
-        background-image: linear-gradient(
-          -90deg,
-          rgba(227, 227, 227, 1) 0%,
-          rgba(247, 247, 247, 0) 18%
-        );
+      &-right::before,
+      &-left::before {
+        content: "";
+        filter: brightness(0.95) sepia(30%) saturate(80%);
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        background-size: 1000px;
+        background-image: url('../assets/paper.png');
+      }
+
+      &-right::after,
+      &-left::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+      }
+
+      &-right > *,
+      &-left > * {
+        position: relative;
+      }
+
+      &-right::after {
+        background-image: linear-gradient(90deg, rgb(55 55 55 / 20%) 0%, rgba(247, 247, 247, 0) 8%);
+      }
+
+      &-left::after {
+        background-image: linear-gradient(-90deg, rgba(149, 145, 145, 0.2) 0%, rgba(247, 247, 247, 0) 5%);
+      }
+
+      &-right::before {
+        background-position: right bottom;
       }
 
       &--middle-2,
@@ -108,12 +135,6 @@
         position: absolute;
         right: 0;
         transform-style: preserve-3d;
-        background-color: var(--page-bg);
-        background-image: linear-gradient(
-          90deg,
-          rgba(227, 227, 227, 1) 0%,
-          rgba(247, 247, 247, 0) 18%
-        );
       }
 
       &--middle-2 {
