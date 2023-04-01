@@ -5,17 +5,19 @@
 
   // source of the concept: https://codepen.io/diemoritat/pen/LKROYZ
   export let pageNo = Page.MIDDLE;
-
-  function toMiddle() {
-    pageNo = Page.MIDDLE;
-  }
+  export let hasBack = true;
+  export let hasForward = true;
 
   function toBack() {
-    pageNo = Page.BACK;
+    if (hasBack) {
+      pageNo = Page.BACK;
+    }
   }
 
   function toForward() {
-    pageNo = Page.FORWARD;
+    if (hasForward) {
+      pageNo = Page.FORWARD;
+    }
   }
 
   function handleAnimationEnd() {
@@ -38,7 +40,7 @@
     </div>
 
     <div class="codex__page codex__page--middle-2" on:transitionend={handleAnimationEnd}>
-      <div class="codex__page-front" on:click={toMiddle}>
+      <div class="codex__page-front">
         <slot name="back-2"></slot>
       </div>
       <div class="codex__page-back" on:click={toBack}>
@@ -50,7 +52,7 @@
       <div class="codex__page-front" on:click={toForward}>
         <slot name="middle-2"></slot>
       </div>
-      <div class="codex__page-back" on:click={toMiddle}>
+      <div class="codex__page-back">
         <slot name="forward-1"></slot>
       </div>
     </div>

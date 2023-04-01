@@ -14,10 +14,13 @@
     'Page 9',
     'Page 10',
     'Page 11',
+    'Page 12',
   ];
 
-  let pageNo = 3;
+  let pageNo = 2;
   let opening = Page.MIDDLE;
+  let hasBack = false;
+  let hasForward = false;
 
   function handlePageTurned() {
     if (opening === Page.BACK) {
@@ -27,13 +30,25 @@
     }
     opening = Page.MIDDLE;
   }
+
+  $: if (pageNo > 0) {
+    hasBack = true;
+  } else {
+    hasBack = false;
+  }
+
+  if (pageNo < pages.length - 1) {
+    hasForward = true;
+  } else {
+    hasForward = false;
+  }
 </script>
 
-<Codex on:pageTurned={handlePageTurned} bind:pageNo={opening}>
-  <div slot="back-1">{pages[pageNo - 2]}</div>
-  <div slot="back-2">{pages[pageNo - 1]}</div>
+<Codex on:pageTurned={handlePageTurned} bind:pageNo={opening} hasBack={hasBack} hasForward={hasForward}>
+  <div slot="back-1">{hasBack && pages[pageNo - 2]}</div>
+  <div slot="back-2">{hasBack && pages[pageNo - 1]}</div>
   <div slot="middle-1">{pages[pageNo]}</div>
   <div slot="middle-2">{pages[pageNo + 1]}</div>
-  <div slot="forward-1">{pages[pageNo + 2]}</div>
-  <div slot="forward-2">{pages[pageNo + 3]}</div>
+  <div slot="forward-1">{hasForward && pages[pageNo + 2]}</div>
+  <div slot="forward-2">{hasForward && pages[pageNo + 3]}</div>
 </Codex>
