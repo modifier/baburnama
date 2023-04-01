@@ -7,22 +7,33 @@
 
 {#if content[page]}
   <article>
-    <div class="midjourney">
-      <img src={`/book/boburnama-${page + 1}.jpg`} class="midjourney-img"
-           class:midjourney-img--narrow={content[page].narrow}/>
+    <div class="article-content">
+      <div class="midjourney">
+        <img src={`/book/boburnama-${page + 1}.jpg`} class="midjourney-img"
+             class:midjourney-img--narrow={content[page].narrow}/>
+      </div>
+      <div class="text">
+        {@html marked.parse(content[page].text)}
+      </div>
     </div>
-    <div class="text">
-      {@html marked.parse(content[page].text)}
+    <div class="page-container">
+      {page + 1}
     </div>
   </article>
 {/if}
 
 <style lang="scss">
   article {
-    margin: 48px;
-    border: 4px #a98568 double;
-    height: calc(100% - 96px);
+    height: 100%;
+    padding: 48px;
+    box-sizing: border-box;
     font-size: 0;
+    position: relative;
+  }
+
+  .article-content {
+    height: 100%;
+    border: 4px #a98568 double;
   }
 
   .midjourney {
@@ -43,15 +54,25 @@
   }
 
   .text {
-    font-size: 16px;
     line-height: 24px;
     border-top: 4px #a98568 double;
     padding: 8px;
   }
 
+  .page-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 32px;
+    text-align: center;
+    font-size: 16px;
+  }
+
   :global {
     .text p {
       margin: 0;
+      font-size: 16px;
     }
     .text p + p {
       margin-top: 1em;
