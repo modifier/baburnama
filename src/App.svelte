@@ -6,7 +6,15 @@
   let pageNo = 0;
 
   onMount(() => {
-    pageNo = getPageNo();
+    let fragmentPageNo = getPageNo();
+    if (fragmentPageNo) {
+      pageNo = fragmentPageNo;
+    } else {
+      const storagePage = localStorage.getItem("pageNo");
+      if (storagePage) {
+        pageNo = parseInt(storagePage);
+      }
+    }
   });
 </script>
 

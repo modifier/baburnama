@@ -23,6 +23,7 @@
       doNotPushState = false;
     }
     opening = OpeningType.MIDDLE;
+    localStorage.setItem("pageNo", pageNo.toString());
   }
 
   function updatePageNo() {
