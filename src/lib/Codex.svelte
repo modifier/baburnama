@@ -1,4 +1,5 @@
 <script>
+  // source of the concept: https://codepen.io/diemoritat/pen/LKROYZ
   let pageNo = 0;
 
   function forward() {
@@ -55,7 +56,7 @@
     box-shadow: 0 0 100px rgba(0, 0, 0, .3);
   }
 
-  .book {
+  .codex {
     width: 100%;
     height: 100%;
     display: flex;
@@ -86,7 +87,8 @@
         padding: 0 calc(var(--baseline) * 3);
       }
 
-      &--middle {
+      &--middle-2,
+      &--middle-3 {
         position: absolute;
         right: 0;
         pointer-events: none;
@@ -109,33 +111,24 @@
         padding: 0 calc(var(--baseline) * 1.8);
         transform: rotateY(180deg) translateZ(1px);
       }
-
-      .page__number {
-        position: absolute;
-        bottom: var(--baseline);
-        width: calc(100% - (var(--baseline) * 2));
-        font-family: var(--title);
-        font-size: calc(var(--base-size) * 0.67);
-        text-align: center;
-      }
     }
 
-    .book__page--2 {
+    .codex__page--middle-2 {
       z-index: 2;
     }
 
     &--second {
-      .book__page--2 {
+      .codex__page--middle-2 {
         transform: rotateY(-180deg);
       }
 
-      .book__page--3 {
+      .codex__page--middle-2 {
         z-index: 2;
       }
     }
 
     &--third {
-      .book__page--3 {
+      .codex__page--middle-3 {
         z-index: 2;
         transform: rotateY(-180deg);
       }
@@ -144,29 +137,29 @@
 </style>
 
 <div class="cover">
-  <div class="book" class:book--second={pageNo !== 0} class:book--third={pageNo === 2}>
-    <label class="book__page book__page--first">
+  <div class="codex" class:codex--second={pageNo !== 0} class:codex--third={pageNo === 2}>
+    <label class="codex__page codex__page--first">
       Content 1
     </label>
 
-    <label class="book__page book__page--last">
+    <label class="codex__page codex__page--last">
       Content 6
     </label>
 
-    <label class="book__page book__page--middle book__page--2">
-      <div class="book__page-front">
+    <label class="codex__page codex__page--middle-2">
+      <div class="codex__page-front">
         Content 2
       </div>
-      <div class="book__page-back">
+      <div class="codex__page-back">
         Content 3
       </div>
     </label>
 
-    <label class="book__page book__page--middle book__page--3">
-      <div class="book__page-front">
+    <label class="codex__page codex__page--middle-3">
+      <div class="codex__page-front">
         Content 4
       </div>
-      <div class="book__page-back">
+      <div class="codex__page-back">
         Content 5
       </div>
     </label>
