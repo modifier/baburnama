@@ -1,34 +1,21 @@
 <script lang="ts">
   import Codex from "./Codex.svelte";
-  import {Page} from "./types";
-
-  const pages = [
-    'Page 1',
-    'Page 2',
-    'Page 3',
-    'Page 4',
-    'Page 5',
-    'Page 6',
-    'Page 7',
-    'Page 8',
-    'Page 9',
-    'Page 10',
-    'Page 11',
-    'Page 12',
-  ];
+  import {OpeningType} from "./types";
+  import {content} from "./content";
+  import Page from "./Page.svelte";
 
   let pageNo = 2;
-  let opening = Page.MIDDLE;
+  let opening = OpeningType.MIDDLE;
   let hasBack = false;
   let hasForward = false;
 
   function handlePageTurned() {
-    if (opening === Page.BACK) {
+    if (opening === OpeningType.BACK) {
       pageNo -= 2;
-    } else if (opening === Page.FORWARD) {
+    } else if (opening === OpeningType.FORWARD) {
       pageNo += 2;
     }
-    opening = Page.MIDDLE;
+    opening = OpeningType.MIDDLE;
   }
 
   $: if (pageNo > 0) {
@@ -37,7 +24,7 @@
     hasBack = false;
   }
 
-  if (pageNo < pages.length - 1) {
+  if (pageNo < content.length - 1) {
     hasForward = true;
   } else {
     hasForward = false;
@@ -45,10 +32,30 @@
 </script>
 
 <Codex on:pageTurned={handlePageTurned} bind:pageNo={opening} hasBack={hasBack} hasForward={hasForward}>
-  <div slot="back-1">{hasBack && pages[pageNo - 2]}</div>
-  <div slot="back-2">{hasBack && pages[pageNo - 1]}</div>
-  <div slot="middle-1">{pages[pageNo]}</div>
-  <div slot="middle-2">{pages[pageNo + 1]}</div>
-  <div slot="forward-1">{hasForward && pages[pageNo + 2]}</div>
-  <div slot="forward-2">{hasForward && pages[pageNo + 3]}</div>
+  <div slot="back-1">
+    {#if hasBack}
+      <Page page={pageNo - 2} />
+    {/if}
+  </div>
+  <div slot="back-2">
+    {#if hasBack}
+      <Page page={pageNo - 1} />
+    {/if}
+  </div>
+  <div slot="middle-1">
+    <Page page={pageNo} />
+  </div>
+  <div slot="middle-2">
+    <Page page={pageNo + 1} />
+  </div>
+  <div slot="forward-1">
+    {#if hasForward}
+      <Page page={pageNo + 2} />
+    {/if}
+  </div>
+  <div slot="forward-2">
+    {#if hasForward}
+      <Page page={pageNo + 3} />
+    {/if}
+  </div>
 </Codex>

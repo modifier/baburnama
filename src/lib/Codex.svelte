@@ -1,21 +1,21 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import {Page} from "./types";
+  import {OpeningType} from "./types";
   const dispatch = createEventDispatcher();
 
-  export let pageNo = Page.MIDDLE;
+  export let pageNo = OpeningType.MIDDLE;
   export let hasBack = true;
   export let hasForward = true;
 
   function toBack() {
     if (hasBack) {
-      pageNo = Page.BACK;
+      pageNo = OpeningType.BACK;
     }
   }
 
   function toForward() {
     if (hasForward) {
-      pageNo = Page.FORWARD;
+      pageNo = OpeningType.FORWARD;
     }
   }
 
@@ -27,8 +27,8 @@
 <div class="cover">
   <div
     class="codex"
-    class:codex--back={pageNo === Page.BACK}
-    class:codex--forward={pageNo === Page.FORWARD}
+    class:codex--back={pageNo === OpeningType.BACK}
+    class:codex--forward={pageNo === OpeningType.FORWARD}
   >
     <div class="codex__page codex__page--first codex__page-left">
       <slot name="back-1"></slot>
@@ -66,7 +66,7 @@
     position: absolute;
     inset: 0;
     margin: auto;
-    aspect-ratio: 1.45 / 1;
+    aspect-ratio: 1.6 / 1;
     box-shadow: 0 0 100px rgb(0 0 0 / 50%), 0 0 11px 5px rgb(0 0 0 / 50%) inset;
     box-sizing: border-box;
     display: flex;
@@ -76,15 +76,16 @@
   }
 
   :global {
-    .codex__page-right div,
-    .codex__page-left div {
+    .codex__page-right > div,
+    .codex__page-left > div {
       position: relative;
+      height: 100%;
     }
   }
 
   .codex {
-    width: calc(100% - 64px);
-    height: calc(100% - 24px);
+    width: calc(100% - 48px);
+    height: calc(100% - 8px);
     display: flex;
     perspective: 1200px;
     position: relative;
@@ -99,6 +100,7 @@
       background: linear-gradient(-90deg, var(--dark) 0%, var(--light) 10%, var(--dark) 11%, var(--light) 18%, var(--light) 23%, var(--dark) 24%, var(--light) 31%, var(--light) 36%, var(--dark) 38%, var(--light) 45%, var(--light) 49%, var(--dark) 51%, var(--light) 60%, var(--dark) 62%, var(--light) 71%, var(--light) 91%, var(--dark) 93%, var(--light) 100%);
       top: 0;
       bottom: 0;
+      pointer-events: none;
     }
 
     &::before {
@@ -111,6 +113,7 @@
       background: linear-gradient(90deg, var(--dark) 0%, var(--light) 10%, var(--dark) 11%, var(--light) 18%, var(--light) 23%, var(--dark) 24%, var(--light) 31%, var(--light) 36%, var(--dark) 38%, var(--light) 45%, var(--light) 49%, var(--dark) 51%, var(--light) 60%, var(--dark) 62%, var(--light) 71%, var(--light) 91%, var(--dark) 93%, var(--light) 100%);
       top: 0;
       bottom: 0;
+      pointer-events: none;
     }
 
     &__page {
@@ -141,6 +144,7 @@
         z-index: 0;
         background-size: 1000px;
         background-image: url('../assets/paper.png');
+        pointer-events: none;
       }
 
       &-right::after,
@@ -149,6 +153,7 @@
         position: absolute;
         inset: 0;
         z-index: 0;
+        pointer-events: none;
       }
 
       &-right::after {
