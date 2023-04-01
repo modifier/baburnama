@@ -1,6 +1,6 @@
 <script>
   // source of the concept: https://codepen.io/diemoritat/pen/LKROYZ
-  let pageNo = 0;
+  let pageNo = 1;
 
   function forward() {
       pageNo++;
@@ -18,29 +18,6 @@
 </script>
 
 <style lang="scss">
-  @import url('https://fonts.googleapis.com/css?family=Cormorant+Garamond:300,400,600|Tulpen+One&display=swap');
-
-  :root {
-    /* colors */
-    --body-bg: #FAFAFA;
-    --page-bg: #F5F5F5;
-    --dark-text: #2A2935;
-
-    /* spacing */
-    /* this is what defines the global scale */
-    --baseline: 12px;
-
-    /* fonts */
-    --book-title: 'Tulpen One', sans-serif;
-    --title: 'Cormorant Garamond', serif;
-    --body: 'Cormorant Garamond', serif;
-    --base-size: var(--baseline) * 1.2;
-  }
-
-  * {
-    box-sizing: border-box;
-  }
-
   body {
     background-color: var(--body-bg);
     height: 100vh;
@@ -51,9 +28,12 @@
   }
 
   .cover {
+    --baseline: 12px;
+    --page-bg: #F5F5F5;
     width: calc(var(--baseline) * 60);
     height: calc(var(--baseline) * 42.6);
     box-shadow: 0 0 100px rgba(0, 0, 0, .3);
+    box-sizing: border-box;
   }
 
   .codex {
@@ -63,6 +43,7 @@
     perspective: 1200px;
 
     &__page {
+      box-sizing: border-box;
       position: relative;
       width: 50%;
       height: 100%;
@@ -79,12 +60,10 @@
 
       &--first {
         cursor: pointer;
-        overflow: hidden;
       }
 
       &--last {
         cursor: pointer;
-        padding: 0 calc(var(--baseline) * 3);
       }
 
       &--middle-2,
@@ -97,7 +76,13 @@
         background-image: linear-gradient(90deg, rgba(227,227,227,1) 0%, rgba(247,247,247,0) 18%);
       }
 
+      &--middle-2 {
+        z-index: 2;
+        transform: rotateY(-180deg);
+      }
+
       &-front {
+        box-sizing: border-box;
         position: absolute;
         width: 100%;
         height: 100%;
@@ -105,29 +90,21 @@
       }
 
       &-back {
+        box-sizing: border-box;
         position: absolute;
         width: 100%;
         height: 100%;
-        padding: 0 calc(var(--baseline) * 1.8);
         transform: rotateY(180deg) translateZ(1px);
       }
     }
 
-    .codex__page--middle-2 {
-      z-index: 2;
-    }
-
-    &--second {
+    &--back {
       .codex__page--middle-2 {
-        transform: rotateY(-180deg);
-      }
-
-      .codex__page--middle-2 {
-        z-index: 2;
+        transform: rotateY(0);
       }
     }
 
-    &--third {
+    &--forward {
       .codex__page--middle-3 {
         z-index: 2;
         transform: rotateY(-180deg);
@@ -137,32 +114,32 @@
 </style>
 
 <div class="cover">
-  <div class="codex" class:codex--second={pageNo !== 0} class:codex--third={pageNo === 2}>
-    <label class="codex__page codex__page--first">
+  <div class="codex" class:codex--back={pageNo === 0} class:codex--forward={pageNo === 2}>
+    <div class="codex__page codex__page--first">
       Content 1
-    </label>
+    </div>
 
-    <label class="codex__page codex__page--last">
+    <div class="codex__page codex__page--last">
       Content 6
-    </label>
+    </div>
 
-    <label class="codex__page codex__page--middle-2">
+    <div class="codex__page codex__page--middle-2">
       <div class="codex__page-front">
         Content 2
       </div>
       <div class="codex__page-back">
         Content 3
       </div>
-    </label>
+    </div>
 
-    <label class="codex__page codex__page--middle-3">
+    <div class="codex__page codex__page--middle-3">
       <div class="codex__page-front">
         Content 4
       </div>
       <div class="codex__page-back">
         Content 5
       </div>
-    </label>
+    </div>
   </div>
 </div>
 
