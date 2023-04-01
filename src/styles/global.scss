@@ -5,6 +5,11 @@ html, body {
   font-family: "Noto Serif", "Times New Roman", serif;
 }
 
+@font-face {
+  font-family: Pehlevi;
+  src: url('../assets/pehlevi.ttf');
+}
+
 body {
   margin: 0;
   overflow: hidden;

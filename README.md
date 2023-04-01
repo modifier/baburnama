@@ -8,6 +8,8 @@ Paper: https://codepen.io/TheMOZZARELLA/pen/pormjbw
 
 Background: https://www.pexels.com/photo/desert-during-nighttime-847402/ by Walid Ahmad
 
+Font: https://www.andrewmarcus.ru/projects/fonts/pehlevi/
+
 ## Additional links
 
 Book effects: https://blog.avada.io/css/book-effects

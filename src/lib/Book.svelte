@@ -4,7 +4,7 @@
   import {content} from "./content";
   import Page from "./Page.svelte";
 
-  let pageNo = 2;
+  let pageNo = 0;
   let opening = OpeningType.MIDDLE;
   let hasBack = false;
   let hasForward = false;
