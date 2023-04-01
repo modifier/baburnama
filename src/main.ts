@@ -1,10 +1,10 @@
-import App from './App.svelte';
-import './styles/global.scss';
+import App from "./App.svelte";
+import "./styles/global.scss";
 
 const app = new App({
   target: document.body,
   props: {
-    name: 'world',
+    name: "world",
   },
 });
 

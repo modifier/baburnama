@@ -1,25 +1,47 @@
 <script lang="ts">
   // source of the concept: https://codepen.io/diemoritat/pen/LKROYZ
   export enum Page {
-      MIDDLE,
-      BACK,
-      FORWARD,
+    MIDDLE,
+    BACK,
+    FORWARD,
   }
 
   let pageNo = Page.MIDDLE;
 
   function toMiddle() {
-      pageNo = Page.MIDDLE;
+    pageNo = Page.MIDDLE;
   }
 
   function toBack() {
-      pageNo = Page.BACK;
+    pageNo = Page.BACK;
   }
 
   function toForward() {
-      pageNo = Page.FORWARD;
+    pageNo = Page.FORWARD;
   }
 </script>
+
+<div class="cover">
+  <div
+    class="codex"
+    class:codex--back={pageNo === Page.BACK}
+    class:codex--forward={pageNo === Page.FORWARD}
+  >
+    <div class="codex__page codex__page--first">Content 1</div>
+
+    <div class="codex__page codex__page--last">Content 6</div>
+
+    <div class="codex__page codex__page--middle-2">
+      <div class="codex__page-front" on:click={toMiddle}>Content 2</div>
+      <div class="codex__page-back" on:click={toBack}>Content 3</div>
+    </div>
+
+    <div class="codex__page codex__page--middle-3">
+      <div class="codex__page-front" on:click={toForward}>Content 4</div>
+      <div class="codex__page-back" on:click={toMiddle}>Content 5</div>
+    </div>
+  </div>
+</div>
 
 <style lang="scss">
   body {
@@ -33,10 +55,10 @@
 
   .cover {
     --baseline: 12px;
-    --page-bg: #F5F5F5;
+    --page-bg: #f5f5f5;
     width: calc(var(--baseline) * 60);
     height: calc(var(--baseline) * 42.6);
-    box-shadow: 0 0 100px rgba(0, 0, 0, .3);
+    box-shadow: 0 0 100px rgba(0, 0, 0, 0.3);
     box-sizing: border-box;
   }
 
@@ -54,12 +76,20 @@
       display: grid;
       transform: rotateY(0deg);
       transition: transform 0.9s cubic-bezier(0.645, 0.045, 0.355, 1);
-      transform-origin: 0% 0%;
+      transform-origin: 0 0;
       background-color: var(--page-bg);
-      background-image: linear-gradient(90deg, rgba(227,227,227,1) 0%, rgba(247,247,247,0) 18%);
+      background-image: linear-gradient(
+        90deg,
+        rgba(227, 227, 227, 1) 0%,
+        rgba(247, 247, 247, 0) 18%
+      );
 
       &:nth-of-type(1) {
-        background-image: linear-gradient(-90deg, rgba(227,227,227,1) 0%, rgba(247,247,247,0) 18%);
+        background-image: linear-gradient(
+          -90deg,
+          rgba(227, 227, 227, 1) 0%,
+          rgba(247, 247, 247, 0) 18%
+        );
       }
 
       &--middle-2,
@@ -69,7 +99,11 @@
         right: 0;
         transform-style: preserve-3d;
         background-color: var(--page-bg);
-        background-image: linear-gradient(90deg, rgba(227,227,227,1) 0%, rgba(247,247,247,0) 18%);
+        background-image: linear-gradient(
+          90deg,
+          rgba(227, 227, 227, 1) 0%,
+          rgba(247, 247, 247, 0) 18%
+        );
       }
 
       &--middle-2 {
@@ -108,33 +142,3 @@
     }
   }
 </style>
-
-<div class="cover">
-  <div class="codex" class:codex--back={pageNo === Page.BACK} class:codex--forward={pageNo === Page.FORWARD}>
-    <div class="codex__page codex__page--first" on:click={misclick}>
-      Content 1
-    </div>
-
-    <div class="codex__page codex__page--last" on:click={misclick}>
-      Content 6
-    </div>
-
-    <div class="codex__page codex__page--middle-2">
-      <div class="codex__page-front" on:click={toMiddle}>
-        Content 2
-      </div>
-      <div class="codex__page-back" on:click={toBack}>
-        Content 3
-      </div>
-    </div>
-
-    <div class="codex__page codex__page--middle-3">
-      <div class="codex__page-front" on:click={toForward}>
-        Content 4
-      </div>
-      <div class="codex__page-back" on:click={toMiddle}>
-        Content 5
-      </div>
-    </div>
-  </div>
-</div>
