@@ -61,13 +61,13 @@
 <style lang="scss">
   .cover {
     background-color: hsl(13deg 37% 36% / 99%);
-    max-height: 90%;
-    max-width: 90%;
+    max-height: 95%;
+    max-width: 95%;
     position: absolute;
     inset: 0;
     margin: auto;
-    aspect-ratio: 1.4 / 1;
-    box-shadow: 0 0 100px rgba(0, 0, 0, 0.3);
+    aspect-ratio: 1.45 / 1;
+    box-shadow: 0 0 100px rgb(0 0 0 / 50%), 0 0 11px 5px rgb(0 0 0 / 50%) inset;
     box-sizing: border-box;
     display: flex;
     align-items: center;
@@ -83,11 +83,35 @@
   }
 
   .codex {
-    width: calc(100% - 24px);
+    width: calc(100% - 64px);
     height: calc(100% - 24px);
     display: flex;
     perspective: 1200px;
     position: relative;
+
+    &::after {
+      --dark: rgb(136 131 122);
+      --light: rgba(237,229,215,1);
+      content: "";
+      position: absolute;
+      width: 16px;
+      right: -16px;
+      background: linear-gradient(-90deg, var(--dark) 0%, var(--light) 10%, var(--dark) 11%, var(--light) 18%, var(--light) 23%, var(--dark) 24%, var(--light) 31%, var(--light) 36%, var(--dark) 38%, var(--light) 45%, var(--light) 49%, var(--dark) 51%, var(--light) 60%, var(--dark) 62%, var(--light) 71%, var(--light) 91%, var(--dark) 93%, var(--light) 100%);
+      top: 0;
+      bottom: 0;
+    }
+
+    &::before {
+      --dark: rgb(136 131 122);
+      --light: rgba(237,229,215,1);
+      content: "";
+      position: absolute;
+      width: 16px;
+      left: -16px;
+      background: linear-gradient(90deg, var(--dark) 0%, var(--light) 10%, var(--dark) 11%, var(--light) 18%, var(--light) 23%, var(--dark) 24%, var(--light) 31%, var(--light) 36%, var(--dark) 38%, var(--light) 45%, var(--light) 49%, var(--dark) 51%, var(--light) 60%, var(--dark) 62%, var(--light) 71%, var(--light) 91%, var(--dark) 93%, var(--light) 100%);
+      top: 0;
+      bottom: 0;
+    }
 
     &__page {
       box-sizing: border-box;
