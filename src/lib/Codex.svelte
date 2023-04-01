@@ -1,21 +1,21 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte';
+  import {beforeUpdate, createEventDispatcher} from 'svelte';
   import {OpeningType} from "./types";
   const dispatch = createEventDispatcher();
 
-  export let pageNo = OpeningType.MIDDLE;
+  export let opening = OpeningType.MIDDLE;
   export let hasBack = true;
   export let hasForward = true;
 
   function toBack() {
     if (hasBack) {
-      pageNo = OpeningType.BACK;
+      opening = OpeningType.BACK;
     }
   }
 
   function toForward() {
     if (hasForward) {
-      pageNo = OpeningType.FORWARD;
+      opening = OpeningType.FORWARD;
     }
   }
 
@@ -27,8 +27,8 @@
 <div class="cover">
   <div
     class="codex"
-    class:codex--back={pageNo === OpeningType.BACK}
-    class:codex--forward={pageNo === OpeningType.FORWARD}
+    class:codex--back={opening === OpeningType.BACK}
+    class:codex--forward={opening === OpeningType.FORWARD}
   >
     <div class="codex__page codex__page--first codex__page-left">
       <slot name="back-1"></slot>

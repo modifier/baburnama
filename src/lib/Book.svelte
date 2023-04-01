@@ -3,11 +3,13 @@
   import {OpeningType} from "./types";
   import {content} from "./content";
   import Page from "./Page.svelte";
+  import {getPageNo} from "./pageNoDetect";
 
-  let pageNo = 0;
+  export let pageNo = 0;
   let opening = OpeningType.MIDDLE;
   let hasBack = false;
   let hasForward = false;
+  let doNotPushState = false;
 
   function handlePageTurned() {
     if (opening === OpeningType.BACK && hasBack) {
@@ -15,7 +17,25 @@
     } else if (opening === OpeningType.FORWARD && hasForward) {
       pageNo += 2;
     }
+    if (!doNotPushState) {
+      history.pushState(null, null, `#page-${pageNo + 1}`);
+    } else {
+      doNotPushState = false;
+    }
     opening = OpeningType.MIDDLE;
+  }
+
+  function updatePageNo() {
+    const newPageNo = getPageNo();
+    if (newPageNo > pageNo) {
+      opening = OpeningType.FORWARD;
+      pageNo = newPageNo - 2;
+    }
+    if (newPageNo < pageNo) {
+      opening = OpeningType.BACK;
+      pageNo = newPageNo + 2;
+    }
+    doNotPushState = true;
   }
 
   $: {
@@ -24,7 +44,8 @@
   }
 </script>
 
-<Codex on:pageTurned={handlePageTurned} bind:pageNo={opening} hasBack={hasBack} hasForward={hasForward}>
+<svelte:window on:popstate={updatePageNo} />
+<Codex on:pageTurned={handlePageTurned} bind:opening={opening} hasBack={hasBack} hasForward={hasForward}>
   <div slot="back-1">
     {#if hasBack}
       <Page page={pageNo - 2} />
