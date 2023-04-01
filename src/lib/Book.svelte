@@ -10,24 +10,17 @@
   let hasForward = false;
 
   function handlePageTurned() {
-    if (opening === OpeningType.BACK) {
+    if (opening === OpeningType.BACK && hasBack) {
       pageNo -= 2;
-    } else if (opening === OpeningType.FORWARD) {
+    } else if (opening === OpeningType.FORWARD && hasForward) {
       pageNo += 2;
     }
     opening = OpeningType.MIDDLE;
   }
 
-  $: if (pageNo > 0) {
-    hasBack = true;
-  } else {
-    hasBack = false;
-  }
-
-  if (pageNo < content.length - 1) {
-    hasForward = true;
-  } else {
-    hasForward = false;
+  $: {
+    hasBack = pageNo > 0;
+    hasForward = pageNo < content.length - 2;
   }
 </script>
 
