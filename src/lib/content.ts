@@ -6,13 +6,13 @@ export type PageContent = {
 
 export const content = [
   {
-    type: 'image',
+    type: 'empty',
   },
   {
     type: 'titular',
   },
   {
-    type: 'empty',
+    type: 'titular-image',
   },
   {
     type: 'credits',

@@ -9,7 +9,7 @@
   }
 </script>
 
-{#if content[page] && content[page].type === 'image'}
+{#if content[page] && content[page].type === 'titular-image'}
   <article>
     <div class="article-content">
       <img src="/book/bobur.jpg" class="bobur" alt="Изображение Захириддина Бабура, сделанное Midjourney" />
