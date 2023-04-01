@@ -19,7 +19,7 @@
   }
 
   function handleAnimationEnd() {
-    dispatch('pageTurned', { pageNo });
+    dispatch('pageTurned');
   }
 </script>
 
@@ -29,18 +29,30 @@
     class:codex--back={pageNo === Page.BACK}
     class:codex--forward={pageNo === Page.FORWARD}
   >
-    <div class="codex__page codex__page--first">Content 1</div>
+    <div class="codex__page codex__page--first">
+      <slot name="back-1"></slot>
+    </div>
 
-    <div class="codex__page codex__page--last">Content 6</div>
+    <div class="codex__page codex__page--last">
+      <slot name="forward-2"></slot>
+    </div>
 
     <div class="codex__page codex__page--middle-2" on:transitionend={handleAnimationEnd}>
-      <div class="codex__page-front" on:click={toMiddle}>Content 2</div>
-      <div class="codex__page-back" on:click={toBack}>Content 3</div>
+      <div class="codex__page-front" on:click={toMiddle}>
+        <slot name="back-2"></slot>
+      </div>
+      <div class="codex__page-back" on:click={toBack}>
+        <slot name="middle-1"></slot>
+      </div>
     </div>
 
     <div class="codex__page codex__page--middle-3" on:transitionend={handleAnimationEnd}>
-      <div class="codex__page-front" on:click={toForward}>Content 4</div>
-      <div class="codex__page-back" on:click={toMiddle}>Content 5</div>
+      <div class="codex__page-front" on:click={toForward}>
+        <slot name="middle-2"></slot>
+      </div>
+      <div class="codex__page-back" on:click={toMiddle}>
+        <slot name="forward-1"></slot>
+      </div>
     </div>
   </div>
 </div>
