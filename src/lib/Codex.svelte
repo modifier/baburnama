@@ -60,14 +60,19 @@
 
 <style lang="scss">
   .cover {
-    max-height: 85%;
-    max-width: 85%;
+    background-color: hsl(13deg 37% 36% / 99%);
+    max-height: 90%;
+    max-width: 90%;
     position: absolute;
     inset: 0;
     margin: auto;
     aspect-ratio: 1.4 / 1;
     box-shadow: 0 0 100px rgba(0, 0, 0, 0.3);
     box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
   }
 
   :global {
@@ -78,8 +83,8 @@
   }
 
   .codex {
-    width: 100%;
-    height: 100%;
+    width: calc(100% - 24px);
+    height: calc(100% - 24px);
     display: flex;
     perspective: 1200px;
     position: relative;
@@ -92,6 +97,16 @@
       transform: rotateY(0deg);
       transform-origin: 0 0;
       position: relative;
+
+      &-right {
+        border-top-left-radius: 47px 12px;
+        overflow: hidden;
+      }
+
+      &-left {
+        border-top-right-radius: 47px 12px;
+        overflow: hidden;
+      }
 
       &-right::before,
       &-left::before {
@@ -110,11 +125,6 @@
         position: absolute;
         inset: 0;
         z-index: 0;
-      }
-
-      &-right > *,
-      &-left > * {
-        position: relative;
       }
 
       &-right::after {
