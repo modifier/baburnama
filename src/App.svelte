@@ -3,18 +3,16 @@
   import {onMount} from "svelte";
   import {getPageNo} from "./lib/pageNoDetect";
   import {staticLang} from "./lib/static-lang.js";
-  import {language} from "./lib/stores.js";
-
-  let pageNo = 0;
+  import {language, page} from "./lib/stores.js";
 
   onMount(() => {
     let fragmentPageNo = getPageNo();
     if (fragmentPageNo) {
-      pageNo = fragmentPageNo;
+      page.set(fragmentPageNo);
     } else {
       const storagePage = localStorage.getItem("pageNo");
       if (storagePage) {
-        pageNo = parseInt(storagePage);
+        page.set(parseInt(storagePage));
       }
     }
   });
@@ -28,5 +26,5 @@
   <title>{staticLang.title[$language]}</title>
 </svelte:head>
 <main>
-  <Book pageNo={pageNo} />
+  <Book />
 </main>

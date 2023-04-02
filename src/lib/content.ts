@@ -1,7 +1,7 @@
 export type PageContent = {
   text: string;
   imgSize?: 'normal' | 'narrow' | 'supernarrow';
-  type?: 'regular' | 'image' | 'titular' | 'credits' | 'empty';
+  type?: 'regular' | 'image' | 'titular' | 'credits' | 'empty' | 'duoimg';
   hideLanguagePicker?: boolean;
 }
 
@@ -213,5 +213,19 @@ export const content = [
     },
     img: 23,
     imgSize: "narrow"
+  },
+  {
+    type: "duoimg",
+    img1: 24,
+    img2: 25
+  },
+  {
+    text: {
+      ru: "Омар-Шейх-мирза сражался **в трех боях**. \n\n**Первый бой был с Юнус-ханом**, к северу от Андижана, на берегу реки [Сейхун](#page-9), при местечке Теке-Сигретку. Это место потому так названо, что река, стиснутая горами, настолько узка, что, говорят, будто там через нее прыгали козлы.\n\nБудучи побежден, Омар-Шейх-мирза попал в плен, однако Юнус-хан, оказав благодеяние, отпустил мирзу в его страну. Сражение при Теке-Сигретку стало памятным событием в той стране.",
+      en: "Umar Shaikh Mīrzā **fought three ranged battles**.\n\n**The first with Yūnas Khān**, on the Saiḥūn, north of Andijān, at the Goat-leap, a village so-called because near it the foot-hills so narrow the flow of the water that people say goats leap across.\n\nThere he was beaten and made prisoner. Yūnas Khān for his part did well by him and gave him leave to go to his own district (Andijān). This fight having been at that place, the Battle of the Goat-leap became a date in those parts.",
+      uz: "Umarshayx mirzo **uch marotaba saf tortib urush qilgan**.\n\n**Avval Yunusʼhon bilan** Andijonning shimol tarafi — Sayhun daryosining yoqasidagi Takasek-retku degan yerda. Bunday nomlanishining boisi shuki, tog‘ etagi bo‘lganidan bu yerda daryo shunday tor joydan oqadiki, rivoyat qilishlaricha, u yerdan taka sakrab o‘tgan ekan.\n\nMag‘lub bo‘lib, qo‘lga tushdi. Yunus-xon yaxshilik qilib viloyatiga ruxsat berdi. Bu yerda urush bo‘lgani uchun „Taka-sekretku urushi“ ul viloyat tarixida qolgandir."
+    },
+    img: 26,
+    imgSize: "supernarrow"
   }
 ]

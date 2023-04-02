@@ -2,7 +2,7 @@
   import {content} from "./content.js";
   import {marked} from "marked";
   import LanguagePicker from "./LanguagePicker.svelte";
-  import {language} from "./stores";
+  import {language, page as pageStore} from "./stores";
   import {staticLang} from "./static-lang.js";
 
   export let page = 0;
@@ -22,6 +22,13 @@
   function captureLinkClick(e) {
     if (e.target.tagName === 'A') {
       e.stopPropagation();
+
+      if (e.target.href.includes('#page-')) {
+        e.preventDefault();
+        const page = parseInt(e.target.href.match(/#page-(\d+)/)[1]);
+        pageStore.set(page);
+        history.pushState(null, null, `#page-${page}`);
+      }
     }
   }
 </script>
@@ -76,7 +83,7 @@
   </div>
 {/if}
 {#if content[page] && (!content[page].type || content[page].type === 'regular')}
-  <article>
+  <article on:click={captureLinkClick}>
     <div class="article-content">
       <div class="midjourney">
         <img src={`/book/boburnama-${content[page].img}.jpg`} class="midjourney-img"
@@ -93,6 +100,23 @@
     </div>
   </article>
 {/if}
+{#if content[page] && content[page].type === 'duoimg'}
+  <article>
+    <div class="duoimg-content">
+      <img src={`/book/boburnama-${content[page].img1}.jpg`} class="midjourney-pic"
+           class:midjourney-img--narrow={content[page].imgSize === 'narrow'}
+           class:midjourney-img--supernarrow={content[page].imgSize === 'supernarrow'}
+      />
+      <img src={`/book/boburnama-${content[page].img2}.jpg`} class="midjourney-pic"
+           class:midjourney-img--narrow={content[page].imgSize === 'narrow'}
+           class:midjourney-img--supernarrow={content[page].imgSize === 'supernarrow'}
+      />
+    </div>
+    <div class="page-container">
+      {page + 1}
+    </div>
+  </article>
+{/if}
 
 <style lang="scss">
   article {
@@ -101,6 +125,23 @@
     box-sizing: border-box;
     font-size: 0;
     position: relative;
+  }
+
+  .duoimg-content {
+    border: 4px #a98568 double;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: #c19f86;
+
+    .midjourney-pic {
+      height: 50%;
+      object-fit: contain;
+    }
+
+    .midjourney-pic + .midjourney-pic {
+      border-top: 4px #a98568 double;
+    }
   }
 
   .article-content {
@@ -162,7 +203,7 @@
 
   .midjourney {
     width: 100%;
-    background: #a98568;
+    background: #c19f86;
   }
 
   .midjourney-img {

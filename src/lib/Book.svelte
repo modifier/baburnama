@@ -5,6 +5,7 @@
   import Page from "./Page.svelte";
   import {getPageNo} from "./pageNoDetect";
   import LanguagePicker from "./LanguagePicker.svelte";
+  import {page} from "./stores";
 
   export let pageNo = 0;
   let opening = OpeningType.MIDDLE;
@@ -14,70 +15,70 @@
 
   function handlePageTurned() {
     if (opening === OpeningType.BACK && hasBack) {
-      pageNo -= 2;
+      page.set($page - 2);
     } else if (opening === OpeningType.FORWARD && hasForward) {
-      pageNo += 2;
+      page.set($page + 2);
     }
     if (!doNotPushState) {
-      history.pushState(null, null, `#page-${pageNo + 1}`);
+      history.pushState(null, null, `#page-${$page + 1}`);
     } else {
       doNotPushState = false;
     }
     opening = OpeningType.MIDDLE;
-    localStorage.setItem("pageNo", pageNo.toString());
+    localStorage.setItem("pageNo", $page.toString());
   }
 
   function updatePageNo() {
     const newPageNo = getPageNo();
-    if (newPageNo > pageNo) {
+    if (newPageNo > $page) {
       opening = OpeningType.FORWARD;
-      pageNo = newPageNo - 2;
+      page.set(newPageNo - 2);
     }
-    if (newPageNo < pageNo) {
+    if (newPageNo < $page) {
       opening = OpeningType.BACK;
-      pageNo = newPageNo + 2;
+      page.set(newPageNo + 2);
     }
     doNotPushState = true;
   }
 
   $: {
-    hasBack = pageNo > 0;
-    hasForward = pageNo < content.length - 2;
+    hasBack = $page > 0;
+    hasForward = $page < content.length - 2;
   }
 </script>
 
 <svelte:window on:popstate={updatePageNo} />
 <div class="codex-wrapper">
   <div class="codex-toolbar">
-    <div class="language-picker" class:language-picker--hidden={content[pageNo].hideLanguagePicker}>
+    <div class="language-picker" class:language-picker--hidden={content[$page].hideLanguagePicker}>
       <LanguagePicker variant="bookmark" />
     </div>
   </div>
   <Codex on:pageTurned={handlePageTurned} bind:opening={opening} hasBack={hasBack} hasForward={hasForward}>
     <svelte:fragment slot="back-1">
       {#if hasBack}
-        <Page page={pageNo - 2} />
+        <Page page={$page - 2} />
       {/if}
     </svelte:fragment>
     <svelte:fragment slot="back-2">
       {#if hasBack}
-        <Page page={pageNo - 1} />
+        <Page page={$page - 1} />
       {/if}
     </svelte:fragment>
     <svelte:fragment slot="middle-1">
-      <Page page={pageNo} />
+      <Page page={$page} />
     </svelte:fragment>
     <svelte:fragment slot="middle-2">
-      <Page page={pageNo + 1} />
+      <Page page={$page + 1} />
     </svelte:fragment>
     <svelte:fragment slot="forward-1">
       {#if hasForward}
-        <Page page={pageNo + 2} />
+        <Page page={$page + 2} />
       {/if}
     </svelte:fragment>
     <svelte:fragment slot="forward-2">
       {#if hasForward}
-        <Page page={pageNo + 3} />
+        <Page page={$page + 3} />
       {/if}
     </svelte:fragment>
   </Codex>
