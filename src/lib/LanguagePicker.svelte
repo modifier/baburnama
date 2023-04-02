@@ -1,31 +1,30 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte';
+  import {language} from './stores';
 
-  export let selectedLanguage: string;
   export let variant: 'onpage' | 'bookmark';
-  const dispatch = createEventDispatcher();
 
   const languages = [
-    { name: 'Uzbek', code: 'uz' },
+    { name: 'O\'zbek', code: 'uz' },
     { name: 'English', code: 'en' },
-    { name: 'Russian', code: 'ru' },
+    { name: 'Русский', code: 'ru' },
   ];
 
-  function handleLanguageSelect(languageCode: string) {
-    selectedLanguage = languageCode;
-    dispatch('languageSelected', languageCode);
+  function handleLanguageSelect(e, languageCode: string) {
+    e.stopPropagation();
+    localStorage.setItem('lang', languageCode);
+    language.set(languageCode);
   }
 </script>
 
 <div class="language-picker">
-  {#each languages as language}
+  {#each languages as languageType}
     <button
-        class:selected={selectedLanguage === language.code}
+        class:selected={$language === languageType.code}
         class:bookmark={variant === 'bookmark'}
         class:onpage={variant === 'onpage'}
-        on:click={() => handleLanguageSelect(language.code)}
+        on:click={(e) => handleLanguageSelect(e, languageType.code)}
     >
-      {language.name}
+      {languageType.name}
     </button>
   {/each}
 </div>
