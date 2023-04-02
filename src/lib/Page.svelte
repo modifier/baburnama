@@ -21,7 +21,7 @@
   <div class="titular">
     <div>
       <h1>Книга Бабура</h1>
-      <LanguagePicker />
+      <LanguagePicker variant="onpage" />
     </div>
   </div>
 {/if}

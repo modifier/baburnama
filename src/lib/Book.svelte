@@ -50,7 +50,7 @@
 <div class="codex-wrapper">
   <div class="codex-toolbar">
     <div class="language-picker" class:language-picker--hidden={content[pageNo].hideLanguagePicker}>
-      <LanguagePicker />
+      <LanguagePicker variant="bookmark" />
     </div>
   </div>
   <Codex on:pageTurned={handlePageTurned} bind:opening={opening} hasBack={hasBack} hasForward={hasForward}>
@@ -103,6 +103,8 @@
     padding: 0 16px;
     box-sizing: border-box;
     align-items: center;
+    position: relative;
+    bottom: -6px;
   }
 
   .language-picker {
