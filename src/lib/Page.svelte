@@ -36,7 +36,7 @@
 {#if content[page] && content[page].type === 'titular-image'}
   <article>
     <div class="article-content">
-      <img src="/book/bobur.jpg" class="bobur" alt="Изображение Захириддина Бабура, сделанное Midjourney" />
+      <img src="/book/bobur.jpg" class="fullpage-picture" alt="Изображение Захириддина Бабура, сделанное Midjourney" />
     </div>
   </article>
 {/if}
@@ -82,15 +82,27 @@
     </div>
   </div>
 {/if}
+{#if content[page] && content[page].type === 'image'}
+  <article>
+    <div class="article-content">
+      <img src="/book/boburnama-{content[page].img}.jpg" class="fullpage-picture" />
+    </div>
+    <div class="page-container">
+      {page + 1}
+    </div>
+  </article>
+{/if}
 {#if content[page] && (!content[page].type || content[page].type === 'regular')}
   <article on:click={captureLinkClick}>
     <div class="article-content">
-      <div class="midjourney">
-        <img src={`/book/boburnama-${content[page].img}.jpg`} class="midjourney-img"
-             class:midjourney-img--narrow={content[page].imgSize === 'narrow'}
-             class:midjourney-img--supernarrow={content[page].imgSize === 'supernarrow'}
-        />
-      </div>
+      {#if content[page].img}
+        <div class="midjourney">
+          <img src={`/book/boburnama-${content[page].img}.jpg`} class="midjourney-img"
+               class:midjourney-img--narrow={content[page].imgSize === 'narrow'}
+               class:midjourney-img--supernarrow={content[page].imgSize === 'supernarrow'}
+          />
+        </div>
+      {/if}
       <div class="text">
         {@html marked.parse(content[page].text[$language])}
       </div>
@@ -132,7 +144,6 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    background: #c19f86;
 
     .midjourney-pic {
       height: 50%;
@@ -155,7 +166,7 @@
     }
   }
 
-  .bobur {
+  .fullpage-picture {
     object-fit: cover;
     width: 100%;
     height: 100%;
@@ -203,7 +214,7 @@
 
   .midjourney {
     width: 100%;
-    background: #c19f86;
+    background: #a98568;
   }
 
   .midjourney-img {
@@ -225,8 +236,11 @@
 
   .text {
     line-height: 24px;
-    border-top: 4px #a98568 double;
     padding: 8px;
+
+    .midjourney + & {
+      border-top: 4px #a98568 double;
+    }
   }
 
   .page-container {
