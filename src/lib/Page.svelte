@@ -143,12 +143,12 @@
     object-fit: cover;
     max-width: 100%;
     margin: 0 auto;
-    aspect-ratio: 1.25 / 1;
+    aspect-ratio: 1.3 / 1;
   }
 
   .midjourney-img--narrow {
     object-fit: contain;
-    aspect-ratio: 1.6/1;
+    aspect-ratio: 1.65/1;
   }
 
   .text {
@@ -164,13 +164,13 @@
     right: 0;
     height: 32px;
     text-align: center;
-    font-size: 16px;
+    font-size: 15px;
   }
 
   :global {
     .text p {
       margin: 0;
-      font-size: 16px;
+      font-size: 15px;
     }
     .text p + p {
       margin-top: 1em;
