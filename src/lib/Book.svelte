@@ -54,32 +54,32 @@
     </div>
   </div>
   <Codex on:pageTurned={handlePageTurned} bind:opening={opening} hasBack={hasBack} hasForward={hasForward}>
-    <div slot="back-1">
+    <svelte:fragment slot="back-1">
       {#if hasBack}
         <Page page={pageNo - 2} />
       {/if}
-    </div>
-    <div slot="back-2">
+    </svelte:fragment>
+    <svelte:fragment slot="back-2">
       {#if hasBack}
         <Page page={pageNo - 1} />
       {/if}
-    </div>
-    <div slot="middle-1">
+    </svelte:fragment>
+    <svelte:fragment slot="middle-1">
       <Page page={pageNo} />
-    </div>
-    <div slot="middle-2">
+    </svelte:fragment>
+    <svelte:fragment slot="middle-2">
       <Page page={pageNo + 1} />
-    </div>
-    <div slot="forward-1">
+    </svelte:fragment>
+    <svelte:fragment slot="forward-1">
       {#if hasForward}
         <Page page={pageNo + 2} />
       {/if}
-    </div>
-    <div slot="forward-2">
+    </svelte:fragment>
+    <svelte:fragment slot="forward-2">
       {#if hasForward}
         <Page page={pageNo + 3} />
       {/if}
-    </div>
+    </svelte:fragment>
   </Codex>
 </div>
 

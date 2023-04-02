@@ -5,9 +5,9 @@ export const staticLang = {
     uz: "Boburnoma"
   },
   author: {
-    ru: "**Автор**: Захириддин Бабур",
-    en: "**Author**: Babur",
-    uz: "**Muallif**: Babur"
+    ru: "**Автор**: Захириддин Мухаммад Бабур",
+    en: "**Author**: Zahīr ud-Dīn Muhammad Babur",
+    uz: "**Muallif**: Zahiriddin Muhammad Babur"
   },
   illustrations: {
     ru: "**Иллюстрации**: [Midjourney](https://www.midjourney.com)",
@@ -15,9 +15,9 @@ export const staticLang = {
     uz: "**Rasmlar**: [Midjourney](https://www.midjourney.com)"
   },
   siteAuthor: {
-    ru: "Автор сайта: [Евгений Амирасланов](https://t.me/modifiertravels)",
-    en: "Site author: [Eugene Amiraslanov](https://t.me/modifiertravels)",
-    uz: "Sayt muallifi: [Eugene Amiraslanov](https://t.me/modifiertravels)"
+    ru: "**Автор сайта**: [Евгений Амирасланов](https://t.me/modifiertravels)",
+    en: "**Site author**: [Eugene Amiraslanov](https://t.me/modifiertravels)",
+    uz: "**Sayt muallifi**: [Eugene Amiraslanov](https://t.me/modifiertravels)"
   },
   source: {
     ru: "Текст книги и иллюстрации взяты из телеграм-канала [Boburnama](https://t.me/boburnama)",
@@ -31,7 +31,7 @@ export const staticLang = {
   },
   font: {
     ru: "Шрифт &mdash; **[Pehlevi](https://www.andrewmarcus.ru/projects/fonts/pehlevi)**, автор <b>Андрей Маркелов</b>",
-    en: "Font &mdash; **[Pehlevi](https://www.andrewmarcus.ru/projects/fonts/pehlevi)**, author <b>Andrey Markelov</b>",
+    en: "Font &mdash; **[Pehlevi](https://www.andrewmarcus.ru/projects/fonts/pehlevi)** by <b>Andrey Markelov</b>",
     uz: "Shrift &mdash; **[Pehlevi](https://www.andrewmarcus.ru/projects/fonts/pehlevi)**, muallif <b>Andrey Markelov</b>"
   },
   madeInToshkent: {
