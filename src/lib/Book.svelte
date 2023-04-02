@@ -4,6 +4,7 @@
   import {content} from "./content";
   import Page from "./Page.svelte";
   import {getPageNo} from "./pageNoDetect";
+  import LanguagePicker from "./LanguagePicker.svelte";
 
   export let pageNo = 0;
   let opening = OpeningType.MIDDLE;
@@ -46,31 +47,69 @@
 </script>
 
 <svelte:window on:popstate={updatePageNo} />
-<Codex on:pageTurned={handlePageTurned} bind:opening={opening} hasBack={hasBack} hasForward={hasForward}>
-  <div slot="back-1">
-    {#if hasBack}
-      <Page page={pageNo - 2} />
-    {/if}
+<div class="codex-wrapper">
+  <div class="codex-toolbar">
+    <div class="language-picker" class:language-picker--hidden={content[pageNo].hideLanguagePicker}>
+      <LanguagePicker />
+    </div>
   </div>
-  <div slot="back-2">
-    {#if hasBack}
-      <Page page={pageNo - 1} />
-    {/if}
-  </div>
-  <div slot="middle-1">
-    <Page page={pageNo} />
-  </div>
-  <div slot="middle-2">
-    <Page page={pageNo + 1} />
-  </div>
-  <div slot="forward-1">
-    {#if hasForward}
-      <Page page={pageNo + 2} />
-    {/if}
-  </div>
-  <div slot="forward-2">
-    {#if hasForward}
-      <Page page={pageNo + 3} />
-    {/if}
-  </div>
-</Codex>
+  <Codex on:pageTurned={handlePageTurned} bind:opening={opening} hasBack={hasBack} hasForward={hasForward}>
+    <div slot="back-1">
+      {#if hasBack}
+        <Page page={pageNo - 2} />
+      {/if}
+    </div>
+    <div slot="back-2">
+      {#if hasBack}
+        <Page page={pageNo - 1} />
+      {/if}
+    </div>
+    <div slot="middle-1">
+      <Page page={pageNo} />
+    </div>
+    <div slot="middle-2">
+      <Page page={pageNo + 1} />
+    </div>
+    <div slot="forward-1">
+      {#if hasForward}
+        <Page page={pageNo + 2} />
+      {/if}
+    </div>
+    <div slot="forward-2">
+      {#if hasForward}
+        <Page page={pageNo + 3} />
+      {/if}
+    </div>
+  </Codex>
+</div>
+
+<style lang="scss">
+  .codex-wrapper {
+    max-height: 95%;
+    max-width: 95%;
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    aspect-ratio: 1.6 / 1.05;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .codex-toolbar {
+    width: 100%;
+    aspect-ratio: 1.6 / 0.05;
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 16px;
+    box-sizing: border-box;
+    align-items: center;
+  }
+
+  .language-picker {
+    transition: 0.3s opacity;
+    &--hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+</style>

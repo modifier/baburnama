@@ -2,14 +2,17 @@ export type PageContent = {
   text: string;
   narrow?: boolean;
   type?: 'regular' | 'image' | 'titular' | 'credits' | 'empty';
+  hideLanguagePicker?: boolean;
 }
 
 export const content = [
   {
     type: 'empty',
+    hideLanguagePicker: true,
   },
   {
     type: 'titular',
+    hideLanguagePicker: true,
   },
   {
     type: 'titular-image',

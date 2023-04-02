@@ -1,5 +1,5 @@
 <script lang="ts">
-  import {beforeUpdate, createEventDispatcher} from 'svelte';
+  import {createEventDispatcher} from 'svelte';
   import {OpeningType} from "./types";
   const dispatch = createEventDispatcher();
 
@@ -60,15 +60,11 @@
 
 <style lang="scss">
   .cover {
+    max-height: 100%;
+    max-width: 100%;
     background-color: hsl(13deg 37% 36% / 99%);
-    max-height: 95%;
-    max-width: 95%;
-    position: absolute;
-    inset: 0;
-    margin: auto;
     aspect-ratio: 1.6 / 1;
     box-shadow: 0 0 100px rgb(0 0 0 / 50%), 0 0 11px 5px rgb(0 0 0 / 50%) inset;
-    box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: center;

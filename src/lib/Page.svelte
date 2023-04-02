@@ -1,6 +1,7 @@
 <script lang="ts">
   import {content} from "./content.js";
   import {marked} from "marked";
+  import LanguagePicker from "./LanguagePicker.svelte";
 
   export let page = 0;
 
@@ -20,6 +21,7 @@
   <div class="titular">
     <div>
       <h1>Книга Бабура</h1>
+      <LanguagePicker />
     </div>
   </div>
 {/if}
