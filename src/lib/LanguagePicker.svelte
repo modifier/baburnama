@@ -17,7 +17,7 @@
   }
 </script>
 
-<div>
+<div class="language-picker">
   {#each languages as language}
     <button
         class:selected={selectedLanguage === language.code}
@@ -31,6 +31,10 @@
 </div>
 
 <style lang="scss">
+  .language-picker {
+    display: flex;
+    align-items: flex-end;
+  }
   .onpage {
     --border-size: -4px;
     --border-color: #a98568;
@@ -90,6 +94,12 @@
     border-radius: 8px 8px 0 0;
     background-color: #ecdcb9;
     box-shadow: inset 0px -1px 3px 1px rgb(0 0 0 / 70%);
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      padding-bottom: 10px;
+      margin-top: -6px;
+    }
 
     &.selected {
       color: #99423b;
