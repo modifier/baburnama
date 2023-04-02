@@ -2,11 +2,27 @@
   import {content} from "./content.js";
   import {marked} from "marked";
   import LanguagePicker from "./LanguagePicker.svelte";
+  import {language} from "./stores";
+  import {staticLang} from "./static-lang.js";
 
   export let page = 0;
 
   function onLinkClick(e) {
     e.stopPropagation();
+  }
+
+  marked.use({
+    renderer: {
+      link(href, title, text) {
+        return `<a target="_blank" href="${href}">${text}</a>`;
+      }
+    }
+  })
+
+  function captureLinkClick(e) {
+    if (e.target.tagName === 'A') {
+      e.stopPropagation();
+    }
   }
 </script>
 
@@ -20,40 +36,40 @@
 {#if content[page] && content[page].type === 'titular'}
   <div class="titular">
     <div>
-      <h1>Книга Бабура</h1>
+      <h1>{staticLang.title[$language]}</h1>
       <LanguagePicker variant="onpage" />
     </div>
   </div>
 {/if}
 {#if content[page] && content[page].type === 'credits'}
-  <div class="credits">
+  <div class="credits" on:click={captureLinkClick}>
     <div class="credits-wrapper">
       <div class="authors">
         <div>
-          <b>Автор</b>: Захириддин Бабур
+          {@html marked.parse(staticLang.author[$language])}
         </div>
         <div>
-          <b>Иллюстрации</b>: <a on:click={onLinkClick} target="_blank" href="https://www.midjourney.com/">Midjourney</a>
+          {@html marked.parse(staticLang.illustrations[$language])}
         </div>
       </div>
       <div class="developer">
         <div>
-          <b>Автор сайта</b>: <a on:click={onLinkClick} target="_blank" href="https://t.me/modifiertravels">Евгений Амирасланов</a>
+          {@html marked.parse(staticLang.siteAuthor[$language])}
         </div>
         <div>
-          Текст книги и иллюстрации взяты из телеграм-канала <a on:click={onLinkClick} target="_blank" href="https://t.me/boburnama">Boburnama</a>
+          {@html marked.parse(staticLang.source[$language])}
         </div>
       </div>
       <div class="additional">
         <div>
-          Фон &mdash; <a on:click={onLinkClick} target="_blank" href="https://www.pexels.com/photo/desert-during-nighttime-847402/"><b>Desert during Nighttime</b></a>, автор <b>Walid Ahmad</b>
+          {@html marked.parse(staticLang.background[$language])}
         </div>
         <div>
-          Шрифт &mdash; <a on:click={onLinkClick} target="_blank" href="https://www.andrewmarcus.ru/projects/fonts/pehlevi/"><b>Pehlevi</b></a>, автор <b>Андрей Маркелов</b>
+          {@html marked.parse(staticLang.font[$language])}
         </div>
       </div>
       <div class="year">
-        <div>Сделано в Ташкенте</div>
+        <div>{staticLang.madeInToshkent[$language]}</div>
         <div>2023</div>
       </div>
     </div>
@@ -64,10 +80,12 @@
     <div class="article-content">
       <div class="midjourney">
         <img src={`/book/boburnama-${content[page].img}.jpg`} class="midjourney-img"
-             class:midjourney-img--narrow={content[page].narrow}/>
+             class:midjourney-img--narrow={content[page].imgSize === 'narrow'}
+             class:midjourney-img--supernarrow={content[page].imgSize === 'supernarrow'}
+        />
       </div>
       <div class="text">
-        {@html marked.parse(content[page].text)}
+        {@html marked.parse(content[page].text[$language])}
       </div>
     </div>
     <div class="page-container">
@@ -90,8 +108,10 @@
     border: 4px #a98568 double;
   }
 
-  a {
-    color: #2e7197;
+  :global {
+    article a, .credits a {
+      color: #2e7197;
+    }
   }
 
   .bobur {
@@ -125,6 +145,12 @@
     align-items: center;
     justify-content: center;
 
+    :global {
+      p {
+        margin: 0;
+      }
+    }
+
     .authors, .developer, .additional {
       margin-bottom: 3em;
     }
@@ -148,7 +174,12 @@
 
   .midjourney-img--narrow {
     object-fit: contain;
-    aspect-ratio: 1.65/1;
+    aspect-ratio: 1.5/1;
+  }
+
+  .midjourney-img--supernarrow {
+    object-fit: contain;
+    aspect-ratio: 1.8/1;
   }
 
   .text {
