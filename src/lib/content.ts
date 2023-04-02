@@ -113,5 +113,105 @@ export const content = [
       uz: "Baroko‘h tog‘ining etagida — shahar bilan tog‘ orasida bir masjid qad ko‘targan, masjidi Javzo nomli. Tog‘ tarafidan bir katta ariq oqadi. Ushbu masjidning tashqari sahni nishabroq, sebargalik, sersoya, safolik maydondir. Har musofir va o‘tkinchi o‘sha yerda istirohat qiladi. O‘sh beboshlarining qaltis hazillari buki: kimki u yerda uxlasa, shu katta ariqdan unga suv sochadilar."
     },
     img: 11,
+  },
+  {
+    text: {
+      ru: "В последние годы жизни Омар-Шейха-мирзы на этой горе нашли камень с белыми и красными прожилками. Из него делают ручки ножей, пряжки для поясов и другие вещи. Это очень хороший камень. В области Ферганы нет города, равного Ошу по приятности и чистоте воздуха.",
+      en: "A very beautiful stone, waved red and white was found in the Barā Koh in ‘Umar Shaikh Mīrzā’s latter days; of it are made knife handles, and clasps for belts and many other things. For climate and for pleasantness, no township in all Farghāna equals Aūsh.",
+      uz: "Umarshayx mirzo saltanatining so‘nggi paytlari ushbu tog‘dan qizil va oq tovlanadigan tosh topildi: pichoq dastasi, takband va ba’zi narsalar qiladilar, ancha yaxshi toshdir. Farg‘ona viloyatida havosi tozalikda O‘sh singari shahar yo‘q."
+    },
+    img: 12
+  },
+  {
+    text: {
+      ru: "Еще один город – Маргинан, к западу от Андижана, в семи йигачах пути. Это хороший город, полный всякой благодати. Гранаты и урюк там очень обильны и вкусны.",
+      en: "Again there is Marghīnān; seven yīghāch by road to the west of Andijān,—a fine township full of good things. Its apricots (aūrūk) and pomegranates are most excellent.",
+      uz: "Yana biri Marg‘ilondir. Andijonning garbida. Andijondan yetti yig‘ochlik yo‘lda. Yaxshi shaharcha, ne’matlarga boy: anori va o‘rigi juda ko‘p va yaxshi."
+    },
+    img: 13
+  },
+  {
+    text: {
+      ru: "Есть один сорт граната, который называют «дона-калан» – «крупно-зерни- стый»; в его сладости есть легкий приятный кислый привкус сливы. Этим гранатам можно отдать предпочтение перед семнанскими гранатами. Есть там сорт урюка, из которого вынимают косточки, кладут внутрь ядрышки и сушат; называют его «субхани», он очень вкусный.",
+      en: "One sort of pomegranate, they call the Great Seed (Dāna-i-kalān); its sweetness has a little of the pleasant flavour of the small apricot (zard-alū) and it may be thought better than the Semnān pomegranate. Another kind of apricot (aūrūk) they dry after stoning it and putting back the kernel, they then call it subḥānī; it is very palatable.",
+      uz: "Bir nav anori buladi: yirikdona, deydilar, chuchukligidan biroz o‘rik shirinligicha ta’mi bor. Samnon anorlaridan yuqori so‘ysa bo‘ladi. Yana bir nav o‘rik bo‘ladiki, danagini olib, ichiga mag‘iz solib quritadilar, buni subhoniy deydilar, ko‘p lazizdir."
+    },
+    img: 14
+  },
+  {
+    text: {
+      ru: "Дичь там хорошая; белые олени водятся близко.",
+      en: "The hunting and fowling of Marghīnān are good; āq kīyīk are had close by.",
+      uz: "Ov qushlari yaxshi, oq kiyik shaharga yaqin joyda topiladi."
+    },
+    img: 15
+  },
+  {
+    text: {
+      ru: "Жители Маргилана – сарты; это драчливый и беспокойный народ. Умением драться они славятся по всему Мавераннахру. Большинство знаменитых бойцов Самарканда и Бухары – маргиланцы. Автор «Хидаи» родом из деревни маргинанской области, называемой Ришдан.",
+      en: "Its people are Sārts,  boxers, noisy and turbulent. Most of the noted bullies (jangralār) of Samarkand and Bukhārā are Marghīnānīs. The author of the Hidāyat was from Rashdān, one of the villages of Marghīnān.",
+      uz: "Eli sortdir, mushti yuguruk va serjanjal el. Jangarilik Movarounnahrda odatdir. Samarkand va Buxorodagi nomdor jangarilarning aksari marg‘ilonlikdirlar. „Hidoya“ asari muallifi Marg‘ilonning Rushdon nomli kentidandir."
+    },
+    img: 16
+  },
+  {
+    text: {
+      ru: "К юго-западу от Маргилана еще один город – Исфара. Он стоит у подножья горы. Там есть проточная вода и приятные сады. Между Маргиланом и Исфарой девять йигачей пути. Плодов там много, но в садах большинство деревьев – миндальные.",
+      en: "Again there is Asfara, in the hill-country and nine yīghāch by road south-west of Marghīnān. It has running waters, beautiful little gardens (*bāghcha*) and many fruit-trees but almonds for the most part in its orchards.",
+      uz: "Yana biri tog‘ etagida joylashgan Isfaradir. Oqar suvlari, safolik bog‘- bog‘chalari bor. Marg‘ilonning g‘arbi- janubidadir. Marg‘ilon va Isfara orasi to‘qqiz yig‘ochlik yo‘ldir. Mevali daraxtlari ko‘p, biroq boglarida aksar bodom daraxti ekiladi"
+    },
+    img: 17
+  },
+  {
+    text: {
+      ru: "Все жители Исфары сарты и говорят по-персидски. В одном шери (*около двух километров*) к югу от Исфары среди холмов есть глыба камня, называемого, сенг-и аине. Длина ее будет около десяти кари (*около аршина*), высота в некоторых местах в рост человека, в низких местах – человеку по пояс. Все вещи отражаются в ней, как в зеркале.",
+      en: "Its people are all Persian-speaking Sārts. In the hills some two miles (*bīrshar‘ī*) to the south of the town, is a piece of rock, known as the Mirror Stone.",
+      uz: "Xalqining barchasi sort, forsiyda so‘zlashadi. Isfaradan bir shar’iy masofada janub tomonida tepaliklar orasida bir yirik tosh bor, uni „Sangi oyina“(ko‘zgu tosh) deydilar. Uzunligi taxminan o‘n keladi, balandligi ba’zi yeri odam bo‘yi, ba’zi yeri pastligi kishi beligacha bo‘lib, oynadek har nima aks etadi."
+    },
+    img: 18
+  },
+  {
+    text: {
+      ru: "В области Исфары четыре булука, расположенных у подножья гор. Один называется Исфара, другой – Варух, третий – Сох и четвертый – Хушьяр.",
+      en: "The Asfara district (*wilāyat*) is in four subdivisions (balūk) in the hill-country, one Asfara, one Warūkh, one Sūkh and one Hushyār.",
+      uz: "Isfara viloyati tog‘ etagidagi to‘rt bo‘lukdan iborat: biri Isfara, biri Vorux, yana biri So‘x, yana biri Hushyor."
+    },
+    img: 19
+  },
+  {
+    text: {
+      ru: "Между Ходжендом и Канд-и-Бадамом лежит степь, называемая Ха-Дервиш. На Маргилан, что к востоку, и на Ходженд, что к западу, всегда дует оттуда ветер. Ветры в этой степи бывают сильные. Говорят, что несколько дервишей попали в эту пустыню в сильный ветер, не могли найти друг друга и кричали: «ха, дервиш, ха, дервиш!», пока все не погибли.\n\nС тех пор эту пустыню называют Ха-Дервиш.",
+      en: "Between Kand-i-badām and Khujand lies the waste known as Hā Darwesh. In this there is always (*hamesha*) wind; from it wind goes always (hameshā) to Marghīnān on its east; from it wind comes continually (*dā’im*) to Khujand on its west.\n\nIt has violent, whirling winds. People say that some darweshes, encountering a whirlwind in this desert, lost one another and kept crying, “Hāy Darwesh! Hāy Darwesh!” till all had perished, and that the waste has been called Hā Darwesh ever since.",
+      uz: "Xo‘jand va Kandibodom orasida Hodarvesh nomli bir dasht bor. Bu dashtda hamisha shamol esadi. Bundan sharq tomonda bo‘lgan Marg‘ilonga ham shu yerning shamoli boradi. Xo‘jand buning garbida bo‘lib, mudom bu yerdan u yerga shamol esadi; qattiq shamollari bor. Derlarki, bir necha darvesh bu dashtda qattiq shamolga yo‘liqib, bir-birlarini topolmay, „Ho, darvesh!“ „Ho, darvesh!“ deya-deya halok bo‘lganlar. Ushandan beri bu dashtni Hodarvesh deydilar."
+    },
+    img: 20,
+    imgSize: "narrow"
+  },
+  {
+    text: {
+      ru: "Один из городов на северном берегу реки Сейхун – Ахсы. В книгах это название пишут: Ахсикет.\n" +
+        "В Фергане после Андижана, нет города больше этого. От Андижана к западу до Ахсы девять йигачей пути. Омар-Шейх- мирза сделал его своей столицей. \n\nРека Сейхун протекает под крепостью. Крепость стоит на высоком яру. Вместо рва там вырыты глубокие овраги. Омар-Шейх-мирза, который сделал Ахсы своей столицей, еще раз или два копал рвы дальше, вне крепости. В Фергане нет другой такой неприступной крепости.",
+      en: "Of the townships on the north of the Saiḥūn River one is Akhsī. In books they write it Akhsīkīt.  After Andijān no township in Farghāna is larger than Akhsī. It is nine *yīghāch* by road to the west of Andijān. ‘Umar Shaikh Mīrzā made it his capital.\n\nThe Saiḥūn River flows below its walled town (*qūrghān*). This stands above a great ravine (*buland jar*) and it has deep ravines (*‘uṃiq jarlār*) in place of a moat. When ‘Umar Shaikh Mīrzā made it his capital, he once or twice cut other ravines from the outer ones. In all Farghāna no fort is so strong as Akhsī.",
+      uz: "Sayhun suvining shimoliy tarafidagi shaharlardan biri Axsidir. Kitoblarda Axsikat deb yozadilar. Fargonada Andijondan keyin bundan yirikroq shahar yoʻq.\n\nAxsi Andijondan gʻarb sari toʻqqiz yigochlik yoʻlda. Umarshayx mirzo buni poytaxt qilgan edi. Sayhun daryosi qoʻrgʻonining pastidan oqadi. Qoʻrgʻoni baland jar ustida joylashgan. Xandaq oʻrnida chuqur jarlar bor. Buni poytaxt qilgʻan Umarshayx mirzo bir-ikki marotaba tashqariroqdan yana jarlar qazdirdi. Fargʻonada bunchalik mustahkam qoʻrgʻon yoʻq."
+    },
+    img: 21,
+    imgSize: "supernarrow"
+  },
+  {
+    text: {
+      ru: "Как уже было упомянуто, укрепление Ахсы стояло на высоком яру. Постройки находились на краю оврага. В том году, в понедельник, четвертого числа месяца рамазана, Омар-Шейх-мирза вместе с голубями и голубятней упал в овраг и погиб. Прожил он тридцать девять лет.",
+      en: "It has been mentioned that the fort of Akhsī is situated above a deep ravine; Along this ravine stand the palace buildings, and from it, on Monday, Ramẓān 4, (June 8th.) ‘Umar Shaikh Mīrzā flew, with his pigeons and their house, and died.",
+      uz: "Zikr etilganidek, Axsi qo‘rg‘oni baland jar ustida joylashgan, imoratlari ham jar yoqasida edi. Ushbu yili dushanba kuni, ramazon oyining to‘rtinchisida Umarshayx mirzo jardan kabutarlar va kabutarxonasi bilan uchib, halok bo‘ldi. O‘ttiz to‘qqiz yoshda edi."
+    },
+    img: 22
+  },
+  {
+    text: {
+      ru: "Омар-Шейх был небольшого роста, тучный, с круглой бородой, бледным и пухлым лицом. Одежду он носил очень узкую и, стягивая завязки, убирал живот внутрь; если же, стянув их, он нагибался, то часто бывало, что завязки рвались. В одежде и пище он был неприхотлив и наматывал чалму на лад «дестар-печ» (в то время чалма у всех была в четыре оборота; ее наматывали без складок, опуская конец вниз). Летом, везде, кроме дивана, он большей частью ходил в могольской шапке.",
+      en: "Umar Shaikh Mīrzā was a short and stout, round-bearded and fleshy-faced person.  He used to wear his tunic so very tight that to fasten the strings he had to draw his belly in and, if he let himself out after tying them, they often tore away. He was not choice in dress or food. He wound his turban in a fold (*dastar-pech*); all turbans were in four folds (*chār-pech*) in those days; people wore them without twisting and let the ends hang down.In the heats and except in his Court, he generally wore the Mughūl cap.",
+      uz: "Umarshayx mirzo past bo‘yli, yumaloq soqolli, sarg‘ish yuzli norgil kishi edi. To‘nni rosa tor kiyar edi. Shunchalikki, belbog‘ bog‘laganda qornini ichiga tortib bog‘latar, bog‘lagandan so‘ng o‘zini qo‘yib yuborsa ko‘pincha bog‘lari uzilib ketardi. Kiymoq va yemoqda betakalluf edi. Sallani dastorpech (maxsus salla o‘raydig‘an kishi) o‘rab qo‘yardi. U zamonda sallalar butun to‘rto‘rama bo‘lardi. Tekis chirmab, uchini osiltirib qo‘yardilar. Yoz paytlari mahkamadan boshqa yerlarda aksar mo‘g‘ulcha bo‘rk kiyardi."
+    },
+    img: 23,
+    imgSize: "narrow"
   }
 ]
