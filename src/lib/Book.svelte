@@ -38,6 +38,14 @@
     }
   }
 
+  function preloadPageImages(page: number) {
+    const nextPage = content[page];
+    if (nextPage && nextPage.img) {
+      const img = new Image();
+      img.src = `/book/boburnama-${nextPage.img}.jpg`;
+    }
+  }
+
   page.subscribe((pageNo) => {
     const validatedNo = validatePageNo(pageNo);
     if (validatedNo !== pageNo) {
@@ -47,8 +55,11 @@
     newPageNo = pageNo;
     if (initialOpening) {
       initialOpening = false;
+      currentPageNo = pageNo;
       return;
     }
+    preloadPageImages(pageNo + 2);
+    preloadPageImages(pageNo + 3);
     isTurning = true;
     setTimeout(() => {
       if (pageNo > currentPageNo) {

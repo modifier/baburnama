@@ -57,13 +57,6 @@
     </ul>
   </div>
 {/if}
-{#if content[page] && content[page].type === 'titular-image'}
-  <article>
-    <div class="article-content">
-      <img src="/book/bobur.jpg" class="fullpage-picture" alt="Изображение Захириддина Бабура, сделанное Midjourney" />
-    </div>
-  </article>
-{/if}
 {#if content[page] && content[page].type === 'titular'}
   <div class="titular">
     <div>
@@ -117,9 +110,11 @@
     <div class="article-content">
       <img src="/book/boburnama-{content[page].img}.jpg" class="fullpage-picture" />
     </div>
-    <div class="page-container">
-      {page + 1}
-    </div>
+    {#if content[page].hidePageNumber}
+      <div class="page-container">
+        {page + 1}
+      </div>
+    {/if}
   </article>
 {/if}
 {#if content[page] && (!content[page].type || content[page].type === 'regular')}
