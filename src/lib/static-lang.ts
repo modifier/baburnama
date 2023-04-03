@@ -24,6 +24,11 @@ export const staticLang = {
     en: "Text and illustrations are taken from the telegram channel [Boburnama](https://t.me/boburnama)",
     uz: "Matn va rasmlar telegram kanalidan olingan [Boburnama](https://t.me/boburnama)"
   },
+  sourceCode: {
+    ru: "Исходный код сайта доступен на [GitHub](https://github.com/modifier/baburnama)",
+    en: "Source code of the site is available on [GitHub](https://github.com/modifier/baburnama)",
+    uz: "Source code of the site is available on [GitHub](https://github.com/modifier/baburnama)"
+  },
   background: {
     en: "Background &mdash; **[Desert during Nighttime](https://www.pexels.com/photo/desert-during-nighttime-847402)** by **Walid Ahmad**",
     ru: "Фон &mdash; **[Пустыня ночью](https://www.pexels.com/photo/desert-during-nighttime-847402)**, автор **Walid Ahmad**",

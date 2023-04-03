@@ -66,6 +66,9 @@
         <div>
           {@html marked.parse(staticLang.source[$language])}
         </div>
+        <div>
+          {@html marked.parse(staticLang.sourceCode[$language])}
+        </div>
       </div>
       <div class="additional">
         <div>
