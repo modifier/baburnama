@@ -37,7 +37,7 @@
   .onpage {
     --border-size: -4px;
     --border-color: #a98568;
-    font-family: "Noto Serif", "Times New Roman", serif;
+    font-family: var(--default-font-family);
     font-size: var(--default-font-size);
     margin: 0 10px;
     cursor: pointer;

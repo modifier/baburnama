@@ -1,10 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 html, body {
+  --default-font-size: min(2vh, 1.25vw, 24px);
+  --heading-font-size: min(8vh, 5.2vw, 96px);
+  --heading-font-family: Pehlevi, Pehlevi-fallback, Georgia, serif;
+  --default-font-family: "Noto Serif", NotoSerif-fallback, Georgia, serif;
+  font-family: var(--default-font-family);
   height: 100%;
-  font-family: "Noto Serif", "Times New Roman", serif;
-  --default-font-size: max(min(2vh, 1.3vw, 24px), 12px);
-  --heading-font-size: max(min(8vh, 5.2vw, 96px), 48px);
 }
 
 @font-face {
@@ -12,16 +14,33 @@ html, body {
   src: url('../assets/pehlevi.ttf');
 }
 
+@font-face {
+  font-family: Pehlevi-fallback;
+  src: local(Georgia);
+  ascent-override: 98%;
+  descent-override: 43%;
+  line-gap-override: 0%;
+  size-adjust: 86%;
+}
+
+@font-face {
+  font-family: NotoSerif-fallback;
+  src: local(Georgia);
+  line-gap-override: 0%;
+  size-adjust: 110%;
+}
+
 body {
   margin: 0;
   overflow: hidden;
-  background: url('../assets/desert-night.jpg');
+  background-image: url('../assets/desert-night.jpg'), linear-gradient(180deg, rgba(52,38,38,1) 0%, rgba(107,75,76,1) 60%, rgba(130,79,66,1) 61%, rgba(90,46,27,1) 100%);
+  background-color: #402b2c;
   background-size: cover;
   font-size: var(--default-font-size);
 }
 
 button.bookmark {
-  font-family: "Noto Serif", "Times New Roman", serif;
+  font-family: var(--default-font-family);
   font-size: var(--default-font-size);
   margin: 0 6px;
   cursor: pointer;

@@ -164,7 +164,8 @@
         inset: 0;
         z-index: 0;
         background-size: 1000px;
-        background-image: url('../assets/paper.png');
+        background-image: url('../assets/paper.jpg');
+        background-color: #f8f0e2;
         pointer-events: none;
       }
 

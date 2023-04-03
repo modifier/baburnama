@@ -289,10 +289,8 @@ export const content: PageContent[] = [
     imgType: "contain"
   },
   {
-    type: "duoimg",
-    img1: 24,
-    img2: 25,
-    img2Type: "cover",
+    type: "image",
+    img: 24,
   },
   {
     text: {
@@ -305,10 +303,8 @@ export const content: PageContent[] = [
     imgType: "contain"
   },
   {
-    type: "duoimg",
-    img1: 27,
-    img2: 28,
-    img2Type: "cover",
+    type: "image",
+    img: 28,
   },
   {
     text: {

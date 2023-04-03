@@ -126,10 +126,10 @@
   <article on:click={captureLinkClick}>
     <div class="article-content">
       {#if content[page].img}
-        <div class="midjourney">
+        <div class="midjourney"
+             class:midjourney--narrow={content[page].imgSize === 'narrow'}
+             class:midjourney--supernarrow={content[page].imgSize === 'supernarrow'}>
           <img src={`/book/boburnama-${content[page].img}.jpg`} class="midjourney-img"
-               class:midjourney-img--narrow={content[page].imgSize === 'narrow'}
-               class:midjourney-img--supernarrow={content[page].imgSize === 'supernarrow'}
                class:midjourney-img--contain={content[page].imgType === 'contain'}
           />
         </div>
@@ -171,7 +171,7 @@
   .table-of-contents-title {
     margin: 0;
     text-align: center;
-    font-family: "Pehlevi", serif;
+    font-family: var(--heading-font-family);
   }
 
   .table-of-contents-content {
@@ -181,7 +181,7 @@
   }
 
   .table-of-contents-item {
-    margin: 8px 0;
+    margin: calc(var(--padding) / 4) 0;
 
     a {
       color: black;
@@ -189,7 +189,7 @@
       display: flex;
       width: 100%;
       justify-content: space-between;
-      gap: 8px;
+      gap: calc(var(--padding) / 4);
     }
 
     &__title {
@@ -261,7 +261,7 @@
     h1 {
       margin-top: 0;
       font-size: var(--heading-font-size);
-      font-family: "Pehlevi", serif;
+      font-family: var(--heading-font-family);
     }
   }
 
@@ -292,21 +292,22 @@
   .midjourney {
     width: 100%;
     background: #a98568;
+    aspect-ratio: 1.3 / 1;
+  }
+
+  .midjourney--narrow {
+    aspect-ratio: 1.5/1;
+  }
+
+  .midjourney--supernarrow {
+    aspect-ratio: 1.8/1;
   }
 
   .midjourney-img {
     object-fit: cover;
-    max-width: 100%;
+    width: 100%;
+    height: 100%;
     margin: 0 auto;
-    aspect-ratio: 1.3 / 1;
-  }
-
-  .midjourney-img--narrow {
-    aspect-ratio: 1.5/1;
-  }
-
-  .midjourney-img--supernarrow {
-    aspect-ratio: 1.8/1;
   }
 
   .midjourney-img--contain {
@@ -314,7 +315,7 @@
   }
 
   .text {
-    padding: 8px;
+    padding: calc(var(--padding) / 4);
 
     .midjourney + & {
       border-top: 4px #a98568 double;
@@ -326,7 +327,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height: 32px;
+    height: calc(var(--padding) / 1.7);
     text-align: center;
     font-size: var(--default-font-size);
   }
