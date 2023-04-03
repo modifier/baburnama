@@ -7,7 +7,9 @@ type PlainPageContent = {
 type DuoImgPageContent = {
   type: 'duoimg';
   img1: number;
+  img1Type?: 'cover' | 'contain';
   img2: number;
+  img2Type?: 'cover' | 'contain';
 }
 
 type ImagePageContent = {
@@ -23,6 +25,7 @@ type RegularPageContent = {
     uz: string;
   };
   imgSize?: 'normal' | 'narrow' | 'supernarrow';
+  imgType?: 'cover' | 'contain';
   img?: number;
   title?: {
     ru: string;
@@ -115,7 +118,6 @@ export const content: PageContent[] = [
     }
   },
   {
-    imgSize: 'narrow',
     text: {
       ru: "В Мавераннахре, после Самарканда и Кеша, нет укрепления, больше Андижана. В городе трое ворот; арк Андижана находится на южной стороне. Вода входит в город по девяти каналам; удивительно, что она не выходит ниоткуда. Вокруг крепости, с внешней стороны рва – большая дорога, мощеная щебнем; крепость сплошь окружают, пригороды; их отделяет от крепости этот ров. По краю рва тоже тянется большая дорога.",
       en: "After Samarkand and Kesh, the fort of Andijān is the largest in Mawārā’u’n-nahr (Transoxiana). It has three gates. Its citadel (ark) is on its south side. Into it water goes by nine channels; out of it, it is strange that none comes at even a single place. Round the outer edge of the ditch runs a gravelled highway; the width of this highway divides the fort from the suburbs surrounding it.",
@@ -192,7 +194,7 @@ export const content: PageContent[] = [
   },
   {
     text: {
-      ru: "Есть один сорт граната, который называют «дона-калан» – «крупно-зерни- стый»; в его сладости есть легкий приятный кислый привкус сливы. Этим гранатам можно отдать предпочтение перед семнанскими гранатами. Есть там сорт урюка, из которого вынимают косточки, кладут внутрь ядрышки и сушат; называют его «субхани», он очень вкусный.",
+      ru: "Есть один сорт граната, который называют «дона-калан» – «крупнозернистый»; в его сладости есть легкий приятный кислый привкус сливы. Этим гранатам можно отдать предпочтение перед семнанскими гранатами. Есть там сорт урюка, из которого вынимают косточки, кладут внутрь ядрышки и сушат; называют его «субхани», он очень вкусный.",
       en: "One sort of pomegranate, they call the Great Seed (Dāna-i-kalān); its sweetness has a little of the pleasant flavour of the small apricot (zard-alū) and it may be thought better than the Semnān pomegranate. Another kind of apricot (aūrūk) they dry after stoning it and putting back the kernel, they then call it subḥānī; it is very palatable.",
       uz: "Bir nav anori buladi: yirikdona, deydilar, chuchukligidan biroz o‘rik shirinligicha ta’mi bor. Samnon anorlaridan yuqori so‘ysa bo‘ladi. Yana bir nav o‘rik bo‘ladiki, danagini olib, ichiga mag‘iz solib quritadilar, buni subhoniy deydilar, ko‘p lazizdir."
     },
@@ -250,7 +252,8 @@ export const content: PageContent[] = [
       uz: "Xo‘jand va Kandibodom orasida Hodarvesh nomli bir dasht bor. Bu dashtda hamisha shamol esadi. Bundan sharq tomonda bo‘lgan Marg‘ilonga ham shu yerning shamoli boradi. Xo‘jand buning garbida bo‘lib, mudom bu yerdan u yerga shamol esadi; qattiq shamollari bor. Derlarki, bir necha darvesh bu dashtda qattiq shamolga yo‘liqib, bir-birlarini topolmay, „Ho, darvesh!“ „Ho, darvesh!“ deya-deya halok bo‘lganlar. Ushandan beri bu dashtni Hodarvesh deydilar."
     },
     img: 20,
-    imgSize: "narrow"
+    imgSize: "narrow",
+    imgType: "contain",
   },
   {
     text: {
@@ -282,12 +285,14 @@ export const content: PageContent[] = [
       uz: "Umarshayx mirzo past bo‘yli, yumaloq soqolli, sarg‘ish yuzli norgil kishi edi. To‘nni rosa tor kiyar edi. Shunchalikki, belbog‘ bog‘laganda qornini ichiga tortib bog‘latar, bog‘lagandan so‘ng o‘zini qo‘yib yuborsa ko‘pincha bog‘lari uzilib ketardi. Kiymoq va yemoqda betakalluf edi. Sallani dastorpech (maxsus salla o‘raydig‘an kishi) o‘rab qo‘yardi. U zamonda sallalar butun to‘rto‘rama bo‘lardi. Tekis chirmab, uchini osiltirib qo‘yardilar. Yoz paytlari mahkamadan boshqa yerlarda aksar mo‘g‘ulcha bo‘rk kiyardi."
     },
     img: 23,
-    imgSize: "narrow"
+    imgSize: "narrow",
+    imgType: "contain"
   },
   {
     type: "duoimg",
     img1: 24,
-    img2: 25
+    img2: 25,
+    img2Type: "cover",
   },
   {
     text: {
@@ -296,12 +301,14 @@ export const content: PageContent[] = [
       uz: "Umarshayx mirzo **uch marotaba saf tortib urush qilgan**.\n\n**Avval Yunusʼhon bilan** Andijonning shimol tarafi — Sayhun daryosining yoqasidagi Takasek-retku degan yerda. Bunday nomlanishining boisi shuki, tog‘ etagi bo‘lganidan bu yerda daryo shunday tor joydan oqadiki, rivoyat qilishlaricha, u yerdan taka sakrab o‘tgan ekan.\n\nMag‘lub bo‘lib, qo‘lga tushdi. Yunus-xon yaxshilik qilib viloyatiga ruxsat berdi. Bu yerda urush bo‘lgani uchun „Taka-sekretku urushi“ ul viloyat tarixida qolgandir."
     },
     img: 26,
-    imgSize: "supernarrow"
+    imgSize: "narrow",
+    imgType: "contain"
   },
   {
     type: "duoimg",
     img1: 27,
-    img2: 28
+    img2: 28,
+    img2Type: "cover",
   },
   {
     text: {

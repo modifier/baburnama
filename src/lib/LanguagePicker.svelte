@@ -38,7 +38,7 @@
     --border-size: -4px;
     --border-color: #a98568;
     font-family: "Noto Serif", "Times New Roman", serif;
-    font-size: 16px;
+    font-size: var(--default-font-size);
     margin: 0 10px;
     cursor: pointer;
     padding: 6px 24px;

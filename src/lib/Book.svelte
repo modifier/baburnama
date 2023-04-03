@@ -124,7 +124,8 @@
 <style lang="scss">
   .codex-wrapper {
     max-height: 95%;
-    max-width: 95%;
+    max-width: min(95%, 1640px);
+    min-width: 600px;
     position: absolute;
     inset: 0;
     margin: auto;

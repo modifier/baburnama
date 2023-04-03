@@ -3,6 +3,8 @@
 html, body {
   height: 100%;
   font-family: "Noto Serif", "Times New Roman", serif;
+  --default-font-size: max(min(2vh, 1.3vw, 24px), 12px);
+  --heading-font-size: max(min(8vh, 5.2vw, 96px), 48px);
 }
 
 @font-face {
@@ -15,11 +17,12 @@ body {
   overflow: hidden;
   background: url('../assets/desert-night.jpg');
   background-size: cover;
+  font-size: var(--default-font-size);
 }
 
 button.bookmark {
   font-family: "Noto Serif", "Times New Roman", serif;
-  font-size: 16px;
+  font-size: var(--default-font-size);
   margin: 0 6px;
   cursor: pointer;
   padding: 4px 16px;

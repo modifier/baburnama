@@ -130,6 +130,7 @@
           <img src={`/book/boburnama-${content[page].img}.jpg`} class="midjourney-img"
                class:midjourney-img--narrow={content[page].imgSize === 'narrow'}
                class:midjourney-img--supernarrow={content[page].imgSize === 'supernarrow'}
+               class:midjourney-img--contain={content[page].imgType === 'contain'}
           />
         </div>
       {/if}
@@ -146,12 +147,10 @@
   <article>
     <div class="duoimg-content">
       <img src={`/book/boburnama-${content[page].img1}.jpg`} class="midjourney-pic"
-           class:midjourney-img--narrow={content[page].imgSize === 'narrow'}
-           class:midjourney-img--supernarrow={content[page].imgSize === 'supernarrow'}
+           class:midjourney-pic--cover={content[page].img1Type === 'cover'}
       />
       <img src={`/book/boburnama-${content[page].img2}.jpg`} class="midjourney-pic"
-           class:midjourney-img--narrow={content[page].imgSize === 'narrow'}
-           class:midjourney-img--supernarrow={content[page].imgSize === 'supernarrow'}
+           class:midjourney-pic--cover={content[page].img2Type === 'cover'}
       />
     </div>
     <div class="page-container">
@@ -161,8 +160,12 @@
 {/if}
 
 <style lang="scss">
+  :root {
+    --padding: min(6vh, 5vw, 64px);
+  }
+
   .table-of-contents {
-    padding: 48px;
+    padding: var(--padding);
   }
 
   .table-of-contents-title {
@@ -174,8 +177,7 @@
   .table-of-contents-content {
     list-style: none;
     padding: 0;
-    margin: 0;
-    margin-top: 48px;
+    margin: var(--padding) 0 0;
   }
 
   .table-of-contents-item {
@@ -204,7 +206,7 @@
 
   article {
     height: 100%;
-    padding: 48px;
+    padding: var(--padding);
     box-sizing: border-box;
     font-size: 0;
     position: relative;
@@ -219,6 +221,10 @@
     .midjourney-pic {
       height: 50%;
       object-fit: contain;
+
+      &--cover {
+        object-fit: cover;
+      }
     }
 
     .midjourney-pic + .midjourney-pic {
@@ -249,18 +255,18 @@
     align-items: center;
     justify-content: center;
     height: 100%;
-    padding: 48px;
+    padding: var(--padding);
     box-sizing: border-box;
 
     h1 {
       margin-top: 0;
-      font-size: 72px;
+      font-size: var(--heading-font-size);
       font-family: "Pehlevi", serif;
     }
   }
 
   .credits {
-    padding: 48px;
+    padding: var(--padding);
     box-sizing: border-box;
     line-height: 2em;
     height: 100%;
@@ -296,17 +302,18 @@
   }
 
   .midjourney-img--narrow {
-    object-fit: contain;
     aspect-ratio: 1.5/1;
   }
 
   .midjourney-img--supernarrow {
-    object-fit: contain;
     aspect-ratio: 1.8/1;
   }
 
+  .midjourney-img--contain {
+    object-fit: contain;
+  }
+
   .text {
-    line-height: 24px;
     padding: 8px;
 
     .midjourney + & {
@@ -321,13 +328,14 @@
     right: 0;
     height: 32px;
     text-align: center;
-    font-size: 15px;
+    font-size: var(--default-font-size);
   }
 
   :global {
     .text p {
       margin: 0;
-      font-size: 15px;
+      font-size: var(--default-font-size);
+      line-height: 1.5em;
     }
     .text p + p {
       margin-top: 1em;
