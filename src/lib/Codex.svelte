@@ -39,19 +39,23 @@
     class:codex--forward={opening === OpeningType.FORWARD}
   >
     <div class="codex__page codex__page--first codex__page-left" on:click={toBack}>
-      {#if isTurning}
-        <slot name="back-1"></slot>
-      {:else}
-        <slot name="middle-1"></slot>
-      {/if}
+      <div class="codex__page-content">
+        {#if isTurning}
+          <slot name="back-1"></slot>
+        {:else}
+          <slot name="middle-1"></slot>
+        {/if}
+      </div>
     </div>
 
     <div class="codex__page codex__page--last codex__page-right" on:click={toForward}>
-      {#if isTurning}
-        <slot name="forward-2"></slot>
-      {:else}
-        <slot name="middle-2"></slot>
-      {/if}
+      <div class="codex__page-content">
+        {#if isTurning}
+          <slot name="forward-2"></slot>
+        {:else}
+          <slot name="middle-2"></slot>
+        {/if}
+      </div>
     </div>
 
     {#if isTurning}
@@ -140,6 +144,15 @@
       position: relative;
       cursor: pointer;
 
+      &-content,
+      &-front,
+      &-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+      }
+
       &-right {
         border-top-left-radius: 47px 12px;
         overflow: hidden;
@@ -197,18 +210,10 @@
       }
 
       &-front {
-        box-sizing: border-box;
-        position: absolute;
-        width: 100%;
-        height: 100%;
         transform: rotateY(0deg) translateZ(1px);
       }
 
       &-back {
-        box-sizing: border-box;
-        position: absolute;
-        width: 100%;
-        height: 100%;
         transform: rotateY(180deg) translateZ(1px);
       }
     }
