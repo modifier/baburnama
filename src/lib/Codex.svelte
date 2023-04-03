@@ -6,21 +6,29 @@
   export let opening = OpeningType.MIDDLE;
   export let hasBack = true;
   export let hasForward = true;
+  let isTurning = false;
 
   function toBack() {
-    if (hasBack) {
-      opening = OpeningType.BACK;
+    if (hasBack && !isTurning) {
+      isTurning = true;
+      setTimeout(() => {
+        opening = OpeningType.BACK;
+      });
     }
   }
 
   function toForward() {
-    if (hasForward) {
-      opening = OpeningType.FORWARD;
+    if (hasForward && !isTurning) {
+      isTurning = true;
+      setTimeout(() => {
+        opening = OpeningType.FORWARD;
+      });
     }
   }
 
   function handleAnimationEnd() {
     dispatch('pageTurned');
+    isTurning = false;
   }
 </script>
 
@@ -30,31 +38,41 @@
     class:codex--back={opening === OpeningType.BACK}
     class:codex--forward={opening === OpeningType.FORWARD}
   >
-    <div class="codex__page codex__page--first codex__page-left">
-      <slot name="back-1"></slot>
-    </div>
-
-    <div class="codex__page codex__page--last codex__page-right">
-      <slot name="forward-2"></slot>
-    </div>
-
-    <div class="codex__page codex__page--middle-2" on:transitionend={handleAnimationEnd}>
-      <div class="codex__page-front codex__page-right">
-        <slot name="back-2"></slot>
-      </div>
-      <div class="codex__page-back codex__page-left" on:click={toBack}>
+    <div class="codex__page codex__page--first codex__page-left" on:click={toBack}>
+      {#if isTurning}
+        <slot name="back-1"></slot>
+      {:else}
         <slot name="middle-1"></slot>
-      </div>
+      {/if}
     </div>
 
-    <div class="codex__page codex__page--middle-3" on:transitionend={handleAnimationEnd}>
-      <div class="codex__page-front codex__page-right" on:click={toForward}>
+    <div class="codex__page codex__page--last codex__page-right" on:click={toForward}>
+      {#if isTurning}
+        <slot name="forward-2"></slot>
+      {:else}
         <slot name="middle-2"></slot>
-      </div>
-      <div class="codex__page-back codex__page-left">
-        <slot name="forward-1"></slot>
-      </div>
+      {/if}
     </div>
+
+    {#if isTurning}
+      <div class="codex__page codex__page--middle-2" on:transitionend={handleAnimationEnd}>
+        <div class="codex__page-front codex__page-right">
+          <slot name="back-2"></slot>
+        </div>
+        <div class="codex__page-back codex__page-left" on:click={toBack}>
+          <slot name="middle-1"></slot>
+        </div>
+      </div>
+
+      <div class="codex__page codex__page--middle-3" on:transitionend={handleAnimationEnd}>
+        <div class="codex__page-front codex__page-right" on:click={toForward}>
+          <slot name="middle-2"></slot>
+        </div>
+        <div class="codex__page-back codex__page-left">
+          <slot name="forward-1"></slot>
+        </div>
+      </div>
+    {/if}
   </div>
 </div>
 
@@ -120,6 +138,7 @@
       transform: rotateY(0deg);
       transform-origin: 0 0;
       position: relative;
+      cursor: pointer;
 
       &-right {
         border-top-left-radius: 47px 12px;
