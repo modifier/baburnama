@@ -106,7 +106,9 @@
 <svelte:window on:popstate={popFromHistory} />
 <div class="codex-wrapper">
   <div class="codex-toolbar">
-    <div class="toolbar-bookmark" class:toolbar-bookmark--hidden={content[$page].hideTableOfContents}>
+    <div class="toolbar-bookmark"
+         class:toolbar-bookmark--hidden={content[$page].hideTableOfContents}
+         class:toolbar-bookmark--hidden-desktop={content[$page].hideTableOfContentsDesktop}>
       <button class="bookmark" on:click={gotoTableOfContents}>
         <img src="/globe.png" class="globe-icon" />
         <span>{staticLang.tableOfContents[$language]}</span>
@@ -114,7 +116,6 @@
     </div>
     <div class="language-picker-bookmark toolbar-bookmark"
          class:toolbar-bookmark--hidden={content[$page].hideLanguagePicker}
-         class:toolbar-bookmark--hidden-desktop={content[$page].hideLanguagePickerDesktop}
     >
       <LanguagePicker variant="bookmark" />
     </div>
