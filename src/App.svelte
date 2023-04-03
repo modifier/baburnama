@@ -13,5 +13,4 @@
 </svelte:head>
 <main>
   <Book />
-  {@html import.meta.env.ADDITIONAL_CODE}
 </main>
