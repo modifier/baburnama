@@ -39,6 +39,11 @@
   }
 
   page.subscribe((pageNo) => {
+    const validatedNo = validatePageNo(pageNo);
+    if (validatedNo !== pageNo) {
+      page.set(validatedNo);
+      return;
+    }
     newPageNo = pageNo;
     if (initialOpening) {
       initialOpening = false;
@@ -61,7 +66,7 @@
 
   function gotoTableOfContents() {
     const tableOfContentsPage = content.findIndex((page) => page.type === "tableOfContents");
-    page.set(validatePageNo(tableOfContentsPage));
+    page.set(tableOfContentsPage);
   }
 
   $: {

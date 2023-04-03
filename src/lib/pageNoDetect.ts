@@ -6,7 +6,7 @@ export function getPageNo() {
     return 0;
   }
 
-  return validatePageNo(parseInt(fragment[1], 10) - 1);
+  return parseInt(fragment[1], 10) - 1;
 }
 
 export function validatePageNo(pageNo) {
