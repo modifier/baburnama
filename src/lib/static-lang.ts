@@ -7,7 +7,7 @@ export const staticLang = {
   author: {
     ru: "**Автор**: Захириддин Мухаммад Бабур",
     en: "**Author**: Zahīr ud-Dīn Muhammad Babur",
-    uz: "**Muallif**: Zahiriddin Muhammad Babur"
+    uz: "**Muallif**: Zahiriddin Muhammad Bobur"
   },
   tableOfContents: {
     ru: "Оглавление",
@@ -27,12 +27,12 @@ export const staticLang = {
   source: {
     ru: "Текст книги и иллюстрации взяты из телеграм-канала [Boburnama](https://t.me/boburnama)",
     en: "Text and illustrations are taken from the telegram channel [Boburnama](https://t.me/boburnama)",
-    uz: "Matn va rasmlar telegram kanalidan olingan [Boburnama](https://t.me/boburnama)"
+    uz: "Matn va rasmlar [Boburnama](https://t.me/boburnama) telegram kanalidan olingan"
   },
   sourceCode: {
     ru: "Исходный код сайта доступен на [GitHub](https://github.com/modifier/baburnama)",
     en: "Source code of the site is available on [GitHub](https://github.com/modifier/baburnama)",
-    uz: "Source code of the site is available on [GitHub](https://github.com/modifier/baburnama)"
+    uz: "Internet sahifa kodi [GitHub](https://github.com/modifier/baburnama) joylashtirilgan"
   },
   background: {
     en: "Background &mdash; **[Desert during Nighttime](https://www.pexels.com/photo/desert-during-nighttime-847402)** by **Walid Ahmad**",

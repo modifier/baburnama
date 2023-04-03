@@ -4,7 +4,7 @@
   export let variant: 'onpage' | 'bookmark';
 
   const languages = [
-    { name: 'O\'zbek', code: 'uz' },
+    { name: 'O‘zbek', code: 'uz' },
     { name: 'English', code: 'en' },
     { name: 'Русский', code: 'ru' },
   ];

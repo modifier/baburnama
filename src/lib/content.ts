@@ -193,7 +193,7 @@ export const content: PageContent[] = [
     title: {
       ru: "Маргинан",
       en: "Marghīnān",
-      uz: "Marg‘ilond"
+      uz: "Marg‘ilon"
     }
   },
   {
@@ -279,7 +279,7 @@ export const content: PageContent[] = [
     title: {
       ru: "Жизнь Омар-Шейха",
       en: "The Life of ‘Umar Shaikh Mīrzā",
-      uz: "Umarshayx mirzo hayoti"
+      uz: "Umarshayx mirzoning hayoti"
     }
   },
   {
