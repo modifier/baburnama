@@ -101,6 +101,9 @@
         <div>
           {@html marked.parse(staticLang.font[$language])}
         </div>
+        <div>
+          {@html marked.parse(staticLang.favicon[$language])}
+        </div>
       </div>
       <div class="year">
         <div>{staticLang.madeInToshkent[$language]}</div>

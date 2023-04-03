@@ -39,6 +39,11 @@ export const staticLang = {
     ru: "Фон &mdash; **[Пустыня ночью](https://www.pexels.com/photo/desert-during-nighttime-847402)**, автор **Walid Ahmad**",
     uz: "Fon &mdash; **[Gʻarbiy koʻcha](https://www.pexels.com/photo/desert-during-nighttime-847402)**, muallif **Walid Ahmad**"
   },
+  favicon: {
+    ru: "Иконка &mdash; **[Тигр](https://www.flaticon.com/ru/free-icon/tiger_2160079?term=tiger&related_id=2160079)**, автор **Smashicons**",
+    en: "Favicon &mdash; **[Tiger](https://www.flaticon.com/ru/free-icon/tiger_2160079?term=tiger&related_id=2160079)** by **Smashicons**",
+    uz: "Favicon &mdash; **[Tiger](https://www.flaticon.com/ru/free-icon/tiger_2160079?term=tiger&related_id=2160079)**, muallif **Smashicons**"
+  },
   font: {
     ru: "Шрифт &mdash; **[Pehlevi](https://www.andrewmarcus.ru/projects/fonts/pehlevi)**, автор <b>Андрей Маркелов</b>",
     en: "Font &mdash; **[Pehlevi](https://www.andrewmarcus.ru/projects/fonts/pehlevi)** by <b>Andrey Markelov</b>",
