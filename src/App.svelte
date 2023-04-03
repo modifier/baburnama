@@ -1,12 +1,12 @@
 <script lang="ts">
   import Book from "./lib/Book.svelte";
   import {onMount} from "svelte";
-  import {getPageNo} from "./lib/pageNoDetect";
+  import {getPageNoFromUrl} from "./lib/pageNoDetect";
   import {staticLang} from "./lib/static-lang.js";
   import {language, page} from "./lib/stores.js";
 
   onMount(() => {
-    let fragmentPageNo = getPageNo();
+    let fragmentPageNo = getPageNoFromUrl();
     if (fragmentPageNo) {
       page.set(fragmentPageNo);
     } else {

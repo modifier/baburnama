@@ -1,12 +1,26 @@
 import {content} from "./content";
 
-export function getPageNo() {
+export function getPageNoFromUrl() {
   const fragment = location.hash.match(/page-(\d+)/);
   if (!fragment) {
     return 0;
   }
 
   return parseInt(fragment[1], 10) - 1;
+}
+
+export function getPageNo() {
+  let fragmentPageNo = getPageNoFromUrl();
+  if (fragmentPageNo) {
+    return fragmentPageNo;
+  } else {
+    const storagePage = localStorage.getItem("pageNo");
+    if (storagePage) {
+      return parseInt(storagePage);
+    }
+  }
+
+  return 0;
 }
 
 export function validatePageNo(pageNo) {

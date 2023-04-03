@@ -3,7 +3,7 @@
   import {OpeningType} from "./types";
   import {content} from "./content";
   import Page from "./Page.svelte";
-  import {getPageNo, validatePageNo} from "./pageNoDetect";
+  import {getPageNoFromUrl, validatePageNo} from "./pageNoDetect";
   import LanguagePicker from "./LanguagePicker.svelte";
   import {page} from "./stores";
   import {language} from "./stores.js";
@@ -72,7 +72,7 @@
 
   function popFromHistory() {
     doNotPushState = true;
-    page.set(getPageNo());
+    page.set(getPageNoFromUrl());
   }
 
   function gotoTableOfContents() {

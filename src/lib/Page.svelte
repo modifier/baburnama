@@ -110,7 +110,7 @@
     <div class="article-content">
       <img src="/book/boburnama-{content[page].img}.jpg" class="fullpage-picture" />
     </div>
-    {#if content[page].hidePageNumber}
+    {#if !content[page].hidePageNumber}
       <div class="page-container">
         {page + 1}
       </div>
@@ -157,6 +157,7 @@
 <style lang="scss">
   :root {
     --padding: min(6vh, 5vw, 64px);
+    --border-width: 4px;
   }
 
   .table-of-contents {
@@ -194,8 +195,8 @@
 
     &__gap {
       flex: 1 0 auto;
-      border-bottom: 2px #666 dotted;
-      margin-bottom: 3px;
+      border-bottom: calc(var(--default-font-size) / 8) #666 dotted;
+      margin-bottom: calc(var(--default-font-size) / 8);
     }
   }
 
@@ -208,7 +209,7 @@
   }
 
   .duoimg-content {
-    border: 4px #a98568 double;
+    border: var(--border-width) #a98568 double;
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -223,13 +224,13 @@
     }
 
     .midjourney-pic + .midjourney-pic {
-      border-top: 4px #a98568 double;
+      border-top: var(--border-width) #a98568 double;
     }
   }
 
   .article-content {
     height: 100%;
-    border: 4px #a98568 double;
+    border: var(--border-width) #a98568 double;
   }
 
   :global {
@@ -313,7 +314,7 @@
     padding: calc(var(--padding) / 4);
 
     .midjourney + & {
-      border-top: 4px #a98568 double;
+      border-top: var(--border-width) #a98568 double;
     }
   }
 
@@ -322,8 +323,10 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height: calc(var(--padding) / 1.7);
-    text-align: center;
+    height: calc(var(--padding) - var(--border-width) * 2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: var(--default-font-size);
   }
 
