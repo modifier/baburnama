@@ -9,6 +9,11 @@ html, body {
   height: 100%;
 }
 
+body.mobile {
+  --default-font-size: min(3vh, 2vw, 24px);
+  --heading-font-size: min(10vh, 6.5vw, 96px);
+}
+
 @font-face {
   font-family: Pehlevi;
   src: url('../assets/pehlevi.ttf');

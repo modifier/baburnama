@@ -155,6 +155,17 @@
 {/if}
 
 <style lang="scss">
+  :global {
+    body.mobile {
+      article,
+      .credits,
+      .table-of-contents {
+        aspect-ratio: 0.8 / 1 !important;
+        margin: 0 auto;
+      }
+    }
+  }
+
   :root {
     --padding: min(6vh, 5vw, 64px);
     --border-width: 4px;

@@ -3,11 +3,12 @@
   import {OpeningType} from "./types";
   import {content} from "./content";
   import Page from "./Page.svelte";
-  import {getPageNoFromUrl, validatePageNo} from "./pageNoDetect";
+  import {getPageNoFromUrl} from "./pageNoDetect";
   import LanguagePicker from "./LanguagePicker.svelte";
-  import {page} from "./stores";
+  import {isMobile, page} from "./stores";
   import {language} from "./stores.js";
   import {staticLang} from "./static-lang.js";
+  import {getVisiblePageNo} from "./pageNoDetect.js";
 
   let currentPageNo = 0;
   let newPageNo = 0;
@@ -31,10 +32,11 @@
   }
 
   function handlePageTurning({ detail: { direction }}) {
+    const size = $isMobile ? 1 : 2;
     if (direction === 'back' && hasBack) {
-      page.set(currentPageNo - 2);
+      page.set(currentPageNo - size);
     } else if (direction === 'forward' && hasForward) {
-      page.set(currentPageNo + 2);
+      page.set(currentPageNo + size);
     }
   }
 
@@ -47,7 +49,7 @@
   }
 
   page.subscribe((pageNo) => {
-    const validatedNo = validatePageNo(pageNo);
+    const validatedNo = Math.min(pageNo, content.length - 1);
     if (validatedNo !== pageNo) {
       page.set(validatedNo);
       return;
@@ -58,8 +60,12 @@
       currentPageNo = pageNo;
       return;
     }
-    preloadPageImages(pageNo + 2);
-    preloadPageImages(pageNo + 3);
+    if (!$isMobile) {
+      preloadPageImages(pageNo + 2);
+      preloadPageImages(pageNo + 3);
+    } else {
+      preloadPageImages(pageNo + 1);
+    }
     isTurning = true;
     setTimeout(() => {
       if (pageNo > currentPageNo) {
@@ -82,7 +88,7 @@
 
   $: {
     hasBack = currentPageNo > 0;
-    hasForward = currentPageNo < content.length - 2;
+    hasForward = currentPageNo < content.length - ($isMobile ? 1 : 2);
   }
 </script>
 
@@ -105,34 +111,44 @@
   >
     <svelte:fragment slot="back-1">
       {#if hasBack}
-        <Page page={newPageNo} />
+        <Page page={getVisiblePageNo(newPageNo, $isMobile)} />
       {/if}
     </svelte:fragment>
     <svelte:fragment slot="back-2">
       {#if hasBack}
-        <Page page={newPageNo + 1} />
+        <Page page={getVisiblePageNo(newPageNo, $isMobile) + 1} />
       {/if}
     </svelte:fragment>
     <svelte:fragment slot="middle-1">
-      <Page page={currentPageNo} />
+      <Page page={getVisiblePageNo(currentPageNo, $isMobile)} />
     </svelte:fragment>
     <svelte:fragment slot="middle-2">
-      <Page page={currentPageNo + 1} />
+      <Page page={getVisiblePageNo(currentPageNo, $isMobile) + 1} />
     </svelte:fragment>
     <svelte:fragment slot="forward-1">
       {#if hasForward}
-        <Page page={newPageNo} />
+        <Page page={getVisiblePageNo(newPageNo, $isMobile)} />
       {/if}
     </svelte:fragment>
     <svelte:fragment slot="forward-2">
       {#if hasForward}
-        <Page page={newPageNo + 1} />
+        <Page page={getVisiblePageNo(newPageNo, $isMobile) + 1} />
       {/if}
     </svelte:fragment>
   </Codex>
 </div>
 
 <style lang="scss">
+  :global {
+    body.mobile {
+      .codex-wrapper {
+        max-height: 100%;
+        max-width: 100%;
+        aspect-ratio: auto;
+      }
+    }
+  }
+
   .codex-wrapper {
     max-height: 95%;
     max-width: min(95%, 1640px);
@@ -143,6 +159,14 @@
     aspect-ratio: 1.6 / 1.05;
     display: flex;
     flex-direction: column;
+  }
+
+  :global {
+    body.mobile {
+      .codex-toolbar {
+        display: none;
+      }
+    }
   }
 
   .codex-toolbar {

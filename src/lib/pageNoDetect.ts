@@ -24,10 +24,13 @@ export function getPageNo() {
 }
 
 export function validatePageNo(pageNo) {
-  const page = Math.min(pageNo, content.length - 1);
-  if (page % 2 == 1) {
-    return page - 1;
+  return Math.min(pageNo, content.length - 1);
+}
+
+export function getVisiblePageNo(pageNo, isMobile) {
+  if (pageNo % 2 == 1 && !isMobile) {
+    return pageNo - 1;
   } else {
-    return page;
+    return pageNo;
   }
 }

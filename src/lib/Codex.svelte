@@ -1,6 +1,7 @@
 <script lang="ts">
   import {createEventDispatcher} from 'svelte';
   import {OpeningType} from "./types";
+  import {isMobile} from "./stores.js";
   const dispatch = createEventDispatcher();
 
   export let opening = OpeningType.MIDDLE;
@@ -31,15 +32,17 @@
     class:codex--back={opening === OpeningType.BACK}
     class:codex--forward={opening === OpeningType.FORWARD}
   >
-    <div class="codex__page codex__page--first codex__page-left" on:click={toBack}>
-      <div class="codex__page-content">
-        {#if isTurning}
-          <slot name="back-1"></slot>
-        {:else}
-          <slot name="middle-1"></slot>
-        {/if}
+    {#if !$isMobile}
+      <div class="codex__page codex__page--first codex__page-left" on:click={toBack}>
+        <div class="codex__page-content">
+          {#if isTurning}
+            <slot name="back-1"></slot>
+          {:else}
+            <slot name="middle-1"></slot>
+          {/if}
+        </div>
       </div>
-    </div>
+    {/if}
 
     <div class="codex__page codex__page--last codex__page-right" on:click={toForward}>
       <div class="codex__page-content">
@@ -57,7 +60,9 @@
           <slot name="back-2"></slot>
         </div>
         <div class="codex__page-back codex__page-left" on:click={toBack}>
-          <slot name="middle-1"></slot>
+          {#if !$isMobile}
+            <slot name="middle-1"></slot>
+          {/if}
         </div>
       </div>
 
@@ -66,7 +71,9 @@
           <slot name="middle-2"></slot>
         </div>
         <div class="codex__page-back codex__page-left">
-          <slot name="forward-1"></slot>
+          {#if !isMobile}
+            <slot name="forward-1"></slot>
+          {/if}
         </div>
       </div>
     {/if}
@@ -87,10 +94,35 @@
   }
 
   :global {
+    body.mobile {
+      .cover {
+        aspect-ratio: auto !important;
+        width: 100%;
+        height: 100%;
+        justify-content: flex-start !important;
+      }
+    }
+  }
+
+  :global {
     .codex__page-right > div,
     .codex__page-left > div {
       position: relative;
       height: 100%;
+    }
+  }
+
+  :global {
+    body.mobile {
+      .codex {
+        width: calc(100% - 24px) !important;
+      }
+      .codex::before {
+        display: none;
+      }
+      .codex__page {
+        width: 100% !important;
+      }
     }
   }
 
