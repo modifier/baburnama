@@ -6,29 +6,22 @@
   export let opening = OpeningType.MIDDLE;
   export let hasBack = true;
   export let hasForward = true;
-  let isTurning = false;
+  export let isTurning = false;
 
   function toBack() {
     if (hasBack && !isTurning) {
-      isTurning = true;
-      setTimeout(() => {
-        opening = OpeningType.BACK;
-      });
+      dispatch('pageTurning', { direction: 'back' });
     }
   }
 
   function toForward() {
     if (hasForward && !isTurning) {
-      isTurning = true;
-      setTimeout(() => {
-        opening = OpeningType.FORWARD;
-      });
+      dispatch('pageTurning', { direction: 'forward' });
     }
   }
 
   function handleAnimationEnd() {
     dispatch('pageTurned');
-    isTurning = false;
   }
 </script>
 

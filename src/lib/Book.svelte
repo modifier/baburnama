@@ -9,38 +9,54 @@
   import {language} from "./stores.js";
   import {staticLang} from "./static-lang.js";
 
-  export let pageNo = 0;
+  let currentPageNo = 0;
+  let newPageNo = 0;
   let opening = OpeningType.MIDDLE;
-  let hasBack = false;
-  let hasForward = false;
+  let hasBack = true;
+  let hasForward = true;
   let doNotPushState = false;
+  let isTurning = false;
+  let initialOpening = true;
 
   function handlePageTurned() {
-    if (opening === OpeningType.BACK && hasBack) {
-      page.set($page - 2);
-    } else if (opening === OpeningType.FORWARD && hasForward) {
-      page.set($page + 2);
-    }
     if (!doNotPushState) {
       history.pushState(null, null, `#page-${$page + 1}`);
+      localStorage.setItem("pageNo", $page.toString());
     } else {
       doNotPushState = false;
     }
+    currentPageNo = newPageNo;
+    isTurning = false;
     opening = OpeningType.MIDDLE;
-    localStorage.setItem("pageNo", $page.toString());
   }
 
-  function updatePageNo() {
-    const newPageNo = getPageNo();
-    if (newPageNo > $page) {
-      opening = OpeningType.FORWARD;
-      page.set(newPageNo - 2);
+  function handlePageTurning({ detail: { direction }}) {
+    if (direction === 'back' && hasBack) {
+      page.set(currentPageNo - 2);
+    } else if (direction === 'forward' && hasForward) {
+      page.set(currentPageNo + 2);
     }
-    if (newPageNo < $page) {
-      opening = OpeningType.BACK;
-      page.set(newPageNo + 2);
+  }
+
+  page.subscribe((pageNo) => {
+    newPageNo = pageNo;
+    if (initialOpening) {
+      initialOpening = false;
+      return;
     }
+    isTurning = true;
+    setTimeout(() => {
+      if (pageNo > currentPageNo) {
+        opening = OpeningType.FORWARD;
+      } else if (pageNo < currentPageNo) {
+        opening = OpeningType.BACK;
+      }
+    });
+  });
+
+  function popFromHistory() {
     doNotPushState = true;
+    page.set(getPageNo());
   }
 
   function gotoTableOfContents() {
@@ -49,12 +65,12 @@
   }
 
   $: {
-    hasBack = $page > 0;
-    hasForward = $page < content.length - 2;
+    hasBack = currentPageNo > 0;
+    hasForward = currentPageNo < content.length - 2;
   }
 </script>
 
-<svelte:window on:popstate={updatePageNo} />
+<svelte:window on:popstate={popFromHistory} />
 <div class="codex-wrapper">
   <div class="codex-toolbar">
     <div class="table-of-contents toolbar-bookmark" class:toolbar-bookmark--hidden={content[$page].hideTableOfContents}>
@@ -64,31 +80,37 @@
       <LanguagePicker variant="bookmark" />
     </div>
   </div>
-  <Codex on:pageTurned={handlePageTurned} bind:opening={opening} hasBack={hasBack} hasForward={hasForward}>
+  <Codex on:pageTurning={handlePageTurning}
+         on:pageTurned={handlePageTurned}
+         bind:isTurning={isTurning}
+         bind:opening={opening}
+         hasBack={hasBack}
+         hasForward={hasForward}
+  >
     <svelte:fragment slot="back-1">
       {#if hasBack}
-        <Page page={$page - 2} />
+        <Page page={newPageNo} />
       {/if}
     </svelte:fragment>
     <svelte:fragment slot="back-2">
       {#if hasBack}
-        <Page page={$page - 1} />
+        <Page page={newPageNo + 1} />
       {/if}
     </svelte:fragment>
     <svelte:fragment slot="middle-1">
-      <Page page={$page} />
+      <Page page={currentPageNo} />
     </svelte:fragment>
     <svelte:fragment slot="middle-2">
-      <Page page={$page + 1} />
+      <Page page={currentPageNo + 1} />
     </svelte:fragment>
     <svelte:fragment slot="forward-1">
       {#if hasForward}
-        <Page page={$page + 2} />
+        <Page page={newPageNo} />
       {/if}
     </svelte:fragment>
     <svelte:fragment slot="forward-2">
       {#if hasForward}
-        <Page page={$page + 3} />
+        <Page page={newPageNo + 1} />
       {/if}
     </svelte:fragment>
   </Codex>
