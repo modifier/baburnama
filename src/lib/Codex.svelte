@@ -15,9 +15,22 @@
     }
   }
 
-  function toForward() {
+  function toForward(e) {
+    if ($isMobile) {
+      handleMobileTap(e);
+      return;
+    }
     if (hasForward && !isTurning) {
       dispatch('pageTurning', { direction: 'forward' });
+    }
+  }
+
+  function handleMobileTap(e) {
+    const x = e.pageX;
+    if (x > window.innerWidth / 2) {
+      dispatch('pageTurning', { direction: 'forward' });
+    } else {
+      dispatch('pageTurning', { direction: 'back' });
     }
   }
 
@@ -47,9 +60,17 @@
     <div class="codex__page codex__page--last codex__page-right" on:click={toForward}>
       <div class="codex__page-content">
         {#if isTurning}
-          <slot name="forward-2"></slot>
+          {#if isMobile}
+            <slot name="forward-1"></slot>
+          {:else}
+            <slot name="forward-2"></slot>
+          {/if}
         {:else}
-          <slot name="middle-2"></slot>
+          {#if isMobile}
+            <slot name="middle-1"></slot>
+          {:else}
+            <slot name="middle-2"></slot>
+          {/if}
         {/if}
       </div>
     </div>
@@ -57,7 +78,11 @@
     {#if isTurning}
       <div class="codex__page codex__page--middle-2" on:transitionend={handleAnimationEnd}>
         <div class="codex__page-front codex__page-right">
-          <slot name="back-2"></slot>
+          {#if $isMobile}
+            <slot name="back-1"></slot>
+          {:else}
+            <slot name="back-2"></slot>
+          {/if}
         </div>
         <div class="codex__page-back codex__page-left" on:click={toBack}>
           {#if !$isMobile}
@@ -68,7 +93,11 @@
 
       <div class="codex__page codex__page--middle-3" on:transitionend={handleAnimationEnd}>
         <div class="codex__page-front codex__page-right" on:click={toForward}>
-          <slot name="middle-2"></slot>
+          {#if $isMobile}
+            <slot name="middle-1"></slot>
+          {:else}
+            <slot name="middle-2"></slot>
+          {/if}
         </div>
         <div class="codex__page-back codex__page-left">
           {#if !isMobile}
@@ -122,6 +151,13 @@
       }
       .codex__page {
         width: 100% !important;
+      }
+      .codex__page-content,
+      .codex__page-right,
+      .codex__page-left {
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
     }
   }

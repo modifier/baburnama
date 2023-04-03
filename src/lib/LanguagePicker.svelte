@@ -33,13 +33,15 @@
   .language-picker {
     display: flex;
     align-items: flex-end;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px 16px;
   }
   .onpage {
     --border-size: -4px;
     --border-color: #a98568;
     font-family: var(--default-font-family);
     font-size: var(--default-font-size);
-    margin: 0 10px;
     cursor: pointer;
     padding: 6px 24px;
     color: #111;

@@ -10,8 +10,8 @@ html, body {
 }
 
 body.mobile {
-  --default-font-size: min(3vh, 2vw, 24px);
-  --heading-font-size: min(10vh, 6.5vw, 96px);
+  --default-font-size: min(1.8vh, 4vw, 24px);
+  --heading-font-size: min(10vh, 11vw, 96px);
 }
 
 @font-face {
@@ -56,6 +56,7 @@ button.bookmark {
   background-color: #ecdcb9;
   box-shadow: inset 0px -1px 3px 1px rgb(0 0 0 / 70%);
   transition: all 0.2s ease-in-out;
+  white-space: nowrap;
 }
 
 button.bookmark:hover {

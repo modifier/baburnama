@@ -34,7 +34,11 @@
   function handlePageTurning({ detail: { direction }}) {
     const size = $isMobile ? 1 : 2;
     if (direction === 'back' && hasBack) {
-      page.set(currentPageNo - size);
+      let newPage = currentPageNo - size;
+      if ($isMobile && content[newPage].type === 'empty') {
+        newPage -= 1;
+      }
+      page.set(newPage);
     } else if (direction === 'forward' && hasForward) {
       page.set(currentPageNo + size);
     }
@@ -49,11 +53,17 @@
   }
 
   page.subscribe((pageNo) => {
-    const validatedNo = Math.min(pageNo, content.length - 1);
+    const validatedNo = Math.max(0, Math.min(pageNo, content.length - 1));
     if (validatedNo !== pageNo) {
       page.set(validatedNo);
       return;
     }
+
+    if ($isMobile && content[validatedNo].type === 'empty') {
+      page.set(validatedNo + 1);
+      return;
+    }
+
     newPageNo = pageNo;
     if (initialOpening) {
       initialOpening = false;
@@ -87,7 +97,7 @@
   }
 
   $: {
-    hasBack = currentPageNo > 0;
+    hasBack = currentPageNo > 1;
     hasForward = currentPageNo < content.length - ($isMobile ? 1 : 2);
   }
 </script>
@@ -95,10 +105,16 @@
 <svelte:window on:popstate={popFromHistory} />
 <div class="codex-wrapper">
   <div class="codex-toolbar">
-    <div class="table-of-contents toolbar-bookmark" class:toolbar-bookmark--hidden={content[$page].hideTableOfContents}>
-      <button class="bookmark" on:click={gotoTableOfContents}>{staticLang.tableOfContents[$language]}</button>
+    <div class="toolbar-bookmark" class:toolbar-bookmark--hidden={content[$page].hideTableOfContents}>
+      <button class="bookmark" on:click={gotoTableOfContents}>
+        <img src="/globe.png" class="globe-icon" />
+        <span>{staticLang.tableOfContents[$language]}</span>
+      </button>
     </div>
-    <div class="language-picker toolbar-bookmark" class:toolbar-bookmark--hidden={content[$page].hideLanguagePicker}>
+    <div class="language-picker-bookmark toolbar-bookmark"
+         class:toolbar-bookmark--hidden={content[$page].hideLanguagePicker}
+         class:toolbar-bookmark--hidden-desktop={content[$page].hideLanguagePickerDesktop}
+    >
       <LanguagePicker variant="bookmark" />
     </div>
   </div>
@@ -146,13 +162,17 @@
         max-width: 100%;
         aspect-ratio: auto;
       }
+
+      .codex-toolbar {
+        width: 100%;
+        aspect-ratio: 1 / 0.1;
+      }
     }
   }
 
   .codex-wrapper {
     max-height: 95%;
     max-width: min(95%, 1640px);
-    min-width: 600px;
     position: absolute;
     inset: 0;
     margin: auto;
@@ -163,7 +183,7 @@
 
   :global {
     body.mobile {
-      .codex-toolbar {
+      .language-picker-bookmark {
         display: none;
       }
     }
@@ -174,11 +194,27 @@
     aspect-ratio: 1.6 / 0.05;
     display: flex;
     justify-content: space-between;
+    align-items: flex-end;
     padding: 0 16px;
     box-sizing: border-box;
-    align-items: center;
     position: relative;
     bottom: -6px;
+  }
+
+  body:not(.mobile) {
+    .toolbar-bookmark--hidden-desktop {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .globe-icon {
+      display: none;
+    }
+  }
+
+  .globe-icon {
+    height: 1em;
+    margin-right: 0.2em;
   }
 
   .toolbar-bookmark {

@@ -35,26 +35,29 @@
 
 {#if content[page] && content[page].type === 'tableOfContents'}
   <div class="table-of-contents">
-    <h1 class="table-of-contents-title">
-      {staticLang.tableOfContents[$language]}
-    </h1>
-    <ul class="table-of-contents-content">
-      {#each content as page, i}
-        {#if page.title}
-          <li class="table-of-contents-item">
-            <a href="#page-{i + 1}" on:click={onLinkClick}>
-              <span class="table-of-contents-item__title">
-                {page.title[$language]}
-              </span>
-              <span class="table-of-contents-item__gap"></span>
-              <span class="table-of-contents-item__page-number">
-                {i + 1}
-              </span>
-            </a>
-          </li>
-        {/if}
-      {/each}
-    </ul>
+    <div class="table-of-contents-wrapper">
+      <h1 class="table-of-contents-title">
+        {staticLang.tableOfContents[$language]}
+      </h1>
+      <ul class="table-of-contents-content">
+        {#each content as page, i}
+          {#if page.title}
+            <li class="table-of-contents-item">
+              <a href="#page-{i + 1}" on:click={onLinkClick}>
+                <span class="table-of-contents-item__title">
+                  {page.title[$language]}
+                </span>
+                <span class="table-of-contents-item__gap"></span>
+                <span class="table-of-contents-item__page-number">
+                  {i + 1}
+                </span>
+              </a>
+            </li>
+          {/if}
+        {/each}
+      </ul>
+    </div>
+    <LanguagePicker variant="onpage" />
   </div>
 {/if}
 {#if content[page] && content[page].type === 'titular'}
@@ -96,6 +99,9 @@
         </div>
         <div>
           {@html marked.parse(staticLang.favicon[$language])}
+        </div>
+        <div>
+          {@html marked.parse(staticLang.globeIcon[$language])}
         </div>
       </div>
       <div class="year">
@@ -160,8 +166,14 @@
       article,
       .credits,
       .table-of-contents {
-        aspect-ratio: 0.8 / 1 !important;
-        margin: 0 auto;
+        aspect-ratio: 0.55 / 1 !important;
+        margin: auto;
+        max-width: 100%;
+        max-height: 100%;
+        width: auto;
+        height: auto !important;
+        position: absolute;
+        inset: 0;
       }
     }
   }
@@ -169,10 +181,21 @@
   :root {
     --padding: min(6vh, 5vw, 64px);
     --border-width: 4px;
+    --small-padding: calc(var(--padding) / 4);
+  }
+
+  :global {
+    body.mobile {
+      --small-padding: calc(var(--padding) / 2);
+    }
   }
 
   .table-of-contents {
     padding: var(--padding);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
   }
 
   .table-of-contents-title {
@@ -188,7 +211,7 @@
   }
 
   .table-of-contents-item {
-    margin: calc(var(--padding) / 4) 0;
+    margin: var(--small-padding) 0;
 
     a {
       color: black;
@@ -196,7 +219,7 @@
       display: flex;
       width: 100%;
       justify-content: space-between;
-      gap: calc(var(--padding) / 4);
+      gap: var(--small-padding);
     }
 
     &__title {
@@ -322,7 +345,7 @@
   }
 
   .text {
-    padding: calc(var(--padding) / 4);
+    padding: var(--small-padding);
 
     .midjourney + & {
       border-top: var(--border-width) #a98568 double;
@@ -334,7 +357,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height: calc(var(--padding) - var(--border-width) * 2);
+    height: var(--padding);
     display: flex;
     align-items: center;
     justify-content: center;

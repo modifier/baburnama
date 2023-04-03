@@ -44,6 +44,11 @@ export const staticLang = {
     en: "Favicon &mdash; **[Tiger](https://www.flaticon.com/ru/free-icon/tiger_2160079?term=tiger&related_id=2160079)** by **Smashicons**",
     uz: "Favicon &mdash; **[Tiger](https://www.flaticon.com/ru/free-icon/tiger_2160079?term=tiger&related_id=2160079)**, muallif **Smashicons**"
   },
+  globeIcon: {
+    ru: "Иконка глобуса &mdash; **[Глобус](https://www.flaticon.com/free-icon/globe_546310)**, автор **Freepik**",
+    en: "Globe icon &mdash; **[Globe](https://www.flaticon.com/free-icon/globe_546310)** by **Freepik**",
+    uz: "Globus ikonasi &mdash; **[Globus](https://www.flaticon.com/free-icon/globe_546310)**, muallif **Freepik**"
+  },
   font: {
     ru: "Шрифт &mdash; **[Pehlevi](https://www.andrewmarcus.ru/projects/fonts/pehlevi)**, автор <b>Андрей Маркелов</b>",
     en: "Font &mdash; **[Pehlevi](https://www.andrewmarcus.ru/projects/fonts/pehlevi)** by <b>Andrey Markelov</b>",

@@ -2,6 +2,7 @@ type PlainPageContent = {
   type: 'empty' | 'titular' | 'credits' | 'tableOfContents';
   hideLanguagePicker?: boolean;
   hideTableOfContents?: boolean;
+  hideTableOfContentsDesktop?: boolean;
 };
 
 type DuoImgPageContent = {
@@ -17,6 +18,7 @@ type ImagePageContent = {
   img: number;
   hideTableOfContents?: boolean;
   hidePageNumber?: boolean;
+  hideTableOfContentsDesktop?: boolean;
 }
 
 type RegularPageContent = {
@@ -47,21 +49,21 @@ export const content: PageContent[] = [
   {
     type: 'titular',
     hideLanguagePicker: true,
-    hideTableOfContents: true,
+    hideTableOfContentsDesktop: true,
   },
   {
     type: 'image',
     img: 0,
-    hideTableOfContents: true,
+    hideTableOfContentsDesktop: true,
     hidePageNumber: true,
   },
   {
     type: 'credits',
-    hideTableOfContents: true,
+    hideTableOfContentsDesktop: true,
   },
   {
     type: 'empty',
-    hideTableOfContents: true,
+    hideTableOfContentsDesktop: true,
   },
   {
     type: 'tableOfContents',

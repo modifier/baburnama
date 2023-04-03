@@ -1,5 +1,3 @@
-import {content} from "./content";
-
 export function getPageNoFromUrl() {
   const fragment = location.hash.match(/page-(\d+)/);
   if (!fragment) {
@@ -12,7 +10,7 @@ export function getPageNoFromUrl() {
 export function getPageNo() {
   let fragmentPageNo = getPageNoFromUrl();
   if (fragmentPageNo) {
-    return fragmentPageNo;
+    return fragmentPageNo - 1;
   } else {
     const storagePage = localStorage.getItem("pageNo");
     if (storagePage) {
@@ -21,10 +19,6 @@ export function getPageNo() {
   }
 
   return 0;
-}
-
-export function validatePageNo(pageNo) {
-  return Math.min(pageNo, content.length - 1);
 }
 
 export function getVisiblePageNo(pageNo, isMobile) {
