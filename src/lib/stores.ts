@@ -6,6 +6,15 @@ export const language = writable(getDefaultLocale());
 
 export const page = writable(getPageNo());
 
-export const isMobile = readable(true, function start(set) {
-  set(true);
+export const isMobile = readable(false, function start(set) {
+  let checkSize = () => {
+    set(window.matchMedia("(max-width: 800px)").matches);
+  };
+  checkSize();
+
+  window.addEventListener('resize', checkSize);
+
+  return () => {
+    window.removeEventListener('resize', checkSize)
+  };
 });

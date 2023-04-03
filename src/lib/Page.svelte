@@ -4,6 +4,7 @@
   import LanguagePicker from "./LanguagePicker.svelte";
   import {language, page as pageStore} from "./stores";
   import {staticLang} from "./static-lang.js";
+  import {isMobile} from "./stores.js";
 
   export let page = 0;
 
@@ -57,7 +58,9 @@
         {/each}
       </ul>
     </div>
-    <LanguagePicker variant="onpage" />
+    {#if $isMobile}
+      <LanguagePicker variant="onpage" />
+    {/if}
   </div>
 {/if}
 {#if content[page] && content[page].type === 'titular'}
@@ -161,20 +164,18 @@
 {/if}
 
 <style lang="scss">
-  :global {
-    body.mobile {
-      article,
-      .credits,
-      .table-of-contents {
-        aspect-ratio: 0.55 / 1 !important;
-        margin: auto;
-        max-width: 100%;
-        max-height: 100%;
-        width: auto;
-        height: auto !important;
-        position: absolute;
-        inset: 0;
-      }
+  @media screen and (max-width: 800px) {
+    article,
+    .credits,
+    .table-of-contents {
+      aspect-ratio: 0.55 / 1 !important;
+      margin: auto;
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto !important;
+      position: absolute;
+      inset: 0;
     }
   }
 
@@ -182,10 +183,8 @@
     --padding: min(6vh, 5vw, 64px);
     --border-width: 4px;
     --small-padding: calc(var(--padding) / 4);
-  }
 
-  :global {
-    body.mobile {
+    @media screen and (max-width: 800px) {
       --small-padding: calc(var(--padding) / 2);
     }
   }

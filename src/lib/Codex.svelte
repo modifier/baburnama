@@ -60,13 +60,13 @@
     <div class="codex__page codex__page--last codex__page-right" on:click={toForward}>
       <div class="codex__page-content">
         {#if isTurning}
-          {#if isMobile}
+          {#if $isMobile}
             <slot name="forward-1"></slot>
           {:else}
             <slot name="forward-2"></slot>
           {/if}
         {:else}
-          {#if isMobile}
+          {#if $isMobile}
             <slot name="middle-1"></slot>
           {:else}
             <slot name="middle-2"></slot>
@@ -100,7 +100,7 @@
           {/if}
         </div>
         <div class="codex__page-back codex__page-left">
-          {#if !isMobile}
+          {#if !$isMobile}
             <slot name="forward-1"></slot>
           {/if}
         </div>
@@ -120,16 +120,12 @@
     align-items: center;
     justify-content: center;
     border-radius: 8px;
-  }
 
-  :global {
-    body.mobile {
-      .cover {
-        aspect-ratio: auto !important;
-        width: 100%;
-        height: 100%;
-        justify-content: flex-start !important;
-      }
+    @media screen and (max-width: 800px) {
+      aspect-ratio: auto;
+      width: 100%;
+      height: 100%;
+      justify-content: flex-start;
     }
   }
 
@@ -141,33 +137,16 @@
     }
   }
 
-  :global {
-    body.mobile {
-      .codex {
-        width: calc(100% - 24px) !important;
-      }
-      .codex::before {
-        display: none;
-      }
-      .codex__page {
-        width: 100% !important;
-      }
-      .codex__page-content,
-      .codex__page-right,
-      .codex__page-left {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-    }
-  }
-
   .codex {
     width: calc(100% - 48px);
     height: calc(100% - 8px);
     display: flex;
     perspective: 1200px;
     position: relative;
+
+    @media screen and (max-width: 800px) {
+      width: calc(100% - 24px);
+    }
 
     &::after {
       --dark: rgb(136 131 122);
@@ -193,6 +172,10 @@
       top: 0;
       bottom: 0;
       pointer-events: none;
+
+      @media screen and (max-width: 800px) {
+        display: none;
+      }
     }
 
     &__page {
@@ -205,6 +188,10 @@
       position: relative;
       cursor: pointer;
 
+      @media screen and (max-width: 800px) {
+        width: 100%;
+      }
+
       &-content,
       &-front,
       &-back {
@@ -212,6 +199,12 @@
         width: 100%;
         height: 100%;
         box-sizing: border-box;
+
+        @media screen and (max-width: 800px) {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
       }
 
       &-right {

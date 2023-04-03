@@ -55,6 +55,7 @@
   page.subscribe((pageNo) => {
     const validatedNo = Math.max(0, Math.min(pageNo, content.length - 1));
     if (validatedNo !== pageNo) {
+      console.log('page set because of validation');
       page.set(validatedNo);
       return;
     }
@@ -155,21 +156,6 @@
 </div>
 
 <style lang="scss">
-  :global {
-    body.mobile {
-      .codex-wrapper {
-        max-height: 100%;
-        max-width: 100%;
-        aspect-ratio: auto;
-      }
-
-      .codex-toolbar {
-        width: 100%;
-        aspect-ratio: 1 / 0.1;
-      }
-    }
-  }
-
   .codex-wrapper {
     max-height: 95%;
     max-width: min(95%, 1640px);
@@ -179,13 +165,17 @@
     aspect-ratio: 1.6 / 1.05;
     display: flex;
     flex-direction: column;
+
+    @media screen and (max-width: 800px) {
+      max-height: 100%;
+      max-width: 100%;
+      aspect-ratio: auto;
+    }
   }
 
-  :global {
-    body.mobile {
-      .language-picker-bookmark {
-        display: none;
-      }
+  @media screen and (max-width: 800px) {
+    .language-picker-bookmark {
+      display: none;
     }
   }
 
@@ -199,22 +189,20 @@
     box-sizing: border-box;
     position: relative;
     bottom: -6px;
-  }
 
-  body:not(.mobile) {
-    .toolbar-bookmark--hidden-desktop {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .globe-icon {
-      display: none;
+    @media screen and (max-width: 800px) {
+      width: 100%;
+      aspect-ratio: 1 / 0.1;
     }
   }
 
   .globe-icon {
     height: 1em;
     margin-right: 0.2em;
+
+    @media screen and (min-width: 801px) {
+      display: none;
+    }
   }
 
   .toolbar-bookmark {
@@ -222,6 +210,12 @@
     &--hidden {
       opacity: 0;
       pointer-events: none;
+    }
+    &--hidden-desktop {
+      @media screen and (min-width: 801px) {
+        opacity: 0;
+        pointer-events: none;
+      }
     }
   }
 </style>

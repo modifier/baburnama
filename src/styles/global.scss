@@ -7,11 +7,11 @@ html, body {
   --default-font-family: "Noto Serif", NotoSerif-fallback, Georgia, serif;
   font-family: var(--default-font-family);
   height: 100%;
-}
 
-body.mobile {
-  --default-font-size: min(1.8vh, 4vw, 24px);
-  --heading-font-size: min(10vh, 11vw, 96px);
+  @media screen and (max-width: 800px) {
+    --default-font-size: min(1.8vh, 4vw, 24px);
+    --heading-font-size: min(10vh, 11vw, 96px);
+  }
 }
 
 @font-face {
