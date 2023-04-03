@@ -58,5 +58,10 @@ export const staticLang = {
     ru: "Сделано в Ташкенте",
     en: "Made in Tashkent",
     uz: "Toshkentda yaratildi"
+  },
+  toBeContinued: {
+    ru: "Продолжение следует...",
+    en: "To be continued...",
+    uz: "Davom etadi..."
   }
 }

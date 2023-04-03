@@ -71,6 +71,13 @@
     </div>
   </div>
 {/if}
+{#if content[page] && content[page].type === 'toBeContinued'}
+  <div class="titular">
+    <div>
+      <h1>{staticLang.toBeContinued[$language]}</h1>
+    </div>
+  </div>
+{/if}
 {#if content[page] && content[page].type === 'credits'}
   <div class="credits" on:click={captureLinkClick}>
     <div class="credits-wrapper">

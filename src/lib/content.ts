@@ -1,5 +1,5 @@
 type PlainPageContent = {
-  type: 'empty' | 'titular' | 'credits' | 'tableOfContents';
+  type: 'empty' | 'titular' | 'credits' | 'tableOfContents' | 'toBeContinued';
   hideLanguagePicker?: boolean;
   hideTableOfContents?: boolean;
   hideTableOfContentsDesktop?: boolean;
@@ -319,6 +319,9 @@ export const content: PageContent[] = [
       uz: "Yana Samarkand tumanlarini talontoroj etib kelayotgan o‘zbaklar bilan Turkistonda muzlagan Aris suvini kechib jang qilib, g‘alaba qozondi; asirlarni ozod qilib, molning hammasini egalariga qaytarib berib, hech nima tama’ qilmadi."
     },
     img: 29
+  },
+  {
+    type: 'toBeContinued',
   }
 ];
 
