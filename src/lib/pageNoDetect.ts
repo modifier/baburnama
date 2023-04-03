@@ -6,7 +6,11 @@ export function getPageNo() {
     return 0;
   }
 
-  const page = Math.min(parseInt(fragment[1], 10) - 1, content.length - 1);
+  return validatePageNo(parseInt(fragment[1], 10) - 1);
+}
+
+export function validatePageNo(pageNo) {
+  const page = Math.min(pageNo, content.length - 1);
   if (page % 2 == 1) {
     return page - 1;
   } else {

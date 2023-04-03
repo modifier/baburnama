@@ -81,28 +81,4 @@
       font-weight: 700;
     }
   }
-
-  .bookmark {
-    font-family: "Noto Serif", "Times New Roman", serif;
-    font-size: 16px;
-    margin: 0 6px;
-    cursor: pointer;
-    padding: 4px 16px;
-    color: #111;
-    border: 0;
-    border-radius: 8px 8px 0 0;
-    background-color: #ecdcb9;
-    box-shadow: inset 0px -1px 3px 1px rgb(0 0 0 / 70%);
-    transition: all 0.2s ease-in-out;
-
-    &:hover {
-      padding-bottom: 10px;
-      margin-top: -6px;
-    }
-
-    &.selected {
-      color: #99423b;
-      font-weight: 700;
-    }
-  }
 </style>

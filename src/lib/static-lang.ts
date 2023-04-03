@@ -9,6 +9,11 @@ export const staticLang = {
     en: "**Author**: Zahīr ud-Dīn Muhammad Babur",
     uz: "**Muallif**: Zahiriddin Muhammad Babur"
   },
+  tableOfContents: {
+    ru: "Оглавление",
+    en: "Table of Contents",
+    uz: "Mundarija"
+  },
   illustrations: {
     ru: "**Иллюстрации**: [Midjourney](https://www.midjourney.com)",
     en: "**Illustrations**: [Midjourney](https://www.midjourney.com)",

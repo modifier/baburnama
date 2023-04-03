@@ -3,9 +3,11 @@
   import {OpeningType} from "./types";
   import {content} from "./content";
   import Page from "./Page.svelte";
-  import {getPageNo} from "./pageNoDetect";
+  import {getPageNo, validatePageNo} from "./pageNoDetect";
   import LanguagePicker from "./LanguagePicker.svelte";
   import {page} from "./stores";
+  import {language} from "./stores.js";
+  import {staticLang} from "./static-lang.js";
 
   export let pageNo = 0;
   let opening = OpeningType.MIDDLE;
@@ -41,6 +43,11 @@
     doNotPushState = true;
   }
 
+  function gotoTableOfContents() {
+    const tableOfContentsPage = content.findIndex((page) => page.type === "tableOfContents");
+    page.set(validatePageNo(tableOfContentsPage));
+  }
+
   $: {
     hasBack = $page > 0;
     hasForward = $page < content.length - 2;
@@ -50,7 +57,10 @@
 <svelte:window on:popstate={updatePageNo} />
 <div class="codex-wrapper">
   <div class="codex-toolbar">
-    <div class="language-picker" class:language-picker--hidden={content[$page].hideLanguagePicker}>
+    <div class="table-of-contents toolbar-bookmark" class:toolbar-bookmark--hidden={content[$page].hideTableOfContents}>
+      <button class="bookmark" on:click={gotoTableOfContents}>{staticLang.tableOfContents[$language]}</button>
+    </div>
+    <div class="language-picker toolbar-bookmark" class:toolbar-bookmark--hidden={content[$page].hideLanguagePicker}>
       <LanguagePicker variant="bookmark" />
     </div>
   </div>
@@ -100,7 +110,7 @@
     width: 100%;
     aspect-ratio: 1.6 / 0.05;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     padding: 0 16px;
     box-sizing: border-box;
     align-items: center;
@@ -108,7 +118,7 @@
     bottom: -6px;
   }
 
-  .language-picker {
+  .toolbar-bookmark {
     transition: 0.3s opacity;
     &--hidden {
       opacity: 0;

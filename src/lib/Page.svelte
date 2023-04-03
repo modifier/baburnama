@@ -33,6 +33,30 @@
   }
 </script>
 
+{#if content[page] && content[page].type === 'tableOfContents'}
+  <div class="table-of-contents">
+    <h1 class="table-of-contents-title">
+      {staticLang.tableOfContents[$language]}
+    </h1>
+    <ul class="table-of-contents-content">
+      {#each content as page, i}
+        {#if page.title}
+          <li class="table-of-contents-item">
+            <a href="#page-{i + 1}" on:click={onLinkClick}>
+              <span class="table-of-contents-item__title">
+                {page.title[$language]}
+              </span>
+              <span class="table-of-contents-item__gap"></span>
+              <span class="table-of-contents-item__page-number">
+                {i + 1}
+              </span>
+            </a>
+          </li>
+        {/if}
+      {/each}
+    </ul>
+  </div>
+{/if}
 {#if content[page] && content[page].type === 'titular-image'}
   <article>
     <div class="article-content">
@@ -134,6 +158,47 @@
 {/if}
 
 <style lang="scss">
+  .table-of-contents {
+    padding: 48px;
+  }
+
+  .table-of-contents-title {
+    margin: 0;
+    text-align: center;
+    font-family: "Pehlevi", serif;
+  }
+
+  .table-of-contents-content {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-top: 48px;
+  }
+
+  .table-of-contents-item {
+    margin: 8px 0;
+
+    a {
+      color: black;
+      text-decoration: none;
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    &__title {
+      color: #2e7197;
+      text-decoration: underline;
+    }
+
+    &__gap {
+      flex: 1 0 auto;
+      border-bottom: 2px #666 dotted;
+      margin-bottom: 3px;
+    }
+  }
+
   article {
     height: 100%;
     padding: 48px;

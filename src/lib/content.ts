@@ -1,6 +1,7 @@
 type PlainPageContent = {
-  type: 'empty' | 'titular' | 'titular-image' | 'credits';
+  type: 'empty' | 'titular' | 'titular-image' | 'credits' | 'tableOfContents';
   hideLanguagePicker?: boolean;
+  hideTableOfContents?: boolean;
 };
 
 type DuoImgPageContent = {
@@ -23,6 +24,11 @@ type RegularPageContent = {
   };
   imgSize?: 'normal' | 'narrow' | 'supernarrow';
   img?: number;
+  title?: {
+    ru: string;
+    en: string;
+    uz: string;
+  }
 };
 
 export type PageContent = PlainPageContent | DuoImgPageContent | ImagePageContent | RegularPageContent;
@@ -31,16 +37,28 @@ export const content: PageContent[] = [
   {
     type: 'empty',
     hideLanguagePicker: true,
+    hideTableOfContents: true,
   },
   {
     type: 'titular',
     hideLanguagePicker: true,
+    hideTableOfContents: true,
   },
   {
     type: 'titular-image',
+    hideTableOfContents: true,
   },
   {
     type: 'credits',
+    hideTableOfContents: true,
+  },
+  {
+    type: 'empty',
+    hideTableOfContents: true,
+  },
+  {
+    type: 'tableOfContents',
+    hideTableOfContents: true,
   },
   {
     type: 'empty',
@@ -52,6 +70,11 @@ export const content: PageContent[] = [
       uz: "Tangri taoloning inoyati va koinot sarvari boʻlgan hazrat Rasuli akramning shafoati, pokkoʻngil chahoryorlarning himmati bilan seshanba kuni, ramazon oyining beshinchisida, sakkiz yuz toʻqson toʻqqizinchi yili Fargona viloyatini oʻn ikki yoshda podshohi boʻldim."
     },
     img: 1,
+    title: {
+      ru: "Описание Ферганы",
+      en: "Description of Ferghana",
+      uz: "Farg‘ona haqida"
+    }
   },
   {
     text: {
@@ -85,6 +108,11 @@ export const content: PageContent[] = [
       uz: "Yetti qasabasi (shaharchasi) bor: beshi Sayhun (Sirdaryo) suvining janub tara­ fida, ikkitasi shimol tomonida. Janu­biy tarafidagi shaharlardan biri — Andijon, o‘rtada joylashgan, Fargona viloyatining poytaxtidir. Gʻallasi mo‘l, mevasi ko‘p, qovun va uzumi yaxshi bo‘ladi. Qovun pishigida poliz boshida qovun sotmoq rayem emas. Andijonning noshvotisidan yaxshiroq noshvoti(nok) bo‘lmas."
     },
     img: 5,
+    title: {
+      ru: "Андижан",
+      en: "Andijan",
+      uz: "Andijon"
+    }
   },
   {
     imgSize: 'narrow',
@@ -118,7 +146,12 @@ export const content: PageContent[] = [
       uz: "Yana biri O‘sh shaharchasidir. Andi­joning sharqqa moyilroq sharqi janu­biy tarafida. Andijondan to‘rt yigochlik yo‘ldir. Havosi yaxshi, oqar suvi mo‘l. Bahori juda yaxshi bo‘ladi.\n\nO‘shning fazilati haqida ko‘p rivoyatlar bor. Qo‘rgonining sharqi janubida bir ko‘rkam tog‘ qad rostlagan, Baroko‘h deb nomlanadi. Bu togning cho‘qqisida Sulton Mahmudxon bir hujra solgan. U hujradan quyiroqda, ushbu togning tumshug‘ida to‘qqiz yuz ikkinchi yili (1497) men bir ayvonli hujra soldirdim. Garchi u hujra yuksakroqda bo‘lsa-da, bu hujra ham ko‘p yaxshi joyda qad ko‘targan: butun shahar va mahallalar shundaygina ko‘rinib turadi."
     },
     imgSize: 'supernarrow',
-  img: 9,
+    img: 9,
+    title: {
+      ru: "Ош",
+      en: "Aūsh",
+      uz: "O‘sh"
+    }
   },
   {
     text: {
@@ -150,7 +183,12 @@ export const content: PageContent[] = [
       en: "Again there is Marghīnān; seven yīghāch by road to the west of Andijān,—a fine township full of good things. Its apricots (aūrūk) and pomegranates are most excellent.",
       uz: "Yana biri Marg‘ilondir. Andijonning garbida. Andijondan yetti yig‘ochlik yo‘lda. Yaxshi shaharcha, ne’matlarga boy: anori va o‘rigi juda ko‘p va yaxshi."
     },
-    img: 13
+    img: 13,
+    title: {
+      ru: "Маргинан",
+      en: "Marghīnān",
+      uz: "Marg‘ilond"
+    }
   },
   {
     text: {
@@ -182,7 +220,12 @@ export const content: PageContent[] = [
       en: "Again there is Asfara, in the hill-country and nine yīghāch by road south-west of Marghīnān. It has running waters, beautiful little gardens (*bāghcha*) and many fruit-trees but almonds for the most part in its orchards.",
       uz: "Yana biri tog‘ etagida joylashgan Isfaradir. Oqar suvlari, safolik bog‘- bog‘chalari bor. Marg‘ilonning g‘arbi- janubidadir. Marg‘ilon va Isfara orasi to‘qqiz yig‘ochlik yo‘ldir. Mevali daraxtlari ko‘p, biroq boglarida aksar bodom daraxti ekiladi"
     },
-    img: 17
+    img: 17,
+    title: {
+      ru: "Исфара",
+      en: "Asfara",
+      uz: "Isfar"
+    }
   },
   {
     text: {
@@ -225,7 +268,12 @@ export const content: PageContent[] = [
       en: "It has been mentioned that the fort of Akhsī is situated above a deep ravine; Along this ravine stand the palace buildings, and from it, on Monday, Ramẓān 4, (June 8th.) ‘Umar Shaikh Mīrzā flew, with his pigeons and their house, and died.",
       uz: "Zikr etilganidek, Axsi qo‘rg‘oni baland jar ustida joylashgan, imoratlari ham jar yoqasida edi. Ushbu yili dushanba kuni, ramazon oyining to‘rtinchisida Umarshayx mirzo jardan kabutarlar va kabutarxonasi bilan uchib, halok bo‘ldi. O‘ttiz to‘qqiz yoshda edi."
     },
-    img: 22
+    img: 22,
+    title: {
+      ru: "Жизнь Омар-Шейха",
+      en: "The Life of ‘Umar Shaikh Mīrzā",
+      uz: "Umarshayx mirzo hayoti"
+    }
   },
   {
     text: {
