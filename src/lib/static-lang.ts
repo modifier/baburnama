@@ -63,5 +63,10 @@ export const staticLang = {
     ru: "Продолжение следует...",
     en: "To be continued...",
     uz: "Davom etadi..."
+  },
+  hint: {
+    ru: "Нажмите на страницу, чтобы листать...",
+    en: "Click on the page to turn it...",
+    uz: "Sahifani oʻtkazish uchun sahifaga bosing..."
   }
 }

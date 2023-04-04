@@ -68,6 +68,9 @@
     <div>
       <h1>{staticLang.title[$language]}</h1>
       <LanguagePicker variant="onpage" />
+      <div class="hint">
+        {staticLang.hint[$language]}
+      </div>
     </div>
   </div>
 {/if}
@@ -379,5 +382,11 @@
     .text p + p {
       margin-top: 1em;
     }
+  }
+
+  .hint {
+    margin-top: 2em;
+    font-style: italic;
+    color: #851f1f;
   }
 </style>
