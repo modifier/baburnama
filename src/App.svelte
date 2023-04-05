@@ -1,7 +1,7 @@
 <script lang="ts">
-  import Book from "./lib/Book.svelte";
-  import {staticLang} from "./lib/static-lang.js";
-  import {language} from "./lib/stores.js";
+  import Book from "./components/Book.svelte";
+  import {staticLang} from "./content/static-lang.js";
+  import {language} from "./stores.js";
 
   language.subscribe(value => {
     document.documentElement.lang = value;

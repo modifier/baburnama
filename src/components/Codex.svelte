@@ -1,10 +1,10 @@
 <script lang="ts">
   import {createEventDispatcher} from 'svelte';
-  import {OpeningType} from "./types";
-  import {isMobile} from "./stores.js";
+  import {Opening} from "../types";
+  import {isMobile} from "../stores.js";
   const dispatch = createEventDispatcher();
 
-  export let opening = OpeningType.MIDDLE;
+  export let opening = Opening.MIDDLE;
   export let hasBack = true;
   export let hasForward = true;
   export let isTurning = false;
@@ -42,8 +42,8 @@
 <div class="cover">
   <div
     class="codex"
-    class:codex--back={opening === OpeningType.BACK}
-    class:codex--forward={opening === OpeningType.FORWARD}
+    class:codex--back={opening === Opening.BACK}
+    class:codex--forward={opening === Opening.FORWARD}
   >
     {#if !$isMobile}
       <div class="codex__page codex__page--first codex__page-left" on:click={toBack}>

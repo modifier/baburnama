@@ -1,4 +1,4 @@
-export enum OpeningType {
+export enum Opening {
   MIDDLE,
   BACK,
   FORWARD,

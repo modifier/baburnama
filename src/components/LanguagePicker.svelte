@@ -1,5 +1,5 @@
 <script lang="ts">
-  import {language} from './stores';
+  import {language} from '../stores';
 
   export let variant: 'onpage' | 'bookmark';
 

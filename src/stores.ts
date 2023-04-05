@@ -1,10 +1,10 @@
 import {readable, writable} from 'svelte/store';
-import {getDefaultLocale} from "./locale";
-import {getPageNo} from "./pageNoDetect";
+import {getDefaultLanguage} from "./lib/language";
+import {getDefaultPage} from "./lib/pages";
 
-export const language = writable(getDefaultLocale());
+export const language = writable(getDefaultLanguage());
 
-export const page = writable(getPageNo());
+export const page = writable(getDefaultPage());
 
 export const isMobile = readable(false, function start(set) {
   let checkSize = () => {

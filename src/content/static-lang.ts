@@ -1,4 +1,17 @@
-export const staticLang = {
+export type LanguageType = {
+  readonly name: string;
+  readonly code: string;
+}
+
+export const languages: Readonly<LanguageType[]> = [
+  { name: 'O‘zbek', code: 'uz' },
+  { name: 'English', code: 'en' },
+  { name: 'Русский', code: 'ru' },
+] as const;
+
+export type LanguageCode = typeof languages[number]['code'];
+
+export const staticLang: Record<string, Record<LanguageCode, string>> = {
   title: {
     ru: "Книга Бабура",
     en: "Baburnama",
@@ -40,7 +53,7 @@ export const staticLang = {
     uz: "Fon &mdash; **[Gʻarbiy koʻcha](https://www.pexels.com/photo/desert-during-nighttime-847402)**, muallif **Walid Ahmad**"
   },
   favicon: {
-    ru: "Иконка &mdash; **[Тигр](https://www.flaticon.com/ru/free-icon/tiger_2160079?term=tiger&related_id=2160079)**, автор **Smashicons**",
+    ru: "Иконка сайта &mdash; **[Тигр](https://www.flaticon.com/ru/free-icon/tiger_2160079?term=tiger&related_id=2160079)**, автор **Smashicons**",
     en: "Favicon &mdash; **[Tiger](https://www.flaticon.com/ru/free-icon/tiger_2160079?term=tiger&related_id=2160079)** by **Smashicons**",
     uz: "Favicon &mdash; **[Tiger](https://www.flaticon.com/ru/free-icon/tiger_2160079?term=tiger&related_id=2160079)**, muallif **Smashicons**"
   },
@@ -57,16 +70,6 @@ export const staticLang = {
   madeInToshkent: {
     ru: "Сделано в Ташкенте",
     en: "Made in Tashkent",
-    uz: "Toshkentda yaratildi"
+    uz: "Toshkentda ishlab chiqilgan"
   },
-  toBeContinued: {
-    ru: "Продолжение следует...",
-    en: "To be continued...",
-    uz: "Davom etadi..."
-  },
-  hint: {
-    ru: "Нажмите на страницу, чтобы листать...",
-    en: "Click on the page to turn it...",
-    uz: "Sahifani oʻtkazish uchun sahifaga bosing..."
-  }
 }
