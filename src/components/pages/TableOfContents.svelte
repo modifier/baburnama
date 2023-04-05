@@ -14,7 +14,7 @@
     {#each content as page, i}
       {#if page.title}
         <li class="table-of-contents-item">
-          <a href="#page-{i + 1}">
+          <a href="#page-{i + 1}" tabindex="0">
               <span class="table-of-contents-item__title">
                 {page.title[$language]}
               </span>

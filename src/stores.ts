@@ -6,7 +6,7 @@ export const language = writable(getDefaultLanguage());
 
 export const page = writable(getDefaultPage());
 
-export const isMobile = readable(false, function start(set) {
+export const isMobile = readable(false, function(set) {
   let checkSize = () => {
     set(window.matchMedia("(max-width: 800px)").matches);
   };
@@ -18,3 +18,11 @@ export const isMobile = readable(false, function start(set) {
     window.removeEventListener('resize', checkSize)
   };
 });
+
+export const isCoarseDevice = readable(false, function(set) {
+  let checkDevice = () => {
+    set(window.matchMedia("(pointer: coarse)").matches)
+  };
+
+  checkDevice();
+})

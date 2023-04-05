@@ -1,7 +1,6 @@
 <script lang="ts">
   import {content} from "../content/content.js";
   import {marked} from "marked";
-  import {page as pageStore} from "../stores";
   import Credits from "./pages/Credits.svelte";
   import TableOfContents from "./pages/TableOfContents.svelte";
   import Titular from "./pages/Titular.svelte";
@@ -12,7 +11,7 @@
   marked.use({
     renderer: {
       link(href, title, text) {
-        return `<a target="_blank" href="${href}">${text}</a>`;
+        return `<a target="_blank" href="${href}" tabindex="0">${text}</a>`;
       }
     }
   })
@@ -20,29 +19,22 @@
   function captureLinkClick(e) {
     if (e.target.tagName === 'A') {
       e.stopPropagation();
-
-      if (e.target.href.includes('#page-')) {
-        e.preventDefault();
-        const page = parseInt(e.target.href.match(/#page-(\d+)/)[1]);
-        pageStore.set(page);
-        history.pushState(null, null, `#page-${page}`);
-      }
     }
   }
 </script>
 
 <article on:click={captureLinkClick}>
   {#if content[page] && content[page].type === 'tableOfContents'}
-    <TableOfContents captureLinkClick={captureLinkClick} />
+    <TableOfContents />
   {/if}
   {#if content[page] && content[page].type === 'titular'}
     <Titular page={content[page]} />
   {/if}
   {#if content[page] && content[page].type === 'credits'}
-    <Credits captureLinkClick={captureLinkClick} />
+    <Credits />
   {/if}
   {#if content[page] && content[page].type === 'regular'}
-    <Regular page={content[page]} pageNo={page} captureLinkClick={captureLinkClick} />
+    <Regular page={content[page]} pageNo={page} />
   {/if}
 </article>
 

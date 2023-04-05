@@ -4,10 +4,11 @@
   import {content} from "../content/content";
   import Page from "./Page.svelte";
   import {getClosestNonEmptyPage, getPageFromUrl} from "../lib/pages";
-  import {isMobile, page} from "../stores";
+  import {isCoarseDevice, isMobile, page} from "../stores";
   import {getVisiblePage} from "../lib/pages.js";
   import CodexToolbar from "./CodexToolbar.svelte";
   import {preloadPageImages} from "../lib/preload";
+  import { swipe } from 'svelte-gestures';
 
   let currentPageNo = 0;
   let newPageNo = 0;
@@ -23,12 +24,12 @@
     } else {
       doNotPushState = false;
     }
-    currentPageNo = newPageNo;
     isTurning = false;
+    currentPageNo = newPageNo;
     opening = Opening.MIDDLE;
   }
 
-  function handlePageTurning({ detail: { direction }}) {
+  function startTurningPage(direction) {
     const size = $isMobile ? 1 : 2;
     let newPage = currentPageNo;
     if (direction === 'back' && hasBack) {
@@ -41,18 +42,39 @@
     page.set(newPage);
   }
 
-  function preloadOpeningImages(pageNo: number, direction: 'forward' | 'back'): void {
+  function handleSwipe({ detail: { direction }}) {
+    if (!$isCoarseDevice) {
+      return;
+    }
+    const bookDirection = direction === 'left' ? 'forward' : (direction === 'right' ? 'back' : null);
+    if (bookDirection) {
+      startTurningPage(bookDirection);
+    }
+  }
+
+  function handlePageTurning({ detail: { direction }}) {
+    startTurningPage(direction);
+  }
+
+  function preloadOpeningImages(pageNo: number): void {
     if (!$isMobile) {
-      const directionPages = direction === 'forward' ? [2, 3] : [-2, -1];
+      const directionPages = opening == Opening.FORWARD ? [2, 3] : [-2, -1];
       preloadPageImages(pageNo + directionPages[0]);
       preloadPageImages(pageNo + directionPages[1]);
     } else {
-      const directionIncrement = direction === 'forward' ? 1 : -1;
+      const directionIncrement = opening == Opening.FORWARD ? 1 : -1;
       preloadPageImages(pageNo + directionIncrement);
     }
   }
 
   page.subscribe((pageNo) => {
+    // Sometimes there is a case when animation is not triggered, then we'll have to reset currentPage manually
+    if (currentPageNo !== newPageNo) {
+      console.log('PAGE [reset]: current page manually')
+      handlePageTurned();
+      return;
+    }
+
     const validatedNo = Math.max(0, Math.min(pageNo, content.length - 1));
     if (validatedNo !== pageNo) {
       page.set(validatedNo);
@@ -71,15 +93,15 @@
       return;
     }
 
-    preloadOpeningImages(pageNo, currentPageNo < pageNo ? 'forward' : 'back');
+    if (pageNo > currentPageNo) {
+      opening = Opening.FORWARD;
+    } else if (pageNo < currentPageNo) {
+      opening = Opening.BACK;
+    }
 
-    isTurning = true;
+    preloadOpeningImages(pageNo);
     setTimeout(() => {
-      if (pageNo > currentPageNo) {
-        opening = Opening.FORWARD;
-      } else if (pageNo < currentPageNo) {
-        opening = Opening.BACK;
-      }
+      isTurning = true;
     });
   });
 
@@ -98,7 +120,9 @@
 </script>
 
 <svelte:window on:popstate={popFromHistory} />
-<div class="codex-wrapper">
+<div class="codex-wrapper"
+     use:swipe={{ timeframe: 300, minSwipeDistance: 100 }}
+     on:swipe={handleSwipe}>
   <CodexToolbar />
   <Codex on:pageTurning={handlePageTurning}
          on:pageTurned={handlePageTurned}

@@ -72,4 +72,14 @@ export const staticLang: Record<string, Record<LanguageCode, string>> = {
     en: "Made in Tashkent",
     uz: "Toshkentda ishlab chiqilgan"
   },
+  nextPage: {
+    ru: "Перейти к следующей странице",
+    en: "Go to the next page",
+    uz: "Keyingi sahifaga o'tish"
+  },
+  previousPage: {
+    ru: "Перейти к предыдущей странице",
+    en: "Go to the previous page",
+    uz: "Oldingi sahifaga o'tish"
+  }
 }

@@ -1,7 +1,8 @@
 <script lang="ts">
   import {createEventDispatcher} from 'svelte';
   import {Opening} from "../types";
-  import {isMobile} from "../stores.js";
+  import {isMobile, language} from "../stores.js";
+  import {staticLang} from "../content/static-lang.js";
   const dispatch = createEventDispatcher();
 
   export let opening = Opening.MIDDLE;
@@ -9,19 +10,35 @@
   export let hasForward = true;
   export let isTurning = false;
 
+  function handleKeyDown(callback) {
+    return (e) => {
+      if (e.target.tagName === "A") {
+        return;
+      }
+
+      if (e.key === 'Enter') {
+        callback();
+      }
+    }
+  }
+
   function toBack() {
-    if (hasBack && !isTurning) {
+    if (hasBack && !isTurning && opening === Opening.MIDDLE) {
       dispatch('pageTurning', { direction: 'back' });
     }
   }
 
-  function toForward(e) {
+  function toForward() {
+    if (hasForward && !isTurning && opening === Opening.MIDDLE) {
+      dispatch('pageTurning', { direction: 'forward' });
+    }
+  }
+
+  function handleForwardClick(e) {
     if ($isMobile) {
       handleMobileTap(e);
-      return;
-    }
-    if (hasForward && !isTurning) {
-      dispatch('pageTurning', { direction: 'forward' });
+    } else {
+      toForward();
     }
   }
 
@@ -42,13 +59,29 @@
 <div class="cover">
   <div
     class="codex"
-    class:codex--back={opening === Opening.BACK}
-    class:codex--forward={opening === Opening.FORWARD}
+    class:codex--back={opening === Opening.BACK && isTurning}
+    class:codex--forward={opening === Opening.FORWARD && isTurning}
   >
+    {#if isMobile}
+      <div class="codex__mobile-nav codex__mobile-nav--back" on:keydown={handleKeyDown(toBack)}
+           tabindex={hasBack ? 0 : -1}
+           aria-label={hasBack ? staticLang.previousPage[$language] : ""}
+           role={hasBack ? "button" : "none"}></div>
+      <div class="codex__mobile-nav codex__mobile-nav--forward" on:keydown={handleKeyDown(toForward)}
+           tabindex={hasForward ? 0 : -1}
+           aria-label={hasForward ? staticLang.nextPage[$language] : ""}
+           role={hasForward ? "button" : "none"}></div>
+    {/if}
+
     {#if !$isMobile}
-      <div class="codex__page codex__page--first codex__page-left" on:click={toBack}>
+      <div class="codex__page codex__page--first codex__page-left"
+           on:click={toBack}
+           on:keydown={handleKeyDown(toBack)}
+           tabindex={hasBack ? 0 : -1}
+           aria-label={hasBack ? staticLang.previousPage[$language] : ""}
+           role={hasBack ? "button" : "none"}>
         <div class="codex__page-content">
-          {#if isTurning}
+          {#if opening === Opening.BACK}
             <slot name="back-1"></slot>
           {:else}
             <slot name="middle-1"></slot>
@@ -57,9 +90,14 @@
       </div>
     {/if}
 
-    <div class="codex__page codex__page--last codex__page-right" on:click={toForward}>
+    <div class="codex__page codex__page--last codex__page-right"
+         on:click={handleForwardClick}
+         on:keydown={handleKeyDown(toForward)}
+         tabindex={!$isMobile && hasForward ? 0 : -1}
+         aria-label={!$isMobile && hasForward ? staticLang.nextPage[$language] : ""}
+         role={!$isMobile && hasForward ? "button" : "none"}>
       <div class="codex__page-content">
-        {#if isTurning}
+        {#if opening === Opening.FORWARD}
           {#if $isMobile}
             <slot name="forward-1"></slot>
           {:else}
@@ -75,7 +113,7 @@
       </div>
     </div>
 
-    {#if isTurning}
+    {#if opening === Opening.BACK}
       <div class="codex__page codex__page--middle-2" on:transitionend={handleAnimationEnd}>
         <div class="codex__page-front codex__page-right">
           {#if $isMobile}
@@ -90,7 +128,9 @@
           {/if}
         </div>
       </div>
+    {/if}
 
+    {#if opening === Opening.FORWARD}
       <div class="codex__page codex__page--middle-3" on:transitionend={handleAnimationEnd}>
         <div class="codex__page-front codex__page-right" on:click={toForward}>
           {#if $isMobile}
@@ -148,30 +188,49 @@
       width: calc(100% - 24px);
     }
 
-    &::after {
+    &__mobile-nav {
+      display: none;
+
+      @media screen and (max-width: 800px) {
+        display: block;
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        width: 50%;
+      }
+
+      &--back {
+        left: 0;
+        right: auto;
+      }
+
+      &--forward {
+        right: 0;
+        left: auto;
+      }
+    }
+
+    &::after,
+    &::before {
       --dark: rgb(136 131 122);
       --light: rgba(237,229,215,1);
+      --gradient: var(--dark) 0%, var(--light) 10%, var(--dark) 11%, var(--light) 18%, var(--light) 23%, var(--dark) 24%, var(--light) 31%, var(--light) 36%, var(--dark) 38%, var(--light) 45%, var(--light) 49%, var(--dark) 51%, var(--light) 60%, var(--dark) 62%, var(--light) 71%, var(--light) 91%, var(--dark) 93%, var(--light) 100%;
       content: "";
       position: absolute;
       width: 16px;
-      right: -16px;
-      background: linear-gradient(-90deg, var(--dark) 0%, var(--light) 10%, var(--dark) 11%, var(--light) 18%, var(--light) 23%, var(--dark) 24%, var(--light) 31%, var(--light) 36%, var(--dark) 38%, var(--light) 45%, var(--light) 49%, var(--dark) 51%, var(--light) 60%, var(--dark) 62%, var(--light) 71%, var(--light) 91%, var(--dark) 93%, var(--light) 100%);
       top: 0;
       bottom: 0;
       pointer-events: none;
     }
 
+    &::after {
+      right: -16px;
+      background: linear-gradient(-90deg, var(--gradient));
+    }
+
     &::before {
-      --dark: rgb(136 131 122);
-      --light: rgba(237,229,215,1);
-      content: "";
-      position: absolute;
-      width: 16px;
       left: -16px;
-      background: linear-gradient(90deg, var(--dark) 0%, var(--light) 10%, var(--dark) 11%, var(--light) 18%, var(--light) 23%, var(--dark) 24%, var(--light) 31%, var(--light) 36%, var(--dark) 38%, var(--light) 45%, var(--light) 49%, var(--dark) 51%, var(--light) 60%, var(--dark) 62%, var(--light) 71%, var(--light) 91%, var(--dark) 93%, var(--light) 100%);
-      top: 0;
-      bottom: 0;
-      pointer-events: none;
+      background: linear-gradient(90deg, var(--gradient));
 
       @media screen and (max-width: 800px) {
         display: none;

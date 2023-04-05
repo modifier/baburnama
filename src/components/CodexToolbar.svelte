@@ -48,6 +48,20 @@
       width: 100%;
       aspect-ratio: 1 / 0.1;
     }
+
+    &__bookmark {
+      transition: 0.3s opacity;
+      &--hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+      &--hidden-desktop {
+        @media screen and (min-width: 801px) {
+          opacity: 0;
+          pointer-events: none;
+        }
+      }
+    }
   }
 
   .globe-icon {
@@ -56,20 +70,6 @@
 
     @media screen and (min-width: 801px) {
       display: none;
-    }
-  }
-
-  .codex-toolbar__bookmark {
-    transition: 0.3s opacity;
-    &--hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
-    &--hidden-desktop {
-      @media screen and (min-width: 801px) {
-        opacity: 0;
-        pointer-events: none;
-      }
     }
   }
 </style>
