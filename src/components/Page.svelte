@@ -5,6 +5,7 @@
   import TableOfContents from "./pages/TableOfContents.svelte";
   import Titular from "./pages/Titular.svelte";
   import Regular from "./pages/Regular.svelte";
+  import { page as pageStore} from '../stores';
 
   export let page = 0;
 
@@ -17,8 +18,16 @@
   })
 
   function captureLinkClick(e) {
-    if (e.target.tagName === 'A') {
+    const closestLink = e.target.closest('A');
+    if (closestLink) {
       e.stopPropagation();
+
+      if (closestLink.href.includes('#page-')) {
+        e.preventDefault();
+        const page = parseInt(closestLink.href.match(/#page-(\d+)/)[1]);
+        pageStore.set(page);
+        history.pushState(null, null, `#page-${page}`);
+      }
     }
   }
 </script>
