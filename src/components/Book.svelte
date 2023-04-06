@@ -102,7 +102,7 @@
     preloadOpeningImages(pageNo);
     setTimeout(() => {
       isTurning = true;
-    });
+    }, 10);
   });
 
   function popFromHistory() {
