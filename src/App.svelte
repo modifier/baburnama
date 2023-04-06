@@ -5,7 +5,7 @@
 
   language.subscribe(value => {
     document.documentElement.lang = value;
-  })
+  });
 </script>
 
 <svelte:head>
