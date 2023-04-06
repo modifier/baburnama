@@ -3,6 +3,7 @@
   import {Opening} from "../types";
   import {isMobile, language} from "../stores.js";
   import {staticLang} from "../content/static-lang.js";
+  import { fallbackTransition } from '../lib/transition';
   const dispatch = createEventDispatcher();
 
   export let opening = Opening.MIDDLE;
@@ -114,7 +115,9 @@
     </div>
 
     {#if opening === Opening.BACK}
-      <div class="codex__page codex__page--middle-2" on:transitionend={handleAnimationEnd}>
+      <div class="codex__page codex__page--middle-2"
+           use:fallbackTransition={{ durationSecs: 1, isActive: isTurning }}
+           on:pageturned={handleAnimationEnd}>
         <div class="codex__page-front codex__page-right">
           {#if $isMobile}
             <slot name="back-1"></slot>
@@ -131,7 +134,9 @@
     {/if}
 
     {#if opening === Opening.FORWARD}
-      <div class="codex__page codex__page--middle-3" on:transitionend={handleAnimationEnd}>
+      <div class="codex__page codex__page--middle-3"
+           use:fallbackTransition={{ durationSecs: 1, isActive: isTurning }}
+           on:pageturned={handleAnimationEnd}>
         <div class="codex__page-front codex__page-right" on:click={toForward}>
           {#if $isMobile}
             <slot name="middle-1"></slot>
