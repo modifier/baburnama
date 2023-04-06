@@ -19,9 +19,9 @@ export const isMobile = readable(false, function(set) {
   };
 });
 
-export const isCoarseDevice = readable(false, function(set) {
+export const isHoverDevice = readable(false, function(set) {
   let checkDevice = () => {
-    set(window.matchMedia("(pointer: coarse)").matches)
+    set(window.matchMedia("(hover: hover)").matches)
   };
 
   checkDevice();

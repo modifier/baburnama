@@ -4,7 +4,7 @@
   import {content} from "../content/content";
   import Page from "./Page.svelte";
   import {getClosestNonEmptyPage, getPageFromUrl} from "../lib/pages";
-  import {isCoarseDevice, isMobile, page} from "../stores";
+  import {isHoverDevice, isMobile, page} from "../stores";
   import {getVisiblePage} from "../lib/pages.js";
   import CodexToolbar from "./CodexToolbar.svelte";
   import {preloadPageImages} from "../lib/preload";
@@ -43,7 +43,7 @@
   }
 
   function handleSwipe({ detail: { direction }}) {
-    if (!$isCoarseDevice) {
+    if ($isHoverDevice) {
       return;
     }
     const bookDirection = direction === 'left' ? 'forward' : (direction === 'right' ? 'back' : null);
