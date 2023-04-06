@@ -1,8 +1,10 @@
 {
   "name": "baburnama",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
+  "license": "MIT",
+  "description": "A project dedicated to the Baburnama, the memoirs of Babur, the first Mughal emperor of India.",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
