@@ -1,9 +1,10 @@
 <script lang="ts">
-  import {createEventDispatcher} from 'svelte';
+  import {afterUpdate, createEventDispatcher} from 'svelte';
   import {Opening} from "../types";
   import {isMobile, language} from "../stores.js";
   import {staticLang} from "../content/static-lang.js";
-  import { fallbackTransition } from '../lib/transition';
+  import {fallbackTransition} from '../lib/transition';
+
   const dispatch = createEventDispatcher();
 
   export let opening = Opening.MIDDLE;
@@ -54,7 +55,17 @@
 
   function handleAnimationEnd() {
     dispatch('pageTurned');
+    isTurning = false;
+    opening = Opening.MIDDLE;
   }
+
+  afterUpdate(() => {
+    if (opening !== Opening.MIDDLE) {
+      setTimeout(() => {
+        isTurning = true;
+      }, 10);
+    }
+  });
 </script>
 
 <div class="cover">
@@ -171,14 +182,6 @@
       width: 100%;
       height: 100%;
       justify-content: flex-start;
-    }
-  }
-
-  :global {
-    .codex__page-right > div,
-    .codex__page-left > div {
-      position: relative;
-      height: 100%;
     }
   }
 

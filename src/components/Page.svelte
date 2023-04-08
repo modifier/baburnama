@@ -5,7 +5,7 @@
   import TableOfContents from "./pages/TableOfContents.svelte";
   import Titular from "./pages/Titular.svelte";
   import Regular from "./pages/Regular.svelte";
-  import { page as pageStore} from '../stores';
+  import { page as pageStore } from '../stores';
 
   export let page = 0;
 

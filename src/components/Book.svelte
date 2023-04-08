@@ -18,15 +18,7 @@
   let initialOpening = true;
 
   function handlePageTurned() {
-    if (!doNotPushState) {
-      history.pushState(null, null, `#page-${$page + 1}`);
-      localStorage.setItem("pageNo", $page.toString());
-    } else {
-      doNotPushState = false;
-    }
-    isTurning = false;
     currentPageNo = newPageNo;
-    opening = Opening.MIDDLE;
   }
 
   function startTurningPage(direction) {
@@ -37,8 +29,6 @@
     } else if (direction === 'forward' && hasForward) {
       newPage += size;
     }
-    newPage = getClosestNonEmptyPage(newPage, direction, $isMobile);
-    newPage = getVisiblePage(newPage, $isMobile);
     page.set(newPage);
   }
 
@@ -75,14 +65,20 @@
       return;
     }
 
-    const validatedNo = Math.max(0, Math.min(pageNo, content.length - 1));
-    if (validatedNo !== pageNo) {
-      page.set(validatedNo);
-      return;
+    const direction = pageNo > currentPageNo ? 'forward' : 'back';
+    let validatedPageNo = Math.max(0, Math.min(pageNo, content.length - 1));
+    validatedPageNo = getClosestNonEmptyPage(validatedPageNo, direction, $isMobile);
+    validatedPageNo = getVisiblePage(validatedPageNo, $isMobile);
+
+    if (!doNotPushState) {
+      history.pushState(null, null, `#page-${$page + 1}`);
+      localStorage.setItem("pageNo", $page.toString());
+    } else {
+      doNotPushState = false;
     }
 
-    if ($isMobile && content[validatedNo].type === 'empty') {
-      page.set(validatedNo + 1);
+    if (validatedPageNo !== pageNo) {
+      page.set(validatedPageNo);
       return;
     }
 
@@ -100,13 +96,11 @@
     }
 
     preloadOpeningImages(pageNo);
-    setTimeout(() => {
-      isTurning = true;
-    }, 10);
   });
 
   function popFromHistory() {
     doNotPushState = true;
+    isTurning = false;
     page.set(getPageFromUrl());
   }
 
