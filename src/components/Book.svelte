@@ -67,6 +67,7 @@
 
     const compareResult = pageObj.compare(currentPage);
     if (compareResult === 0) {
+      initialOpening = false;
       return;
     }
 
