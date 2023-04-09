@@ -3,24 +3,29 @@
   import {language, page} from "../stores.js";
   import {staticLang} from "../content/static-lang.js";
   import {content} from "../content/content.js";
+  import type {PageContent} from "../content/content.js";
+  import {Page} from "../lib/page";
 
+  let pageContent: PageContent;
   function gotoTableOfContents() {
     const tableOfContentsPage = content.findIndex((page) => page.type === "tableOfContents");
-    page.set(tableOfContentsPage);
+    page.set(new Page(tableOfContentsPage, 'page'));
   }
+
+  $: pageContent = $page.getPageContent();
 </script>
 
 <div class="codex-toolbar">
   <div class="codex-toolbar__bookmark"
-       class:codex-toolbar__bookmark--hidden={content[$page].hideTableOfContents}
-       class:codex-toolbar__bookmark--hidden-desktop={content[$page].hideTableOfContentsDesktop}>
+       class:codex-toolbar__bookmark--hidden={pageContent.hideTableOfContents}
+       class:codex-toolbar__bookmark--hidden-desktop={pageContent.hideTableOfContentsDesktop}>
     <button class="bookmark" on:click={gotoTableOfContents}>
       <img src="/globe.png" class="globe-icon" />
       <span>{staticLang.tableOfContents[$language]}</span>
     </button>
   </div>
   <div class="codex-toolbar__language-picker-bookmark codex-toolbar__bookmark"
-       class:toolbar-bookmark--hidden={content[$page].hideLanguagePicker}
+       class:toolbar-bookmark--hidden={pageContent.hideLanguagePicker}
   >
     <LanguagePicker variant="bookmark" />
   </div>

@@ -1,13 +1,15 @@
 <script lang="ts">
-  import {content} from "../content/content.js";
+  import type {PageContent} from "../content/content";
   import {marked} from "marked";
   import Credits from "./pages/Credits.svelte";
   import TableOfContents from "./pages/TableOfContents.svelte";
   import Titular from "./pages/Titular.svelte";
   import Regular from "./pages/Regular.svelte";
-  import { page as pageStore } from '../stores';
+  import {page as pageStore} from '../stores';
+  import {Page} from "../lib/page";
 
-  export let page = 0;
+  export let page: Page = new Page(0, 'page');
+  let pageContent: PageContent;
 
   marked.use({
     renderer: {
@@ -24,26 +26,30 @@
 
       if (closestLink.href.includes('#page-')) {
         e.preventDefault();
-        const page = parseInt(closestLink.href.match(/#page-(\d+)/)[1]);
+        const page = Page.fromUrl(closestLink.href);
         pageStore.set(page);
-        history.pushState(null, null, `#page-${page}`);
+        page.pushToHistory();
       }
     }
+  }
+
+  $: {
+    pageContent = page.getPageContent();
   }
 </script>
 
 <article on:click={captureLinkClick}>
-  {#if content[page] && content[page].type === 'tableOfContents'}
+  {#if pageContent && pageContent.type === 'tableOfContents'}
     <TableOfContents />
   {/if}
-  {#if content[page] && content[page].type === 'titular'}
-    <Titular page={content[page]} />
+  {#if pageContent && pageContent.type === 'titular'}
+    <Titular pageContent={pageContent} />
   {/if}
-  {#if content[page] && content[page].type === 'credits'}
+  {#if pageContent && pageContent.type === 'credits'}
     <Credits />
   {/if}
-  {#if content[page] && content[page].type === 'regular'}
-    <Regular page={content[page]} pageNo={page} />
+  {#if pageContent && pageContent.type === 'regular'}
+    <Regular pageContent={pageContent} page={page} />
   {/if}
 </article>
 

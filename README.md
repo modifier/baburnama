@@ -29,8 +29,9 @@ The project is structured as follows:
       - `appendix.ts` - the contents of the book appendix (not implemented yet)
     - `lib`
       - `language.ts` - contains the language detection utility function
-      - `pages.ts` - contains utility functions related to the pages
+      - `page.ts` - contains utility class "Page" related to the pages
       - `preload.ts` - contains the utility function that preloads images
+      - `transition.ts` - contains the action "fallbackTransition" used for the browsers that do not support "transitionend" event
 
 ## Sources
 

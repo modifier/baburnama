@@ -1,6 +1,6 @@
 import {readable, writable} from 'svelte/store';
 import {getDefaultLanguage} from "./lib/language";
-import {getDefaultPage} from "./lib/pages";
+import {Page} from "./lib/page";
 
 /**
  * Stores the selected language.
@@ -10,7 +10,7 @@ export const language = writable(getDefaultLanguage());
 /**
  * Stores the selected page.
  */
-export const page = writable(getDefaultPage());
+export const page = writable<Page>(Page.getDefaultPage());
 
 /**
  * Stores if it's a mobile view and changes its content on window resize.

@@ -1,32 +1,33 @@
 <script lang="ts">
   import type {RegularPageContent} from "../../content/content";
-  import {language} from "../../stores.js";
+  import {language} from "../../stores";
   import {marked} from "marked";
+  import {Page} from "../../lib/page";
 
-  export let page: RegularPageContent;
-  export let pageNo: number;
+  export let pageContent: RegularPageContent;
+  export let page: Page;
 </script>
 
 <div class="article-content">
-  {#if 'img' in page}
-    <div class="midjourney" class:midjourney--fullscreen={!page.text}
-         class:midjourney--narrow={page.imgSize === 'narrow'}
-         class:midjourney--supernarrow={page.imgSize === 'supernarrow'}>
-      <img src={`/book/boburnama-${page.img}.jpg`} class="midjourney-img"
-           class:midjourney-img--contain={page.imgType === 'contain'}
+  {#if 'img' in pageContent}
+    <div class="midjourney" class:midjourney--fullscreen={!pageContent.text}
+         class:midjourney--narrow={pageContent.imgSize === 'narrow'}
+         class:midjourney--supernarrow={pageContent.imgSize === 'supernarrow'}>
+      <img src={`/book/boburnama-${pageContent.img}.jpg`} class="midjourney-img"
+           class:midjourney-img--contain={pageContent.imgType === 'contain'}
       />
     </div>
   {/if}
-  {#if page.text}
+  {#if pageContent.text}
     <div class="text">
-      {@html marked.parse(page.text[$language])}
+      {@html marked.parse(pageContent.text[$language])}
     </div>
   {/if}
 </div>
 
-{#if !page.hidePageNumber}
+{#if !pageContent.hidePageNumber}
   <div class="page-container">
-    {pageNo + 1}
+    {page.page + 1}
   </div>
 {/if}
 

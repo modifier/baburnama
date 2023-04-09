@@ -1,35 +1,33 @@
 <script lang="ts">
   import Codex from "./Codex.svelte";
   import {Opening} from "../types";
-  import {content} from "../content/content";
-  import Page from "./Page.svelte";
-  import {getClosestNonEmptyPage, getPageFromUrl} from "../lib/pages";
+  import PageComponent from "./Page.svelte";
   import {isHoverDevice, isMobile, page} from "../stores";
-  import {getVisiblePage} from "../lib/pages.js";
   import CodexToolbar from "./CodexToolbar.svelte";
   import {preloadPageImages} from "../lib/preload";
   import { swipe } from 'svelte-gestures';
+  import {Page} from "../lib/page";
 
-  let currentPageNo = 0;
-  let newPageNo = 0;
+  let currentPage: Page = new Page(0, 'page');
+  let newPage: Page = new Page(0, 'page');
   let opening = Opening.MIDDLE;
   let doNotPushState = false;
   let isTurning = false;
   let initialOpening = true;
 
   function handlePageTurned() {
-    currentPageNo = newPageNo;
+    currentPage = newPage;
   }
 
-  function startTurningPage(direction) {
+  function startTurningPage(direction: 'back' | 'forward') {
     const size = $isMobile ? 1 : 2;
-    let newPage = currentPageNo;
+    let sizeDirection = 0;
     if (direction === 'back' && hasBack) {
-      newPage -= size;
+      sizeDirection = -1;
     } else if (direction === 'forward' && hasForward) {
-      newPage += size;
+      sizeDirection = 1;
     }
-    page.set(newPage);
+    page.set(currentPage.addPage(size * sizeDirection));
   }
 
   function handleSwipe({ detail: { direction }}) {
@@ -46,70 +44,77 @@
     startTurningPage(direction);
   }
 
-  function preloadOpeningImages(pageNo: number): void {
+  function preloadOpeningImages(page: PageComponent): void {
+    let directionPages;
     if (!$isMobile) {
-      const directionPages = opening == Opening.FORWARD ? [2, 3] : [-2, -1];
-      preloadPageImages(pageNo + directionPages[0]);
-      preloadPageImages(pageNo + directionPages[1]);
+      directionPages = opening == Opening.FORWARD ? [2, 3] : [-2, -1];
     } else {
-      const directionIncrement = opening == Opening.FORWARD ? 1 : -1;
-      preloadPageImages(pageNo + directionIncrement);
+      directionPages = opening == Opening.FORWARD ? [1] : [-1];
+    }
+
+    for (let direction of directionPages) {
+      preloadPageImages(page.addPage(direction));
     }
   }
 
-  page.subscribe((pageNo) => {
+  page.subscribe((pageObj: Page) => {
     // Sometimes there is a case when animation is not triggered, then we'll have to reset currentPage manually
-    if (currentPageNo !== newPageNo) {
+    if (!currentPage.equals(newPage)) {
       console.log('PAGE [reset]: current page manually')
       handlePageTurned();
       return;
     }
 
-    const direction = pageNo > currentPageNo ? 'forward' : 'back';
-    let validatedPageNo = Math.max(0, Math.min(pageNo, content.length - 1));
-    validatedPageNo = getClosestNonEmptyPage(validatedPageNo, direction, $isMobile);
-    validatedPageNo = getVisiblePage(validatedPageNo, $isMobile);
+    const compareResult = pageObj.compare(currentPage);
+    if (compareResult === 0) {
+      return;
+    }
+
+    const direction = compareResult > 0 ? 'forward' : 'back';
+    let validatedPage = pageObj.getValidPage()
+      .getVisiblePage($isMobile)
+      .getClosestNonEmptyPage($isMobile, direction);
+
+    if (!validatedPage.equals(pageObj)) {
+      page.set(validatedPage);
+      return;
+    }
+
+    newPage = pageObj;
+    if (initialOpening) {
+      initialOpening = false;
+      currentPage = pageObj;
+      return;
+    }
 
     if (!doNotPushState) {
-      history.pushState(null, null, `#page-${$page + 1}`);
-      localStorage.setItem("pageNo", $page.toString());
+      newPage.pushToHistory();
+      newPage.toLocalStorage();
     } else {
       doNotPushState = false;
     }
 
-    if (validatedPageNo !== pageNo) {
-      page.set(validatedPageNo);
-      return;
-    }
-
-    newPageNo = pageNo;
-    if (initialOpening) {
-      initialOpening = false;
-      currentPageNo = pageNo;
-      return;
-    }
-
-    if (pageNo > currentPageNo) {
+    if (direction == 'forward') {
       opening = Opening.FORWARD;
-    } else if (pageNo < currentPageNo) {
+    } else if (direction === 'back') {
       opening = Opening.BACK;
     }
 
-    preloadOpeningImages(pageNo);
+    preloadOpeningImages(pageObj);
   });
 
   function popFromHistory() {
     doNotPushState = true;
     isTurning = false;
-    page.set(getPageFromUrl());
+    page.set(Page.fromUrl(location.hash));
   }
 
   let hasBack = true;
   let hasForward = true;
 
   $: {
-    hasBack = currentPageNo > 1;
-    hasForward = currentPageNo < content.length - 1;
+    hasBack = currentPage.hasBack();
+    hasForward = currentPage.hasForward();
   }
 </script>
 
@@ -127,28 +132,28 @@
   >
     <svelte:fragment slot="back-1">
       {#if hasBack}
-        <Page page={getVisiblePage(newPageNo, $isMobile)} />
+        <PageComponent page={newPage.getVisiblePage($isMobile)} />
       {/if}
     </svelte:fragment>
     <svelte:fragment slot="back-2">
       {#if hasBack}
-        <Page page={getVisiblePage(newPageNo, $isMobile) + 1} />
+        <PageComponent page={newPage.getVisiblePage($isMobile).addPage(1)} />
       {/if}
     </svelte:fragment>
     <svelte:fragment slot="middle-1">
-      <Page page={getVisiblePage(currentPageNo, $isMobile)} />
+      <PageComponent page={currentPage.getVisiblePage($isMobile)} />
     </svelte:fragment>
     <svelte:fragment slot="middle-2">
-      <Page page={getVisiblePage(currentPageNo, $isMobile) + 1} />
+      <PageComponent page={currentPage.getVisiblePage($isMobile).addPage(1)} />
     </svelte:fragment>
     <svelte:fragment slot="forward-1">
       {#if hasForward}
-        <Page page={getVisiblePage(newPageNo, $isMobile)} />
+        <PageComponent page={newPage.getVisiblePage($isMobile)} />
       {/if}
     </svelte:fragment>
     <svelte:fragment slot="forward-2">
       {#if hasForward}
-        <Page page={getVisiblePage(newPageNo, $isMobile) + 1} />
+        <PageComponent page={newPage.getVisiblePage($isMobile).addPage(1)} />
       {/if}
     </svelte:fragment>
   </Codex>

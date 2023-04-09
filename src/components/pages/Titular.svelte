@@ -3,17 +3,17 @@
   import {language} from "../../stores.js";
   import LanguagePicker from "../LanguagePicker.svelte";
 
-  export let page: TitularPageContent;
+  export let pageContent: TitularPageContent;
 </script>
 
 <div class="titular">
-  <h1>{page.text[$language]}</h1>
-  {#if page.showOnPageLanguagePicker}
+  <h1>{pageContent.text[$language]}</h1>
+  {#if pageContent.showOnPageLanguagePicker}
     <LanguagePicker variant="onpage" />
   {/if}
-  {#if page.hint}
+  {#if pageContent.hint}
     <div class="hint">
-      {page.hint[$language]}
+      {pageContent.hint[$language]}
     </div>
   {/if}
 </div>
