@@ -1,6 +1,7 @@
 import {appendix} from "../content/appendix";
 import {content} from "../content/content";
 import type {PageContent} from "../content/content";
+import {convertArabicIntoRoman} from "./roman";
 
 export type PlainPage = {
   page: number;
@@ -68,14 +69,23 @@ export class Page {
     localStorage.setItem('page', JSON.stringify(this));
   }
 
-  pushToHistory(): void {
-    const prefix = this.type === 'page' ? 'page' : 'appdx';
+  toUrl(): string {
+    return `#${this.type}-${this.page + 1}`;
+  }
 
-    history.pushState(null, '', `#${prefix}-${this.page + 1}`);
+  pushToHistory(): void {
+    history.pushState(null, '', this.toUrl());
   }
 
   addPage(increment: number): Page {
-    return new Page(this.page + increment, this.type);
+    let totalPage = this.page + increment;
+    if (this.type === 'page' && totalPage >= content.length) {
+      return new Page(totalPage - content.length, 'appdx');
+    }
+    if (this.type === 'appdx' && totalPage < 0) {
+      return new Page(content.length + totalPage, 'page');
+    }
+    return new Page(totalPage, this.type);
   }
 
   equals(page: Page) {
@@ -84,20 +94,28 @@ export class Page {
 
   compare(page: Page) {
     if (this.type === 'page' && page.type === 'appdx') {
-      return 1;
+      return -1;
     }
     if (this.type === 'appdx' && page.type === 'page') {
-      return -1;
+      return 1;
     }
     return this.page - page.page;
   }
 
   hasBack(): boolean {
+    if (this.type === 'appdx') {
+      return true;
+    }
+
     return this.page > 0;
   }
 
   hasForward(): boolean {
-    return this.page < (this.type === 'page' ? content : appendix).length - 1;
+    if (this.type === 'page') {
+      return true;
+    }
+
+    return this.page < appendix.length - 1;
   }
 
   getValidPage(): Page {
@@ -111,7 +129,7 @@ export class Page {
 
   getVisiblePage(isMobile: boolean): Page {
     if (this.page % 2 == 1 && !isMobile) {
-      return new Page(this.page - 1, this.type);
+      return this.addPage(-1);
     } else {
       return this;
     }
@@ -138,5 +156,12 @@ export class Page {
       return content[this.page];
     }
     return appendix[this.page];
+  }
+
+  getDisplayPage(): string {
+    if (this.type === 'page') {
+      return (this.page + 1).toString();
+    }
+    return convertArabicIntoRoman(this.page + 1);
   }
 }

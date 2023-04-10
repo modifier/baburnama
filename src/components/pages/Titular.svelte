@@ -8,8 +8,13 @@
 
 <div class="titular">
   <h1>{pageContent.text[$language]}</h1>
+  {#if pageContent.subtitle}
+    <h2>{pageContent.subtitle[$language]}</h2>
+  {/if}
   {#if pageContent.showOnPageLanguagePicker}
-    <LanguagePicker variant="onpage" />
+    <div class="titular__language-picker">
+      <LanguagePicker variant="onpage" />
+    </div>
   {/if}
   {#if pageContent.hint}
     <div class="hint">
@@ -25,9 +30,20 @@
   }
 
   h1 {
-    margin-top: 0;
+    margin: 0;
     font-size: var(--heading-font-size);
     font-family: var(--heading-font-family);
+  }
+
+  h2 {
+    margin-top: 0.5em;
+    font-weight: 500;
+    font-style: italic;
+    font-family: var(--default-font-family);
+  }
+
+  .titular__language-picker {
+    margin-top: 2em;
   }
 
   .hint {

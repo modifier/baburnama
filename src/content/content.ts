@@ -4,8 +4,10 @@ import {staticLang} from "./static-lang";
 export type TitularPageContent = {
   type: 'titular';
   text?: Record<LanguageCode, string>;
+  subtitle?: Record<LanguageCode, string>;
   hint?: Record<LanguageCode, string>;
   showOnPageLanguagePicker?: boolean;
+  url?: string;
 };
 
 export type CreditsPageContent = {
@@ -26,11 +28,11 @@ export type RegularPageContent = {
   imgSize?: 'normal' | 'narrow' | 'supernarrow';
   imgType?: 'cover' | 'contain';
   img?: number;
-  title?: Record<LanguageCode, string>;
   hidePageNumber?: boolean;
 };
 
 export type PageContent = (TitularPageContent | CreditsPageContent | TableOfContentsPageContent | EmptyPageContent | RegularPageContent) & {
+  title?: Record<LanguageCode, string>;
   hideLanguagePicker?: boolean;
   hideTableOfContents?: boolean;
   hideTableOfContentsDesktop?: boolean;
@@ -349,11 +351,72 @@ export const content: PageContent[] = [
     img: 29
   },
   {
-    type: 'titular',
+    type: 'regular',
+    img: 41,
     text: {
-      ru: "Продолжение следует...",
-      en: "To be continued...",
-      uz: "Davom etadi..."
+      ru: `**Султан Ахмед мирза** – родился в восемьсот пятьдесят пятом году (1451). Был старшим из всех сыновей Султана Абу-Саид мирзы. 
+
+Он был человек высокого роста, с темнорусой бородой, краснолицый и тучный. 
+
+Он был очень хороший собеседник, тюрбан наматывал, по обычаю того времени, на четыре оборота, опуская передний конец вперед, на брови.`,
+      en: `**Sultan Ahmad Mirza** – he was born in 855 ah. (1451 ad.). He was Sultan Abu-said Mirza’s eldest son.
+
+He was a tall, stout, brown-bearded and red-faced man. He had beard on his chin. He had very pleasing manners. As was the fashion in those days, he wound his turban in four folds and brought the end forward over his brows.`,
+      uz: `**Sulton Ahmad Mirzo** – sakkiz yuz ellik beshinchi (1451) yili tavvalud topgan edi. U Sulton Abusaid Mirzoning o‘g‘illaridan eng kattasi edi.
+
+U baland bo‘yli, qo‘ng‘ir soqolli, qizil yuzli, norgil kishi edi. Soqoli engagiga tushardi. Juda shirinso‘z kishi edi. Sallani o‘sha zamon odatiga ko‘ra, to‘rto‘rama chirmab, uchini oldinroqqa, qoshining ustiga tashlab qo‘yardi.`
+    },
+    title: {
+      ru: "Султан Ахмед мирза",
+      en: "Sultan Ahmad Mirza",
+      uz: "Sulton Ahmad Mirzo"
+    }
+  },
+  {
+    type: 'regular',
+    img: 43,
+    text: {
+      ru: '**Султан Ахмед мирза** – был любителем соколиной охоты и запускал много птиц, делал он это хорошо.',
+      en: '**Sultan Ahmad Mirza** – was a lover of falconry and launched many birds, he did it well.',
+      uz: '**Sulton Ahmad Mirzo** – lochin ovining muxlisi bo’lib,  ko\'plab qushlarni uchirar edi,  bu ishni u ustalik bilan bajargan.'
+    }
+  },
+  {
+    type: 'regular',
+    img: 45,
+    text: {
+      ru: `Стрелы он метал очень хорошо и большей частью попадал пернатой стрелой в утку, служившую мишенью. 
+
+Проносясь с одного конца ристалища до другого, он в большинстве случаев сбивал тыкву. 
+
+Впоследствии, когда он стал тучным, то стрелял фазанов и перепелок и редко давал промах.`,
+      en: `He drew a good bow, generally hitting the duck both with his arrows (*aūq*) and his forked-arrows (*tīr-giz*), and, as a rule, hit the gourd in riding across the lists (*maidān)*. 
+
+Latterly, when he had grown stout, he used to take quail and pheasant with the goshawks, rarely failing.`,
+      uz: `O‘qni juda yaxshi otar edi. Ilvasinga patli va patsiz o‘qlari ko‘p hollarda tegardi. 
+
+Nishon uchun qo‘yilgan qovoqni maydonning u boshi, bu boshidan kelib ham aksar hollarda urar edi. 
+
+Umrining oxirlarida semirib qolganda ham qirgovul va bedanani ingichka o‘q bilan otib, kamdan-kam xato qilardi.`
+    }
+  },
+  {
+    type: 'regular',
+    img: 47,
+    text: {
+      ru: `Иногда, начав пить, он пил двадцать-тридцать дней подряд. 
+
+Воздерживаясь от чаши, не пил тоже по двадцать-тридцать дней. Усевшись пировать, он проводил иногда в собрании целые сутки.
+
+Пил он хорошо, а в те дни, когда не пил, употреблял много возбуждающих средств.`,
+      en: `Once settled down to drink, he would drink for 20 or 30 days at a stretch; once risen, would not drink again for another 20 or 30 days. 
+
+He was a good drinker, on non-drinking days he ate without conviviality (*basīt̤*).`,
+      uz: `Gohida ichkilikka berilsa, yigirma-o‘ttiz kun muttasil ichar edi. 
+
+Gohida ichmay qo‘ysa, yigirma- uttiz kunlab ichmasdi. Bazmda bir o‘tirganda bir kecha-kunduz o‘tirar, yaxshi ichardi. 
+
+May ichmagan kunlari basit (badanni qizdiruvchi modda)ni juda ko‘p iste’mol qilardi.`
     }
   }
 ];

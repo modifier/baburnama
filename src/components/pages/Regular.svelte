@@ -27,7 +27,7 @@
 
 {#if !pageContent.hidePageNumber}
   <div class="page-container">
-    {page.page + 1}
+    {page.getDisplayPage()}
   </div>
 {/if}
 
@@ -89,13 +89,22 @@
   }
 
   :global {
-    .text p {
+    .text {
       margin: 0;
       font-size: var(--default-font-size);
       line-height: 1.5em;
     }
     .text p + p {
       margin-top: 1em;
+    }
+
+    .text blockquote {
+      margin: 1em 0 0;
+      font-style: italic;
+    }
+
+    .text blockquote p {
+      margin: 0;
     }
   }
 </style>
