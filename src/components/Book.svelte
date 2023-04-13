@@ -66,18 +66,19 @@
     }
 
     const compareResult = pageObj.compare(currentPage);
-    if (compareResult === 0) {
-      initialOpening = false;
-      return;
-    }
 
-    const direction = compareResult > 0 ? 'forward' : 'back';
+    const direction = compareResult >= 0 ? 'forward' : 'back';
     let validatedPage = pageObj.getValidPage()
       .getVisiblePage($isMobile)
       .getClosestNonEmptyPage($isMobile, direction);
 
     if (!validatedPage.equals(pageObj)) {
       page.set(validatedPage);
+      return;
+    }
+
+    if (compareResult === 0) {
+      initialOpening = false;
       return;
     }
 

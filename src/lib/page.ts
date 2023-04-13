@@ -140,15 +140,17 @@ export class Page {
       return this;
     }
 
+    const contentType = this.type === 'page' ? content : appendix;
     let newPage = this.page;
     let directionIncrement = direction === 'forward' ? 1 : -1;
-    while (newPage >= 0 && newPage < content.length) {
-      if (content[newPage].type !== 'empty') {
+    while (newPage >= 0 && newPage < contentType.length) {
+      if (contentType[newPage].type !== 'empty') {
         return new Page(newPage, this.type);
       }
       newPage += directionIncrement;
     }
-    return this;
+
+    return this.getClosestNonEmptyPage(isMobile, direction === 'forward' ? 'back' : 'forward');
   }
 
   getPageContent(): PageContent {

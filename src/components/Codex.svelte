@@ -60,7 +60,7 @@
   }
 
   afterUpdate(() => {
-    if (opening !== Opening.MIDDLE) {
+    if (opening !== Opening.MIDDLE && !isTurning) {
       setTimeout(() => {
         isTurning = true;
       }, 10);
